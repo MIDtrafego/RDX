@@ -92,3 +92,19 @@ Onde lá tem FOTO, aqui fica um espaço reservado com a MESMA proporção e posi
 
 Assinatura escrita entre 0,53 e 0,88 tela. O conjunto sobe com a página a partir de 1,05 tela.
 Faixa de texto em duas linhas atrás do quadro.
+
+## 6. Ritmo e grade (lidos da folha de estilo do site de referência)
+
+São só números de referência. Nenhum código de lá é aproveitado: tudo aqui é escrito por nós.
+
+| Item | Valor |
+|---|---|
+| Curva de aceleração padrão | `cubic-bezier(.19, 1, .22, 1)` (saída longa e macia) |
+| Durações | 0,2 s para resposta de hover, 0,6 s para entrada de bloco |
+| Quebras de tela | 991 px, 767 px e 479 px |
+| Espaçamento | uma unidade de espaço única, usada em múltiplos: 0,1 / 0,25 / 0,5 / 1 / 2 / 3 / 4 |
+| Entrelinha dos títulos | 0,886 (a mais usada), 0,97 e 1 |
+| Entrelinha do texto | 1,25 a 1,3 |
+| Espaço entre letras nos títulos | negativo, de -0,0125 a -0,25 da unidade |
+| Grades mais usadas | 2 colunas iguais; 4 colunas iguais; e assimétricas de 4 e 5 colunas, com a coluna do meio com o dobro das vizinhas (por exemplo 0,5 / 1 / 2 / 1 / 0,75) |
+| Cantos | quase retos: raio de 3 px ou 0,2 da unidade |

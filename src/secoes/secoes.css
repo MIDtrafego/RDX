@@ -702,6 +702,11 @@
   #secoes .rx-descansa-reserva { justify-self: center; }
   #secoes .rx-mercados { max-width: calc(var(--u) * 40); justify-self: start; width: 100%; }
 }
+@media (max-width: 767.98px) {
+  /* no celular o descritor desce para a linha de baixo: o nome não divide a linha com ele */
+  #secoes .rx-mercado { grid-template-columns: auto minmax(0, 1fr); row-gap: .3em; }
+  #secoes .rx-mercado-d { grid-column: 2; text-align: left; opacity: .8; }
+}
 @media (max-width: 1023.98px) {
   #secoes .rx-descansa-reserva { display: none; }
   #secoes .rx-descansa-bloco { order: -1; }
