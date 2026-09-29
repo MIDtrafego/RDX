@@ -3,7 +3,7 @@
 // As peças têm tamanhos diferentes e ficam espalhadas em alturas diferentes (posição no
 // HTML, em --x e --y). Cada uma anda numa velocidade um pouco diferente (parallax) e entra
 // com uma cortina lima que atravessa. O fundo muda do escuro para o claro ao longo do trilho.
-// No celular, no tablet e com movimento reduzido, a pista é rolagem horizontal nativa.
+// Abaixo de 992 px e com movimento reduzido, a pista é rolagem horizontal nativa.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { limitar, revelarTitulo, revelarBlocos, prepararTraco, aoEntrar } from './nucleo.js';
@@ -37,9 +37,9 @@ export function iniciarCapacidades(ctx) {
     gsap.set(miolo, { autoAlpha: 0 });
     return gsap.timeline({ paused: true })
       .set(quadro, { autoAlpha: 1 }, 0)
-      .fromTo(cortina, { xPercent: -101 }, { xPercent: 0, duration: 0.42, ease: 'power3.inOut' }, 0)
-      .set(miolo, { autoAlpha: 1 }, 0.42)
-      .to(cortina, { xPercent: 101, duration: 0.42, ease: 'power3.inOut' }, 0.42)
+      .fromTo(cortina, { xPercent: -101 }, { xPercent: 0, duration: 0.3, ease: 'power3.inOut' }, 0)
+      .set(miolo, { autoAlpha: 1 }, 0.3)
+      .to(cortina, { xPercent: 101, duration: 0.3, ease: 'power3.inOut' }, 0.3)
       .to(legenda, { autoAlpha: 1, duration: 0.5, ease: 'power2.out' }, 0.3)
       .to(traco, { strokeDashoffset: 0, duration: 1.2, ease: 'power3.inOut' }, 0.6);
   }

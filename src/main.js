@@ -6,6 +6,12 @@
 // ?painel=mockup abre a versão anterior, feita com a imagem do mockup, para comparar.
 import * as THREE from 'three';
 import { gsap } from 'gsap';
+import { iniciarAbertura } from './abertura/abertura.js';
+
+// a abertura já foi criada no index.html: aqui chega o mesmo controle
+const abertura = iniciarAbertura();
+abertura.progresso(0.1);
+THREE.DefaultLoadingManager.onProgress = (_, feitos, total) => abertura.progresso(0.1 + 0.4 * (feitos / total));
 import { Fluido } from './gl/fluido.js';
 import { criarFundo } from './gl/cenario.js';
 import { criarServidor3D } from './gl/servidor3d.js';
@@ -340,6 +346,7 @@ requestAnimationFrame(quadro);
 
 montarPainel()
   .then(() => {
+    abertura.progresso(0.7);
     redimensionar();
     painel.ciclos((n) => {
       if (elCiclos) elCiclos.textContent = milhar(n);
@@ -347,10 +354,15 @@ montarPainel()
     });
     return painel.carregar();
   })
+  // a entrada do hero começa no mesmo instante em que a abertura começa a sair
+  .then(() => { abertura.progresso(1); abertura.pronto(); return abertura.saindo; })
   .then(() => entrada())
   .then(() => encaixarSecoes())
   .then((secoes) => { window.__rdx.secoes = secoes; })
-  .catch((erro) => console.error('[rdx] falha ao montar a página', erro));
+  .catch((erro) => {
+    console.error('[rdx] falha ao montar a página', erro);
+    abertura.pronto(); // não deixa a abertura presa se o hero falhar
+  });
 
 // acesso para depuração e testes automáticos
-window.__rdx = { renderer, cena, camera, fluido, comuns, ponteiro, piloto, estado, servidor, servidor3d, fundo, riscar, palcoPainel, depurar, menu, get painel() { return painel; } };
+window.__rdx = { renderer, cena, camera, fluido, comuns, ponteiro, piloto, estado, servidor, servidor3d, fundo, riscar, palcoPainel, depurar, menu, abertura, get painel() { return painel; } };

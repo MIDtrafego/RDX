@@ -12,8 +12,8 @@ export function iniciarProblema(ctx) {
   const texto = secao.querySelector('.rx-manifesto-apoio .rx-texto');
 
   revelarBlocos(secao.querySelectorAll('[data-rx-revela]'), { y: 14, inicio: 'top 92%' });
-  revelarTitulo(frase, { inicio: 'top 88%', cascata: 0.1, duracao: 0.38 });
-  revelarTitulo(texto, { inicio: 'top 92%', cascata: 0.06, duracao: 0.3 });
+  revelarTitulo(frase, { inicio: 'top 88%', cascata: 0.09 });
+  revelarTitulo(texto, { inicio: 'top 92%', cascata: 0.05, duracao: 0.25 });
 
   return null;
 }

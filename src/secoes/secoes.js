@@ -178,8 +178,8 @@ export function iniciarSecoes(opcoes = {}) {
   mm.add(
     {
       sempre: '(min-width: 1px)',
-      mesa: '(min-width: 1024px)',
-      largo: '(min-width: 1024px)',
+      mesa: '(min-width: 992px)',
+      largo: '(min-width: 992px)',
       calmo: '(prefers-reduced-motion: reduce)',
       fino: '(hover: hover) and (pointer: fine)',
     },
@@ -213,8 +213,8 @@ export function iniciarSecoes(opcoes = {}) {
         raiz,
         opcoes,
         anima,
-        mesa,             // 1024 px ou mais: o trilho trava e anda de lado
-        largo,            // 1024 px ou mais: colunas lado a lado
+        mesa,             // 992 px ou mais: o trilho trava e anda de lado
+        largo,            // 992 px ou mais: colunas lado a lado
         fino,             // mouse de verdade: cursor próprio, ímã, inclinação
         lenis: () => lenis,
       };

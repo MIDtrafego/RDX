@@ -53,7 +53,7 @@ export function pendentesNaRede() { return rede.size; }
 // ───────────── texto ─────────────
 // Revelação por bloco, como no site de referência: um bloco de cor atravessa a linha,
 // o texto aparece atrás dele e o bloco sai pelo outro lado. Rápido e em cascata.
-const TEMPO_BLOCO = 0.4;
+const TEMPO_BLOCO = 0.3;      // cada metade: a passagem inteira leva 0,6 s
 
 // Monta a passagem do bloco numa linha do tempo. `linha` é o texto, `bloco` é a faixa de cor.
 export function passarBloco(linhaDoTempo, linha, bloco, quando, duracao = TEMPO_BLOCO) {

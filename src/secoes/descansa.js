@@ -5,7 +5,7 @@
 // Na saída a tela encolhe e vira um cartão. As linhas são reveladas por bloco, como no
 // resto do site.
 //
-// Em tela larga a lista e a frase ficam lado a lado. Abaixo de 1024 px elas ocupam o mesmo
+// Em tela larga a lista e a frase ficam lado a lado. Abaixo de 992 px elas ocupam o mesmo
 // lugar, uma depois da outra: a frase sai e a lista entra.
 import { gsap } from 'gsap';
 import { passarBloco, prepararLinha, revelarBlocos, aoEntrar } from './nucleo.js';
