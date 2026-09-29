@@ -1,0 +1,177 @@
+/* ==========================================================================
+   SÓ DA PÁGINA DE TESTE (abertura.html). NÃO levar para o index.html.
+   Substituto do topo e do hero, botões para repetir e leitura do resultado.
+   Classes com prefixo ab-teste-.
+   ========================================================================== */
+
+.ab-teste-pagina { background: #050706; }
+
+.ab-teste-corpo {
+  margin: 0;
+  background: #050706;
+  color: #fff;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.ab-teste-corpo *,
+.ab-teste-corpo *::before,
+.ab-teste-corpo *::after { box-sizing: border-box; }
+
+/* topo: cópia visual do topo do site */
+.ab-teste-topo {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 18px 18px 0;
+  pointer-events: none;
+}
+.ab-teste-topo > * { pointer-events: auto; }
+.ab-teste-marca {
+  display: flex;
+  flex-direction: column;
+  line-height: .86;
+  text-decoration: none;
+  color: #fff;
+  text-transform: uppercase;
+}
+.ab-teste-marca-rdx { font-size: 38px; font-weight: 700; font-style: italic; letter-spacing: -1.5px; }
+.ab-teste-marca-sub { font-size: 13px; font-weight: 600; letter-spacing: 4.2px; color: #4ade80; margin-top: 6px; }
+.ab-teste-acoes { display: flex; gap: 10px; }
+.ab-teste-botao {
+  display: inline-flex;
+  align-items: center;
+  height: 58px;
+  padding: 0 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  color: #000;
+  background: #c8f52a;
+}
+.ab-teste-menu {
+  width: 58px; height: 58px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(255, 255, 255, .55);
+  background: rgba(5, 7, 6, .4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.ab-teste-menu i { display: block; height: 2px; background: #fff; border-radius: 2px; }
+.ab-teste-menu i:nth-child(1) { width: 12px; transform: translateX(6px); }
+.ab-teste-menu i:nth-child(2) { width: 16px; transform: translateX(-4px); }
+
+/* hero de mentira: fundo escuro e o servidor no centro */
+.ab-teste-hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 55% at 50% 58%, rgba(74, 222, 128, .13), rgba(74, 222, 128, 0) 70%),
+    #050706;
+}
+.ab-teste-servidor {
+  display: block;
+  width: auto;
+  height: min(90vh, 72vw);
+  max-width: 94vw;
+  object-fit: contain;
+}
+.ab-teste-nota {
+  position: absolute;
+  left: 0; right: 0; bottom: 64px;
+  margin: 0;
+  text-align: center;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: #5d6661;
+}
+
+/* área alta, só para conferir a rolagem travada e liberada */
+.ab-teste-rolagem {
+  min-height: 140vh;
+  margin: 0;
+  padding: 18vh 18px;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+  background: #050706;
+  color: #8a938e;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* botões para repetir a abertura */
+.ab-teste-casos {
+  position: fixed;
+  right: 18px; bottom: 18px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #8a938e;
+}
+.ab-teste-casos span { margin-right: 4px; }
+.ab-teste-casos a {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 6px;
+  background: rgba(5, 7, 6, .6);
+  color: #cfd6d1;
+  text-decoration: none;
+  transition: border-color .2s, color .2s;
+}
+.ab-teste-casos a:hover,
+.ab-teste-casos a:focus-visible { border-color: #c8f52a; color: #c8f52a; outline: none; }
+.ab-teste-casos a[aria-current='true'] { border-color: rgba(74, 222, 128, .6); color: #4ade80; }
+
+/* leitura do que aconteceu */
+.ab-teste-leitura {
+  position: fixed;
+  left: 18px; bottom: 18px;
+  z-index: 20;
+  margin: 0;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.7;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #8a938e;
+  font-variant-numeric: tabular-nums;
+}
+.ab-teste-leitura b { font-weight: 500; color: #4ade80; }
+
+@media (max-width: 768px) {
+  .ab-teste-marca-rdx { font-size: 30px; }
+  .ab-teste-marca-sub { font-size: 10px; letter-spacing: 3.4px; }
+  .ab-teste-botao { height: 48px; padding: 0 16px; font-size: 12px; }
+  .ab-teste-menu { width: 48px; height: 48px; }
+  .ab-teste-servidor { height: min(66vh, 145vw); }
+  .ab-teste-casos { left: 16px; right: 16px; bottom: 14px; justify-content: center; }
+  .ab-teste-casos span { display: none; }
+  .ab-teste-leitura { left: 16px; right: 16px; bottom: 54px; text-align: center; }
+  .ab-teste-nota { bottom: 104px; }
+}

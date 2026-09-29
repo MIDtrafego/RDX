@@ -1,0 +1,557 @@
+/* ==========================================================================
+   RDX · menu em tela cheia
+   Toda classe começa com mn-. Nenhuma regra solta em body, html, a, h1 ou *.
+
+   Classes que o JS liga FORA do menu:
+     html.mn-travado             rolagem do fundo travada enquanto o menu está na tela
+     html.mn-calha               junto com a de cima: guarda o lugar da barra de rolagem,
+                                 para o cabeçalho não andar para o lado quando ela some
+     .botao-menu.mn-gatilho      o botão do cabeçalho passou a ser comandado pelo menu
+     .botao-menu.mn-aberto       os dois tracinhos se cruzam e viram X
+
+   Classe que o JS liga no próprio menu:
+     .mn-menu.mn-visivel         o menu está na tela (abrindo, aberto ou fechando)
+
+   Sem JavaScript o menu continua escondido (atributo hidden) e a página segue normal.
+   ========================================================================== */
+
+.mn-menu {
+  --mn-fundo: var(--fundo, #050706);
+  --mn-verde: var(--verde, #4ade80);
+  --mn-lima: var(--lima, #c8f52a);
+  --mn-branco: var(--branco, #ffffff);
+  --mn-t2: var(--t2, #8a938e);
+  --mn-borda: var(--borda, rgba(255, 255, 255, .12));
+
+  --mn-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mn-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  --mn-suave: cubic-bezier(.22, 1, .36, 1);
+  --mn-firme: cubic-bezier(.76, 0, .24, 1);
+
+  --mn-faixas: 4;                              /* quantas faixas tem a cortina (o JS lê daqui) */
+
+  /* RÉGUA. Tudo no menu é medido em u, preso ao tamanho da tela, como no site de referência
+     (lá u = largura / 108, 13,33 px em 1440). A altura entra na conta para o menu caber
+     inteiro em tela baixa. Aqui embaixo está a régua do celular; tablet e computador
+     trocam a régua nas faixas de largura, no fim do arquivo. */
+  --mn-u: min(100vw / 39, 100vh / 68);
+  --mn-margem: 20px;
+  --mn-topo: 88px;                             /* espaço para o cabeçalho fixo do site */
+  --mn-pe: max(16px, calc(var(--mn-u) * 2));
+  --mn-vao: calc(var(--mn-u) * 2.6);           /* respiro entre os blocos */
+  --mn-corpo: max(30px, calc(var(--mn-u) * 4.45));     /* tamanho da navegação */
+  --mn-num: max(22px, calc(var(--mn-u) * 3));          /* coluna do número */
+  --mn-t-num: max(9px, calc(var(--mn-u) * 1));
+  --mn-t-rotulo: max(9px, calc(var(--mn-u) * 1.05));
+  --mn-t-texto: max(13px, calc(var(--mn-u) * 1.5));
+  --mn-t-aviso: max(10px, calc(var(--mn-u) * 1.1));
+  --mn-t-acao: max(11px, calc(var(--mn-u) * 1.3));
+  --mn-a-alt: max(44px, calc(var(--mn-u) * 5.2));      /* altura dos botões */
+  --mn-rotulo-larg: calc(var(--mn-u) * 11.2);
+
+  position: fixed;
+  inset: 0;
+  z-index: 9;                                  /* acima do conteúdo (6), abaixo do cabeçalho (10) */
+  display: block;
+  margin: 0;
+  padding: 0;
+  visibility: hidden;
+  outline: none;
+  font-family: var(--mn-sans);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+  text-align: left;
+  text-transform: none;
+  color: var(--mn-branco);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+.mn-menu[hidden] { display: none; }
+.mn-menu.mn-visivel { visibility: visible; }
+
+.mn-menu *,
+.mn-menu *::before,
+.mn-menu *::after { box-sizing: border-box; }
+
+.mn-menu ::selection { background: var(--mn-lima); color: var(--mn-fundo); }
+
+.mn-menu :where(a, button):focus-visible {
+  outline: 2px solid var(--mn-lima);
+  outline-offset: 5px;
+  border-radius: 6px;
+}
+
+/* ─── camadas ────────────────────────────────── */
+/* A cortina é a camada lima que chega antes; o painel vem logo atrás e cobre.
+   O recorte (clip-path) das duas é escrito pelo JS a cada quadro. */
+.mn-cortina,
+.mn-painel {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  will-change: clip-path;
+}
+.mn-cortina {
+  z-index: 0;
+  background: var(--mn-lima);
+  pointer-events: none;
+}
+.mn-painel {
+  z-index: 1;
+  overflow: hidden;
+  background:
+    radial-gradient(110% 80% at 100% 108%, rgba(74, 222, 128, .105) 0%, rgba(74, 222, 128, 0) 58%),
+    var(--mn-fundo);
+}
+
+/* linhas finas na divisa das faixas da cortina */
+.mn-grade {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, .055) 0, rgba(255, 255, 255, .055) 1px, transparent 1px);
+  background-size: calc(100% / var(--mn-faixas)) 100%;
+  background-position: -1px 0;                 /* esconde a linha que cairia na borda esquerda */
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .15) 0%, #000 34%, #000 72%, rgba(0, 0, 0, .25) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .15) 0%, #000 34%, #000 72%, rgba(0, 0, 0, .25) 100%);
+}
+
+/* véu do topo: se o painel rolar por dentro, o texto some antes de passar por baixo do cabeçalho */
+.mn-veu {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 2;
+  height: calc(var(--mn-topo) + 6px);
+  pointer-events: none;
+  background: linear-gradient(to bottom, var(--mn-fundo) 0%, var(--mn-fundo) 70%, rgba(5, 7, 6, 0) 100%);
+}
+
+/* ─── área que rola ──────────────────────────── */
+.mn-rolo {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding: var(--mn-topo) var(--mn-margem) var(--mn-pe);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, .22) transparent;
+}
+
+.mn-miolo {
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  row-gap: var(--mn-vao);
+}
+
+/* ─── navegação ──────────────────────────────── */
+.mn-nav { min-width: 0; }
+
+.mn-lista {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mn-item { display: block; margin: 0; padding: 0; }
+
+.mn-link {
+  display: inline-flex;
+  align-items: flex-start;
+  padding: .04em 0;                            /* os itens se encostam: o mouse não cai em vão entre eles */
+  font-size: var(--mn-corpo);
+  font-weight: 700;
+  line-height: 1.02;                           /* com menos que isso o acento de uma linha encosta na de cima */
+  letter-spacing: -.035em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--mn-branco);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity .7s var(--mn-suave);
+}
+.mn-menu .mn-link:focus-visible { outline-offset: 2px; border-radius: 8px; }
+
+.mn-num {
+  flex: none;
+  width: var(--mn-num);
+  margin-top: calc(var(--mn-corpo) * .2);      /* alinha com o alto das maiúsculas */
+  font-family: var(--mn-mono);
+  font-size: var(--mn-t-num);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: .06em;
+  color: var(--mn-t2);
+  transition: color .6s var(--mn-suave);
+}
+
+/* máscara: folga em cima para o acento, à direita para o itálico */
+.mn-mascara {
+  display: block;
+  overflow: hidden;
+  padding: .13em .14em .06em .04em;
+  margin: -.13em -.14em -.06em -.04em;
+  transition: transform .7s var(--mn-suave);
+}
+.mn-sobe {
+  display: grid;
+  will-change: transform;
+}
+.mn-palavra {
+  grid-area: 1 / 1;
+  display: block;
+  transition: transform .7s var(--mn-suave);
+}
+.mn-palavra-ativa {
+  font-style: italic;
+  color: var(--mn-lima);
+  transform: translateY(136%);
+}
+
+/* destaque: entra na hora, sai devagar */
+@media (hover: hover) and (pointer: fine) {
+  .mn-lista:has(.mn-link:hover) .mn-link:not(:hover) { opacity: .26; transition-duration: .22s; }
+  .mn-link:hover .mn-mascara { transform: translateX(.15em); transition-duration: .38s; }
+  .mn-link:hover .mn-palavra { transform: translateY(-136%); transition-duration: .38s; }
+  .mn-link:hover .mn-palavra-ativa { transform: translateY(0); }
+  .mn-link:hover .mn-num { color: var(--mn-lima); transition-duration: .18s; }
+}
+.mn-lista:has(.mn-link:focus-visible) .mn-link:not(:focus-visible):not(:hover) { opacity: .26; transition-duration: .22s; }
+.mn-link:focus-visible .mn-mascara { transform: translateX(.15em); transition-duration: .38s; }
+.mn-link:focus-visible .mn-palavra { transform: translateY(-136%); transition-duration: .38s; }
+.mn-link:focus-visible .mn-palavra-ativa { transform: translateY(0); }
+.mn-link:focus-visible .mn-num { color: var(--mn-lima); transition-duration: .18s; }
+
+/* toque: resposta rápida no dedo */
+@media (hover: none) {
+  .mn-link:active .mn-palavra { color: var(--mn-lima); }
+  .mn-link:active .mn-num { color: var(--mn-lima); }
+}
+
+/* ─── coluna de apoio ────────────────────────── */
+.mn-apoio {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: calc(var(--mn-u) * 2);
+  min-width: 0;
+}
+
+.mn-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.mn-acao {
+  --mn-a-fundo: var(--mn-lima);
+  --mn-a-tinta: #000;
+  --mn-a-fundo-2: #ffffff;
+  --mn-a-tinta-2: #000;
+  position: relative;
+  isolation: isolate;
+  flex: 1 1 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--mn-a-alt);
+  padding: 0 calc(var(--mn-u) * 1.6);
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: var(--mn-t-acao);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--mn-a-tinta);
+  background: var(--mn-a-fundo);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color .6s var(--mn-suave), border-color .6s var(--mn-suave);
+}
+.mn-acao::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: -10%; right: -10%;
+  top: 0; bottom: 0;
+  border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+  background: var(--mn-a-fundo-2);
+  transform: translateY(104%);
+  transition: transform .7s var(--mn-suave), border-radius .7s var(--mn-suave);
+}
+.mn-acao-rotulo { position: relative; display: inline-block; }
+.mn-acao-linha {
+  --mn-a-fundo: transparent;
+  --mn-a-tinta: var(--mn-branco);
+  --mn-a-fundo-2: var(--mn-branco);
+  --mn-a-tinta-2: #000;
+  border-color: rgba(255, 255, 255, .55);
+}
+@media (hover: hover) and (pointer: fine) {
+  .mn-acao:hover { color: var(--mn-a-tinta-2); transition-duration: .16s; }
+  .mn-acao:hover::before { transform: translateY(0); border-radius: 0; transition-duration: .42s; }
+  .mn-acao-linha:hover { border-color: var(--mn-branco); }
+}
+.mn-acao:active { transition-duration: .08s; }
+.mn-menu .mn-acao:focus-visible { outline-offset: 4px; border-radius: 10px; }
+
+.mn-dados {
+  display: grid;
+  row-gap: calc(var(--mn-u) * 1.4);
+  margin: 0;
+  padding: 0;
+}
+.mn-dado {
+  display: grid;
+  grid-template-columns: var(--mn-rotulo-larg) minmax(0, 1fr);
+  column-gap: 12px;
+  align-items: baseline;
+  align-content: start;
+}
+.mn-rotulo {
+  margin: 0;
+  font-family: var(--mn-mono);
+  font-size: var(--mn-t-rotulo);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--mn-t2);
+}
+.mn-valor {
+  margin: 0;
+  font-size: var(--mn-t-texto);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--mn-branco);
+  text-wrap: balance;
+}
+.mn-valor-parte { display: inline-block; }
+
+.mn-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding-top: calc(var(--mn-u) * 1.4);
+  border-top: 1px solid var(--mn-borda);
+  font-size: calc(var(--mn-t-texto) * .93);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--mn-branco);
+}
+.mn-ponto {
+  flex: none;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--mn-verde);
+  animation: mn-pulso 1.8s ease-in-out infinite;
+}
+@keyframes mn-pulso {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, .6); }
+  50%      { box-shadow: 0 0 0 7px rgba(74, 222, 128, 0); }
+}
+
+/* ─── rodapé do menu ─────────────────────────── */
+.mn-rodape {
+  position: relative;
+  flex: none;
+  margin-top: var(--mn-vao);
+  padding-top: calc(var(--mn-u) * 1.2);
+}
+.mn-fio {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--mn-borda);
+  transform-origin: 0 50%;
+}
+.mn-aviso {
+  margin: 0;
+  max-width: 86ch;
+  font-size: var(--mn-t-aviso);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: .01em;
+  color: var(--mn-t2);
+  text-wrap: pretty;
+}
+
+/* botão de fechar para teclado e leitor de tela: o X do cabeçalho fica fora do diálogo.
+   Só aparece quando recebe foco. */
+.mn-fechar {
+  position: absolute;
+  right: 0; bottom: 0;
+  width: 1px; height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+  background: none;
+  font-family: var(--mn-mono);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--mn-branco);
+  cursor: pointer;
+}
+.mn-fechar:focus-visible {
+  width: auto; height: 38px;
+  margin: 0;
+  padding: 0 16px;
+  overflow: visible;
+  clip-path: none;
+  border: 1px solid rgba(255, 255, 255, .4);
+  border-radius: 8px;
+  background: var(--mn-fundo);
+}
+
+/* ==========================================================================
+   LARGURAS: cada faixa troca a régua
+   ========================================================================== */
+
+/* tablet em pé: uma coluna, régua de 64 u na largura */
+@media (min-width: 700px) {
+  .mn-menu {
+    --mn-faixas: 5;
+    --mn-u: min(100vw / 64, 100vh / 80);
+    --mn-margem: max(28px, calc(var(--mn-u) * 2.8));
+    --mn-topo: max(96px, calc(var(--mn-u) * 8.6));
+    --mn-pe: max(18px, calc(var(--mn-u) * 2));
+    --mn-vao: calc(var(--mn-u) * 3);
+    --mn-corpo: max(34px, calc(var(--mn-u) * 7));
+    --mn-num: max(30px, calc(var(--mn-u) * 4.4));
+    --mn-t-num: max(9px, calc(var(--mn-u) * .9));
+    --mn-t-rotulo: max(9px, calc(var(--mn-u) * .85));
+    --mn-t-texto: max(13px, calc(var(--mn-u) * 1.35));
+    --mn-t-aviso: max(10px, calc(var(--mn-u) * .95));
+    --mn-t-acao: max(11px, calc(var(--mn-u) * 1.2));
+    --mn-a-alt: max(42px, calc(var(--mn-u) * 4.6));
+  }
+  .mn-acoes { flex-wrap: nowrap; justify-content: flex-start; grid-column: 1 / -1; }
+  .mn-acao { flex: 0 1 auto; padding: 0 calc(var(--mn-u) * 2.2); }
+  .mn-apoio {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: calc(var(--mn-u) * 4);
+    align-items: start;
+  }
+  .mn-status { grid-column: 1 / -1; }
+  .mn-dados { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: calc(var(--mn-u) * 4); }
+  .mn-dado { grid-template-columns: minmax(0, 1fr); row-gap: calc(var(--mn-u) * .45); }
+}
+
+/* computador: régua de 108 u na largura e 62 u na altura.
+   Duas colunas: navegação à esquerda, apoio à direita, alinhados pela base. */
+@media (min-width: 1024px) {
+  .mn-menu {
+    --mn-u: min(100vw / 108, 100vh / 62);
+    --mn-margem: max(28px, calc(var(--mn-u) * 4.7));
+    --mn-topo: max(92px, calc(var(--mn-u) * 9));
+    --mn-pe: max(16px, calc(var(--mn-u) * 2.2));
+    --mn-vao: calc(var(--mn-u) * 2.4);
+    --mn-corpo: max(40px, calc(var(--mn-u) * 7));      /* 7 u, o teto pedido */
+    --mn-num: max(34px, calc(var(--mn-u) * 4.8));
+    --mn-t-num: max(9px, calc(var(--mn-u) * .9));
+    --mn-t-rotulo: max(9px, calc(var(--mn-u) * .8));
+    --mn-t-texto: max(13px, calc(var(--mn-u) * 1.25));
+    --mn-t-aviso: max(11px, calc(var(--mn-u) * .85));
+    --mn-t-acao: max(12px, calc(var(--mn-u) * 1.1));
+    --mn-a-alt: max(42px, calc(var(--mn-u) * 4.35));
+  }
+  .mn-miolo {
+    grid-template-columns: minmax(0, 1fr) max(250px, calc(var(--mn-u) * 25.5));
+    column-gap: calc(var(--mn-u) * 4);
+    align-content: center;
+    align-items: end;
+  }
+  .mn-apoio {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: calc(var(--mn-u) * 2);
+    padding-bottom: calc(var(--mn-corpo) * .1);
+  }
+  .mn-dados { grid-template-columns: minmax(0, 1fr); row-gap: calc(var(--mn-u) * 1.5); order: 1; }
+  .mn-status { order: 2; }
+  .mn-acoes { order: 3; flex-wrap: wrap; gap: calc(var(--mn-u) * .7); }
+  .mn-acao { flex: 1 1 auto; }
+}
+
+@media (min-width: 1200px) {
+  .mn-menu { --mn-faixas: 6; }
+}
+
+/* celular deitado: o cabeçalho é o pequeno */
+@media (max-height: 520px) and (max-width: 1023px) {
+  .mn-menu { --mn-topo: 80px; }
+}
+
+/* ==========================================================================
+   FORA DO MENU: botão do cabeçalho e trava da rolagem
+   ========================================================================== */
+
+/* os dois tracinhos se cruzam. Indo: juntam no centro e depois giram.
+   Voltando: desfazem o giro e depois se separam. */
+button.mn-gatilho i {
+  transition:
+    transform .46s cubic-bezier(.76, 0, .24, 1),
+    width .46s cubic-bezier(.76, 0, .24, 1);
+}
+button.mn-gatilho.mn-aberto i { width: 20px; }
+button.mn-gatilho.mn-aberto i:nth-child(1) { transform: translate(0, 4px) rotate(45deg); }
+button.mn-gatilho.mn-aberto i:nth-child(2) { transform: translate(0, -4px) rotate(-45deg); }
+
+@supports (translate: 1px) and (rotate: 1deg) {
+  button.mn-gatilho i {
+    transition:
+      translate .34s cubic-bezier(.76, 0, .24, 1) .14s,
+      rotate .34s cubic-bezier(.76, 0, .24, 1),
+      width .34s cubic-bezier(.76, 0, .24, 1) .14s;
+  }
+  button.mn-gatilho i:nth-child(1) { transform: none; translate: 6px 0; rotate: 0deg; }
+  button.mn-gatilho i:nth-child(2) { transform: none; translate: -4px 0; rotate: 0deg; }
+  button.mn-gatilho.mn-aberto i { transition-delay: 0s, .14s, 0s; }
+  button.mn-gatilho.mn-aberto i:nth-child(1) { transform: none; translate: 0 4px; rotate: 45deg; }
+  button.mn-gatilho.mn-aberto i:nth-child(2) { transform: none; translate: 0 -4px; rotate: -45deg; }
+}
+
+html.mn-travado { overflow: hidden; }
+html.mn-travado.mn-calha { scrollbar-gutter: stable; }
+
+/* ==========================================================================
+   MENOS MOVIMENTO
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .mn-link,
+  .mn-num,
+  .mn-mascara,
+  .mn-palavra,
+  .mn-acao,
+  .mn-acao::before { transition-duration: .01s !important; }
+  .mn-link:hover .mn-mascara,
+  .mn-link:focus-visible .mn-mascara { transform: none; }
+  .mn-ponto { animation: none; }
+  button.mn-gatilho i,
+  button.mn-gatilho.mn-aberto i { transition-duration: .01s; transition-delay: 0s; }
+}

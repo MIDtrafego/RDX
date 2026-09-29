@@ -1,0 +1,171 @@
+/* ==========================================================================
+   SÓ DA PÁGINA DE TESTE (rolagem.html). NÃO levar para o index.html.
+   Aqui ficam as regras soltas de body e o substituto do hero e do topo.
+   Classes com prefixo teste-.
+   ========================================================================== */
+
+html { background: #050706; }
+
+body.teste-corpo {
+  margin: 0;
+  background: #050706;
+  color: #fff;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* topo: cópia visual do topo do site, para conferir a convivência com as seções */
+.teste-topo {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 18px 18px 0;
+  pointer-events: none;
+  color: #fff;
+  transition: color .5s cubic-bezier(.22, 1, .36, 1);
+}
+.teste-topo > * { pointer-events: auto; }
+.teste-marca {
+  display: flex;
+  flex-direction: column;
+  line-height: .86;
+  text-decoration: none;
+  color: inherit;
+  text-transform: uppercase;
+}
+.teste-marca-rdx { font-size: 38px; font-weight: 700; font-style: italic; letter-spacing: -1.5px; }
+.teste-marca-sub { font-size: 13px; font-weight: 600; letter-spacing: 4.2px; color: #4ade80; margin-top: 6px; transition: color .5s; }
+.teste-topo-acoes { display: flex; gap: 10px; }
+.teste-botao {
+  display: inline-flex;
+  align-items: center;
+  height: 58px;
+  padding: 0 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #000;
+  background: #c8f52a;
+  transition: background-color .5s cubic-bezier(.22, 1, .36, 1), color .5s cubic-bezier(.22, 1, .36, 1);
+}
+.teste-botao-menu {
+  width: 58px; height: 58px;
+  border-radius: 10px;
+  border: 1.5px solid currentColor;
+  background: rgba(5, 7, 6, .4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background-color .5s;
+}
+.teste-botao-menu i { display: block; height: 2px; background: currentColor; border-radius: 2px; }
+.teste-botao-menu i:nth-child(1) { width: 12px; transform: translateX(6px); }
+.teste-botao-menu i:nth-child(2) { width: 16px; transform: translateX(-4px); }
+
+/* quando o que está debaixo do topo é claro (vem do evento rdx:rolagem).
+   A marca e os botões são lidos em pontos separados: um pode estar no claro e o outro no escuro. */
+.teste-marca { transition: color .5s cubic-bezier(.22, 1, .36, 1); }
+.teste-topo-acoes { transition: color .5s cubic-bezier(.22, 1, .36, 1); }
+.teste-topo[data-tema="claro"] .teste-marca { color: #050706; }
+.teste-topo[data-tema="claro"] .teste-marca-sub { color: #050706; }
+.teste-topo[data-tema-botoes="claro"] .teste-topo-acoes { color: #050706; }
+.teste-topo[data-tema-botoes="claro"] .teste-botao { color: #c8f52a; background: #050706; }
+.teste-topo[data-tema-botoes="claro"] .teste-botao-menu { background: rgba(200, 245, 42, .4); }
+
+@media (max-width: 768px) {
+  .teste-marca-rdx { font-size: 30px; }
+  .teste-marca-sub { font-size: 10px; letter-spacing: 3.4px; }
+  .teste-botao { height: 48px; padding: 0 16px; font-size: 12px; }
+  .teste-botao-menu { width: 48px; height: 48px; }
+}
+
+/* substituto do hero: fixo, atrás das seções, como o hero de verdade */
+.teste-hero {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  padding: 120px clamp(20px, 4.4vw, 84px) 80px;
+  overflow: hidden;
+  background:
+    radial-gradient(70% 60% at 70% 40%, rgba(74, 222, 128, .16) 0%, transparent 70%),
+    radial-gradient(50% 50% at 20% 90%, rgba(34, 227, 214, .08) 0%, transparent 70%),
+    #050706;
+}
+.teste-hero-grade {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .045) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .045) 0 1px, transparent 1px 96px);
+  -webkit-mask-image: radial-gradient(80% 80% at 60% 40%, #000 0%, transparent 80%);
+          mask-image: radial-gradient(80% 80% at 60% 40%, #000 0%, transparent 80%);
+}
+.teste-hero-miolo {
+  position: relative;
+  display: grid;
+  gap: clamp(18px, 2vw, 30px);
+  justify-items: start;
+  max-width: 1500px;
+  will-change: transform, opacity;
+}
+.teste-hero-selo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #8a938e;
+}
+.teste-hero-selo span { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; }
+.teste-hero-titulo {
+  margin: 0;
+  font-size: clamp(36px, 7.4vw, 136px);
+  font-weight: 700;
+  line-height: .94;
+  letter-spacing: -.035em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.teste-hero-titulo em { font-style: italic; color: #4ade80; }
+.teste-hero-apoio {
+  margin: 0;
+  max-width: 46ch;
+  font-size: clamp(16px, 1.3vw, 21px);
+  line-height: 1.55;
+  color: #8a938e;
+}
+.teste-hero-nota {
+  margin: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .08em;
+  color: #5d6661;
+}
+.teste-hero-leitura {
+  position: absolute;
+  left: 18px; bottom: 18px;
+  display: grid;
+  gap: 4px;
+  min-width: 172px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: #8a938e;
+  background: rgba(5, 7, 6, .55);
+}
+.teste-hero-leitura b { font-weight: 600; color: #4ade80; font-variant-numeric: tabular-nums; }

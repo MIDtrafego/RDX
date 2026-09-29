@@ -1,0 +1,33 @@
+/* RDX · abertura · CSS crítico: só o que garante o primeiro quadro. Vai embutido no <head>. */
+#abertura { display: none; }
+.ab-ligado #abertura {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  overflow: hidden;
+  background: #c8f52a;
+  color: #050706;
+}
+html.ab-travado { overflow: hidden; overscroll-behavior: none; }
+
+/* a logo é montada e escrita pelo módulo: até ele chegar, o desenho fica vazio */
+.ab-recorte { display: block; overflow: hidden; }
+.ab-marca-caixa {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(240px, 22vw, 460px);
+  margin: 0;
+  padding: 0;
+  transform: translate(-50%, -50%);
+}
+.ab-marca { display: block; width: 100%; height: auto; }
+@media (max-width: 768px) {
+  .ab-marca-caixa { width: 56vw; }
+}
+
+.ab-rodape { visibility: hidden; }
+
+/* saída de socorro: o módulo não assumiu em 8 s */
+.ab-socorro #abertura { opacity: 0; transition: opacity .4s ease; }

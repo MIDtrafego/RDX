@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Entrar · RDX Technology</title>
+<meta name="description" content="Acesse sua conta na RDX Technology."/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23050706%27/%3E%3Cpath d=%27M8 22V10h7a4 4 0 0 1 1.6 7.7L20 22h-3.4l-3-4H11v4zm3-6.6h3.6a1.4 1.4 0 0 0 0-2.8H11z%27 fill=%27%234ade80%27/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<!-- estilo.css entra só para herdar as variáveis, a marca e os botões do site -->
+<link rel="stylesheet" href="/src/estilo.css"/>
+<link rel="stylesheet" href="/src/conta/conta.css"/>
+<script>document.documentElement.classList.add('ct-js');</script>
+<script type="importmap">
+{
+  "imports": {
+    "gsap": "/vendor/gsap/index.js"
+  }
+}
+</script>
+</head>
+<body class="ct-corpo ct-tela-entrar">
+
+<canvas class="ct-fundo" id="ct-fundo" aria-hidden="true"></canvas>
+<div class="ct-veu" aria-hidden="true"></div>
+
+<header class="topo ct-topo">
+  <!-- mesma marca do topo do site: a logo oficial entra como máscara (estilo.css) -->
+  <a class="marca" href="/" aria-label="RDX Technology, voltar ao site">
+    <span class="marca-logo" aria-hidden="true"></span>
+  </a>
+  <p class="ct-assinatura">Infraestrutura Quantitativa</p>
+</header>
+
+<main class="ct-pagina">
+
+  <!-- ─────────── área de marca (só no computador) ─────────── -->
+  <section class="ct-marca" aria-label="RDX Technology">
+    <div class="ct-marca-palco" aria-hidden="true">
+      <div class="ct-camada" data-ct-fundura="-16"><span class="ct-brilho"></span></div>
+      <div class="ct-camada" data-ct-fundura="26">
+        <div class="ct-servidor"><div class="ct-servidor-corpo">
+          <picture>
+            <source media="(min-width: 1024px)" srcset="/img/servidor.webp"/>
+            <img class="ct-servidor-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="920" height="1182" decoding="async"/>
+          </picture>
+          <picture>
+            <source media="(min-width: 1024px)" srcset="/img/servidor-brilho.webp"/>
+            <img class="ct-servidor-luz" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="920" height="1182" decoding="async"/>
+          </picture>
+        </div></div>
+      </div>
+    </div>
+    <p class="ct-frase">
+      <span class="ct-frase-linha"><span>O mercado</span></span>
+      <span class="ct-frase-linha"><span>não para.</span></span>
+      <em>
+        <span class="ct-frase-linha"><span>Nossos servidores</span></span>
+        <span class="ct-frase-linha"><span>também não.</span></span>
+      </em>
+    </p>
+  </section>
+
+  <!-- ─────────── formulário ─────────── -->
+  <section class="ct-lado" aria-labelledby="ct-titulo-entrar">
+    <div class="ct-cartao" id="ct-cartao">
+      <span class="ct-cartao-luz" aria-hidden="true"></span>
+
+      <p class="ct-demo" id="ct-demo" hidden><i aria-hidden="true"></i>Demonstração · nenhum dado sai do seu navegador</p>
+
+      <div class="ct-cabeca">
+        <h1 class="ct-titulo" id="ct-titulo-entrar">Bem-vindo de volta</h1>
+        <p class="ct-apoio">Acesse sua conta para continuar</p>
+      </div>
+
+      <noscript>
+        <p class="ct-aviso ct-aviso-demo">Para entrar é preciso ativar o JavaScript do navegador.</p>
+      </noscript>
+
+      <!--
+        method="dialog": fora de um <dialog>, o envio nativo do formulário não faz nada.
+        É uma trava a mais para nenhum dado sair da página se o JavaScript falhar.
+        O envio de verdade é feito por src/conta/api.js.
+      -->
+      <form class="ct-form" id="ct-form-entrar" method="dialog" novalidate>
+
+        <div class="ct-campo" data-ct-campo="email">
+          <label class="ct-rotulo" for="ct-email">E-mail</label>
+          <div class="ct-caixa">
+            <input class="ct-entrada" id="ct-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" required/>
+          </div>
+          <p class="ct-erro" id="ct-email-erro" hidden></p>
+        </div>
+
+        <div class="ct-campo" data-ct-campo="senha">
+          <label class="ct-rotulo" for="ct-senha">Senha</label>
+          <div class="ct-caixa">
+            <input class="ct-entrada ct-entrada-com-olho" id="ct-senha" name="senha" type="password" autocomplete="current-password" required/>
+            <button class="ct-olho" type="button" aria-controls="ct-senha" aria-pressed="false" aria-label="Mostrar senha">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="ct-olho-risco" d="M4 4l16 16"/></svg>
+            </button>
+          </div>
+          <p class="ct-erro" id="ct-senha-erro" hidden></p>
+        </div>
+
+        <div class="ct-linha-fim">
+          <button class="ct-link" type="button" id="ct-esqueci">Esqueci a senha</button>
+        </div>
+
+        <p class="ct-aviso ct-aviso-erro" id="ct-entrar-erro" role="alert" hidden></p>
+        <p class="ct-aviso ct-aviso-demo" id="ct-entrar-demo" role="status" hidden></p>
+
+        <button class="botao botao-verde ct-botao" type="submit" id="ct-entrar-botao" disabled>
+          <span class="ct-botao-rotulo">Entrar na plataforma</span>
+          <svg class="ct-botao-seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </form>
+
+      <div class="ct-pe">
+        <p>Não tem conta? <a class="ct-link" href="/cadastro.html">Criar agora</a></p>
+        <p><a class="ct-link ct-link-fraco" href="/">Voltar ao site</a></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script type="module" src="/src/conta/entrar.js"></script>
+</body>
+</html>

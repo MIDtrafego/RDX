@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Criar conta · RDX Technology</title>
+<meta name="description" content="Crie sua conta na RDX Technology em três passos."/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23050706%27/%3E%3Cpath d=%27M8 22V10h7a4 4 0 0 1 1.6 7.7L20 22h-3.4l-3-4H11v4zm3-6.6h3.6a1.4 1.4 0 0 0 0-2.8H11z%27 fill=%27%234ade80%27/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<!-- estilo.css entra só para herdar as variáveis, a marca e os botões do site -->
+<link rel="stylesheet" href="/src/estilo.css"/>
+<link rel="stylesheet" href="/src/conta/conta.css"/>
+<script>document.documentElement.classList.add('ct-js');</script>
+<script type="importmap">
+{
+  "imports": {
+    "gsap": "/vendor/gsap/index.js"
+  }
+}
+</script>
+</head>
+<body class="ct-corpo ct-tela-cadastro">
+
+<canvas class="ct-fundo" id="ct-fundo" aria-hidden="true"></canvas>
+<div class="ct-veu" aria-hidden="true"></div>
+
+<header class="topo ct-topo">
+  <!-- mesma marca do topo do site: a logo oficial entra como máscara (estilo.css) -->
+  <a class="marca" href="/" aria-label="RDX Technology, voltar ao site">
+    <span class="marca-logo" aria-hidden="true"></span>
+  </a>
+  <p class="ct-assinatura">Infraestrutura Quantitativa</p>
+</header>
+
+<main class="ct-pagina">
+
+  <!-- ─────────── área de marca (só no computador) ─────────── -->
+  <section class="ct-marca" aria-label="RDX Technology">
+    <div class="ct-marca-palco" aria-hidden="true">
+      <div class="ct-camada" data-ct-fundura="-16"><span class="ct-brilho"></span></div>
+      <div class="ct-camada" data-ct-fundura="26">
+        <div class="ct-servidor"><div class="ct-servidor-corpo">
+          <picture>
+            <source media="(min-width: 1024px)" srcset="/img/servidor.webp"/>
+            <img class="ct-servidor-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="920" height="1182" decoding="async"/>
+          </picture>
+          <picture>
+            <source media="(min-width: 1024px)" srcset="/img/servidor-brilho.webp"/>
+            <img class="ct-servidor-luz" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="920" height="1182" decoding="async"/>
+          </picture>
+        </div></div>
+      </div>
+    </div>
+    <p class="ct-frase">
+      <span class="ct-frase-linha"><span>O mercado</span></span>
+      <span class="ct-frase-linha"><span>não para.</span></span>
+      <em>
+        <span class="ct-frase-linha"><span>Nossos servidores</span></span>
+        <span class="ct-frase-linha"><span>também não.</span></span>
+      </em>
+    </p>
+  </section>
+
+  <!-- ─────────── cadastro ─────────── -->
+  <section class="ct-lado" aria-labelledby="ct-titulo-cadastro">
+    <div class="ct-cartao" id="ct-cartao">
+      <span class="ct-cartao-luz" aria-hidden="true"></span>
+
+      <p class="ct-demo" id="ct-demo" hidden><i aria-hidden="true"></i>Demonstração · nenhum dado sai do seu navegador</p>
+
+      <h1 class="ct-so-leitor" id="ct-titulo-cadastro">Criar conta</h1>
+
+      <!-- indicador de progresso -->
+      <ol class="ct-progresso" id="ct-progresso" aria-label="Passos do cadastro">
+        <li class="ct-etapa ct-etapa-atual" data-ct-etapa="1" aria-current="step">
+          <span class="ct-etapa-no">
+            <span class="ct-etapa-n">01</span>
+            <svg class="ct-etapa-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>
+          </span>
+          <span class="ct-etapa-nome">Dados</span>
+        </li>
+        <li class="ct-fio" aria-hidden="true" data-ct-fio="1"><i></i></li>
+        <li class="ct-etapa" data-ct-etapa="2">
+          <span class="ct-etapa-no">
+            <span class="ct-etapa-n">02</span>
+            <svg class="ct-etapa-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>
+          </span>
+          <span class="ct-etapa-nome">Segurança</span>
+        </li>
+        <li class="ct-fio" aria-hidden="true" data-ct-fio="2"><i></i></li>
+        <li class="ct-etapa" data-ct-etapa="3">
+          <span class="ct-etapa-no">
+            <span class="ct-etapa-n">03</span>
+            <svg class="ct-etapa-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>
+          </span>
+          <span class="ct-etapa-nome">Verificação</span>
+        </li>
+      </ol>
+
+      <noscript>
+        <p class="ct-aviso ct-aviso-demo">Para criar a conta é preciso ativar o JavaScript do navegador.</p>
+      </noscript>
+
+      <div class="ct-palco" id="ct-palco">
+
+        <!-- ═══════ PASSO 1: DADOS PESSOAIS ═══════ -->
+        <section class="ct-passo" id="ct-passo-1" data-ct-passo="1" aria-labelledby="ct-passo-1-titulo">
+          <div class="ct-cabeca">
+            <p class="ct-etiqueta" id="ct-passo-1-etiqueta">Passo 1 de 3</p>
+            <h2 class="ct-titulo" id="ct-passo-1-titulo" aria-describedby="ct-passo-1-etiqueta" tabindex="-1">Dados pessoais</h2>
+          </div>
+
+          <!--
+            method="dialog": fora de um <dialog>, o envio nativo do formulário não faz nada.
+            É uma trava a mais para nenhum dado sair da página se o JavaScript falhar.
+            O envio de verdade é feito por src/conta/api.js.
+          -->
+          <form class="ct-form" id="ct-form-dados" method="dialog" novalidate>
+            <div class="ct-grade">
+
+              <div class="ct-campo" data-ct-campo="nome">
+                <label class="ct-rotulo" for="ct-nome">Nome</label>
+                <div class="ct-caixa">
+                  <input class="ct-entrada" id="ct-nome" name="nome" type="text" autocomplete="given-name" autocapitalize="words" maxlength="60" required/>
+                </div>
+                <p class="ct-erro" id="ct-nome-erro" hidden></p>
+              </div>
+
+              <div class="ct-campo" data-ct-campo="sobrenome">
+                <label class="ct-rotulo" for="ct-sobrenome">Sobrenome</label>
+                <div class="ct-caixa">
+                  <input class="ct-entrada" id="ct-sobrenome" name="sobrenome" type="text" autocomplete="family-name" autocapitalize="words" maxlength="80" required/>
+                </div>
+                <p class="ct-erro" id="ct-sobrenome-erro" hidden></p>
+              </div>
+
+              <div class="ct-campo ct-campo-largo" data-ct-campo="email">
+                <label class="ct-rotulo" for="ct-email">E-mail</label>
+                <div class="ct-caixa">
+                  <input class="ct-entrada" id="ct-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" maxlength="254" required/>
+                </div>
+                <p class="ct-erro" id="ct-email-erro" hidden></p>
+              </div>
+
+              <div class="ct-campo" data-ct-campo="cpf">
+                <label class="ct-rotulo" for="ct-cpf">CPF <span class="ct-rotulo-nota" id="ct-cpf-nota" hidden>opcional</span></label>
+                <div class="ct-caixa">
+                  <input class="ct-entrada ct-numero" id="ct-cpf" name="cpf" type="text" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" maxlength="14" required/>
+                </div>
+                <p class="ct-erro" id="ct-cpf-erro" hidden></p>
+              </div>
+
+              <div class="ct-campo" data-ct-campo="telefone">
+                <label class="ct-rotulo" for="ct-telefone">Telefone</label>
+                <div class="ct-caixa">
+                  <input class="ct-entrada ct-numero" id="ct-telefone" name="telefone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(99) 99999-9999" maxlength="24" required/>
+                </div>
+                <p class="ct-erro" id="ct-telefone-erro" hidden></p>
+              </div>
+
+              <div class="ct-campo" data-ct-campo="nascimento">
+                <label class="ct-rotulo" for="ct-nascimento">Nascimento</label>
+                <div class="ct-caixa">
+                  <input class="ct-entrada ct-numero" id="ct-nascimento" name="nascimento" type="date" autocomplete="bday" min="1900-01-01" required/>
+                </div>
+                <p class="ct-erro" id="ct-nascimento-erro" hidden></p>
+              </div>
+
+              <div class="ct-campo" data-ct-campo="pais">
+                <label class="ct-rotulo" for="ct-pais">País</label>
+                <div class="ct-caixa ct-caixa-escolha">
+                  <select class="ct-entrada" id="ct-pais" name="pais" autocomplete="country" required>
+                    <option value="BR" selected>Brasil</option>
+                    <option value="PT">Portugal</option>
+                    <option value="US">EUA</option>
+                  </select>
+                </div>
+                <p class="ct-erro" id="ct-pais-erro" hidden></p>
+              </div>
+
+              <div class="ct-campo ct-campo-largo" data-ct-campo="origem">
+                <label class="ct-rotulo" for="ct-origem">Como nos conheceu? <span class="ct-rotulo-nota">opcional</span></label>
+                <div class="ct-caixa ct-caixa-escolha">
+                  <select class="ct-entrada" id="ct-origem" name="origem" autocomplete="off">
+                    <option value="" selected>Selecione</option>
+                    <option value="indicacao">Indicação</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="youtube">YouTube</option>
+                    <option value="google">Google</option>
+                    <option value="outro">Outro</option>
+                  </select>
+                </div>
+                <p class="ct-erro" id="ct-origem-erro" hidden></p>
+              </div>
+
+            </div>
+
+            <div class="ct-acoes">
+              <button class="botao botao-verde ct-botao" type="submit" id="ct-continuar" disabled>
+                <span class="ct-botao-rotulo">Continuar</span>
+                <svg class="ct-botao-seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+          </form>
+
+          <div class="ct-pe">
+            <p><a class="ct-link" href="/entrar.html">Já tenho acesso</a></p>
+            <p><a class="ct-link ct-link-fraco" href="/">Voltar ao site</a></p>
+          </div>
+        </section>
+
+        <!-- ═══════ PASSO 2: SEGURANÇA DA CONTA ═══════ -->
+        <section class="ct-passo" id="ct-passo-2" data-ct-passo="2" aria-labelledby="ct-passo-2-titulo" hidden>
+          <div class="ct-cabeca">
+            <p class="ct-etiqueta" id="ct-passo-2-etiqueta">Passo 2 de 3</p>
+            <h2 class="ct-titulo" id="ct-passo-2-titulo" aria-describedby="ct-passo-2-etiqueta" tabindex="-1">Segurança da conta</h2>
+          </div>
+
+          <form class="ct-form" id="ct-form-seguranca" method="dialog" novalidate>
+            <!-- o e-mail do passo 1 repetido aqui, fora da vista, para o gerenciador de senhas
+                 do navegador saber de quem é a senha nova -->
+            <input class="ct-so-leitor" id="ct-usuario" name="usuario" type="email" autocomplete="username" tabindex="-1" aria-hidden="true" readonly/>
+
+            <div class="ct-campo" data-ct-campo="senha">
+              <label class="ct-rotulo" for="ct-senha">Crie sua senha <span class="ct-rotulo-nota">mínimo 8 caracteres</span></label>
+              <div class="ct-caixa">
+                <input class="ct-entrada ct-entrada-com-olho" id="ct-senha" name="senha" type="password" autocomplete="new-password" minlength="8" aria-describedby="ct-forca-texto ct-senha-dica" required/>
+                <button class="ct-olho" type="button" aria-controls="ct-senha" aria-pressed="false" aria-label="Mostrar senha">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="ct-olho-risco" d="M4 4l16 16"/></svg>
+                </button>
+              </div>
+
+              <div class="ct-forca" id="ct-forca" data-ct-nivel="0">
+                <div class="ct-forca-barras" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+                <p class="ct-forca-texto" id="ct-forca-texto" aria-live="polite"></p>
+              </div>
+              <ul class="ct-criterios" aria-label="Critérios da senha">
+                <li data-ct-criterio="tamanho">8 ou mais caracteres</li>
+                <li data-ct-criterio="maiuscula">Letra maiúscula</li>
+                <li data-ct-criterio="numero">Número</li>
+                <li data-ct-criterio="simbolo">Símbolo</li>
+              </ul>
+              <p class="ct-dica" id="ct-senha-dica">Use letras, números e símbolos.</p>
+              <p class="ct-erro" id="ct-senha-erro" hidden></p>
+            </div>
+
+            <div class="ct-campo" data-ct-campo="confirma">
+              <label class="ct-rotulo" for="ct-confirma">Confirme a senha</label>
+              <div class="ct-caixa">
+                <input class="ct-entrada ct-entrada-com-olho" id="ct-confirma" name="confirma" type="password" autocomplete="new-password" required/>
+                <button class="ct-olho" type="button" aria-controls="ct-confirma" aria-pressed="false" aria-label="Mostrar senha">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="ct-olho-risco" d="M4 4l16 16"/></svg>
+                </button>
+              </div>
+              <p class="ct-erro" id="ct-confirma-erro" hidden></p>
+            </div>
+
+            <p class="ct-nota">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+              <span>Após criar a conta, você precisará verificar sua identidade (KYC) para ativar o acesso completo.</span>
+            </p>
+
+            <div class="ct-aceites">
+              <div class="ct-campo ct-marcar" data-ct-campo="aceiteTermos">
+                <input class="ct-marcar-caixa" id="ct-aceite-termos" name="aceiteTermos" type="checkbox" required/>
+                <label class="ct-marcar-texto" for="ct-aceite-termos">Li e aceito os <button class="ct-link" type="button" data-ct-termos="1">Termos de Uso</button>, a <button class="ct-link" type="button" data-ct-termos="7">Política de Privacidade</button> e o <button class="ct-link" type="button" data-ct-termos="2">Aviso de Risco</button>.</label>
+                <p class="ct-erro" id="ct-aceite-termos-erro" hidden></p>
+              </div>
+
+              <div class="ct-campo ct-marcar" data-ct-campo="aceiteRisco">
+                <input class="ct-marcar-caixa" id="ct-aceite-risco" name="aceiteRisco" type="checkbox" required/>
+                <label class="ct-marcar-texto" for="ct-aceite-risco">Declaro que compreendo que operações no mercado financeiro envolvem riscos inerentes, podendo resultar em perdas parciais ou totais do capital investido, e que a RDX Technology não garante rentabilidade.</label>
+                <p class="ct-erro" id="ct-aceite-risco-erro" hidden></p>
+              </div>
+            </div>
+
+            <p class="ct-aviso ct-aviso-erro" id="ct-criar-erro" role="alert" hidden></p>
+
+            <div class="ct-acoes ct-acoes-duplas">
+              <button class="botao ct-botao ct-botao-linha" type="button" id="ct-voltar">
+                <svg class="ct-botao-seta ct-botao-seta-volta" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+                <span class="ct-botao-rotulo">Voltar</span>
+              </button>
+              <button class="botao botao-verde ct-botao" type="submit" id="ct-criar" disabled>
+                <span class="ct-botao-rotulo">Criar conta</span>
+                <svg class="ct-botao-seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <!-- ═══════ PASSO 3: VERIFICAÇÃO DE IDENTIDADE ═══════ -->
+        <section class="ct-passo" id="ct-passo-3" data-ct-passo="3" aria-labelledby="ct-passo-3-titulo" hidden>
+          <div class="ct-cabeca">
+            <p class="ct-etiqueta" id="ct-passo-3-etiqueta">Passo 3 de 3</p>
+            <h2 class="ct-titulo" id="ct-passo-3-titulo" aria-describedby="ct-passo-3-etiqueta" tabindex="-1">Verificação de identidade</h2>
+            <p class="ct-apoio">Para sua segurança, confirme sua identidade antes de ativar o acesso completo.</p>
+          </div>
+
+          <form class="ct-form" id="ct-form-verificacao" method="dialog" novalidate>
+
+            <p class="ct-nota">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+              <span>A conexão de corretoras é liberada apenas após aprovação do documento.</span>
+            </p>
+
+            <fieldset class="ct-tipos">
+              <legend class="ct-rotulo">Tipo de documento</legend>
+              <div class="ct-tipos-lista">
+                <label class="ct-tipo">
+                  <input type="radio" name="tipo" value="cnh" checked/>
+                  <span>CNH</span>
+                </label>
+                <label class="ct-tipo">
+                  <input type="radio" name="tipo" value="passaporte"/>
+                  <span>Passaporte</span>
+                </label>
+                <label class="ct-tipo">
+                  <input type="radio" name="tipo" value="rg"/>
+                  <span>RG</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="ct-arquivos">
+
+              <div class="ct-arquivo" id="ct-arquivo-frente">
+                <p class="ct-rotulo" id="ct-frente-rotulo">Frente do documento</p>
+                <div class="ct-solta" data-ct-estado="vazio">
+                  <input class="ct-solta-entrada" id="ct-frente" name="frente" type="file" accept="image/png,image/jpeg,application/pdf,.png,.jpg,.jpeg,.pdf" aria-labelledby="ct-frente-rotulo" aria-describedby="ct-frente-dica"/>
+                  <div class="ct-solta-vazio">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+                    <span class="ct-solta-chamada">Arraste o arquivo ou clique para escolher</span>
+                    <span class="ct-solta-dica" id="ct-frente-dica">PNG, JPG ou PDF, máximo 10 MB</span>
+                  </div>
+                  <div class="ct-escolhido" hidden>
+                    <span class="ct-miniatura" aria-hidden="true"></span>
+                    <span class="ct-escolhido-dados">
+                      <span class="ct-escolhido-nome"></span>
+                      <span class="ct-escolhido-tamanho"></span>
+                    </span>
+                    <span class="ct-escolhido-acoes">
+                      <button class="ct-link" type="button" data-ct-trocar aria-label="Trocar a frente do documento">Trocar</button>
+                      <button class="ct-link ct-link-fraco" type="button" data-ct-remover aria-label="Remover a frente do documento">Remover</button>
+                    </span>
+                  </div>
+                </div>
+                <p class="ct-erro" id="ct-frente-erro" hidden></p>
+                <p class="ct-so-leitor ct-arquivo-voz" role="status" aria-live="polite"></p>
+              </div>
+
+              <div class="ct-arquivo" id="ct-arquivo-verso">
+                <p class="ct-rotulo" id="ct-verso-rotulo">Verso do documento <span class="ct-rotulo-nota" id="ct-verso-nota" hidden>opcional</span></p>
+                <div class="ct-solta" data-ct-estado="vazio">
+                  <input class="ct-solta-entrada" id="ct-verso" name="verso" type="file" accept="image/png,image/jpeg,application/pdf,.png,.jpg,.jpeg,.pdf" aria-labelledby="ct-verso-rotulo" aria-describedby="ct-verso-dica"/>
+                  <div class="ct-solta-vazio">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+                    <span class="ct-solta-chamada">Arraste o arquivo ou clique para escolher</span>
+                    <span class="ct-solta-dica" id="ct-verso-dica">PNG, JPG ou PDF, máximo 10 MB</span>
+                  </div>
+                  <div class="ct-escolhido" hidden>
+                    <span class="ct-miniatura" aria-hidden="true"></span>
+                    <span class="ct-escolhido-dados">
+                      <span class="ct-escolhido-nome"></span>
+                      <span class="ct-escolhido-tamanho"></span>
+                    </span>
+                    <span class="ct-escolhido-acoes">
+                      <button class="ct-link" type="button" data-ct-trocar aria-label="Trocar o verso do documento">Trocar</button>
+                      <button class="ct-link ct-link-fraco" type="button" data-ct-remover aria-label="Remover o verso do documento">Remover</button>
+                    </span>
+                  </div>
+                </div>
+                <p class="ct-erro" id="ct-verso-erro" hidden></p>
+                <p class="ct-so-leitor ct-arquivo-voz" role="status" aria-live="polite"></p>
+              </div>
+
+            </div>
+
+            <p class="ct-aviso ct-aviso-erro" id="ct-enviar-erro" role="alert" hidden></p>
+
+            <div class="ct-acoes">
+              <button class="botao botao-verde ct-botao" type="submit" id="ct-enviar" disabled>
+                <span class="ct-botao-rotulo">Enviar para análise</span>
+                <svg class="ct-botao-seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+            <div class="ct-pe ct-pe-centro">
+              <p><button class="ct-link" type="button" id="ct-depois">Fazer depois (acesso limitado)</button></p>
+            </div>
+          </form>
+        </section>
+
+        <!-- ═══════ CONCLUSÃO ═══════ -->
+        <section class="ct-passo ct-fim" id="ct-passo-4" data-ct-passo="4" aria-labelledby="ct-fim-titulo" hidden>
+
+          <!-- hoje, sem servidor: nada foi criado e nada foi enviado -->
+          <div class="ct-fim-bloco" data-ct-fim="demo" hidden>
+            <span class="ct-fim-sinal ct-fim-sinal-demo" aria-hidden="true">
+              <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" pathLength="1"/><path d="M24 14v13M24 33v1" pathLength="1"/></svg>
+            </span>
+            <p class="ct-etiqueta ct-etiqueta-lima">Ambiente de demonstração</p>
+            <h2 class="ct-titulo" data-ct-fim-titulo tabindex="-1">Nenhuma conta foi criada</h2>
+            <p class="ct-apoio">Este cadastro ainda não está conectado a um servidor. Nenhum dado saiu do seu navegador e nenhum documento foi enviado.</p>
+            <ul class="ct-fim-lista">
+              <li><span>Conta</span><b>Não criada</b></li>
+              <li><span>Documento</span><b>Não enviado</b></li>
+              <li><span>Dados digitados</span><b>Apagados desta página</b></li>
+            </ul>
+          </div>
+
+          <!-- com servidor, documento enviado -->
+          <div class="ct-fim-bloco" data-ct-fim="com-documento" hidden>
+            <span class="ct-fim-sinal" aria-hidden="true">
+              <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" pathLength="1"/><path d="M14 24.5l7 7 13-14" pathLength="1"/></svg>
+            </span>
+            <h2 class="ct-titulo" data-ct-fim-titulo tabindex="-1">Conta criada!</h2>
+            <p class="ct-apoio">Documento enviado. Você receberá um e-mail quando a verificação for concluída.</p>
+            <ul class="ct-fim-lista">
+              <li><span>Estado</span><b>Documento em análise</b></li>
+              <li><span>Prazo</span><b>Até 24 horas úteis</b></li>
+            </ul>
+          </div>
+
+          <!-- com servidor, verificação deixada para depois -->
+          <div class="ct-fim-bloco" data-ct-fim="sem-documento" hidden>
+            <span class="ct-fim-sinal" aria-hidden="true">
+              <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" pathLength="1"/><path d="M14 24.5l7 7 13-14" pathLength="1"/></svg>
+            </span>
+            <h2 class="ct-titulo" data-ct-fim-titulo tabindex="-1">Conta criada com acesso limitado</h2>
+            <p class="ct-apoio">Complete a verificação para desbloquear todas as funcionalidades.</p>
+            <ul class="ct-fim-lista">
+              <li><span>Estado</span><b>Verificação pendente</b></li>
+            </ul>
+          </div>
+
+          <div class="ct-acoes">
+            <a class="botao botao-verde ct-botao" href="/entrar.html" id="ct-ir-login">
+              <span class="ct-botao-rotulo">Ir para o login</span>
+              <svg class="ct-botao-seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+          <div class="ct-pe ct-pe-centro">
+            <p><a class="ct-link ct-link-fraco" href="/">Voltar ao site</a></p>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ─────────── janela dos termos ─────────── -->
+<!-- O texto das cláusulas é jurídico e foi copiado de referencia/conta.md sem alteração. -->
+<div class="ct-janela" id="ct-termos" hidden>
+  <div class="ct-janela-fundo" data-ct-fechar></div>
+  <div class="ct-janela-caixa" role="dialog" aria-modal="true" aria-labelledby="ct-termos-titulo" aria-describedby="ct-termos-versao" tabindex="-1">
+    <header class="ct-janela-topo">
+      <div>
+        <h2 class="ct-janela-titulo" id="ct-termos-titulo">Termos de Uso, Política de Privacidade e Aviso de Risco</h2>
+        <p class="ct-janela-versao" id="ct-termos-versao">Versão 1.0. Vigência a partir de 18 de março de 2026</p>
+      </div>
+      <button class="ct-janela-fechar" type="button" data-ct-fechar aria-label="Fechar">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <span class="ct-janela-leitura" aria-hidden="true"><i></i></span>
+    </header>
+
+    <div class="ct-janela-texto" id="ct-termos-texto" tabindex="0" role="region" aria-label="Texto dos termos">
+        <section class="ct-clausula" id="ct-clausula-1" aria-labelledby="ct-clausula-1-titulo">
+          <h3 class="ct-clausula-titulo" id="ct-clausula-1-titulo">1. NATUREZA DO SERVIÇO</h3>
+          <p>A RDX Technology ("RDX", "nós", "nossa") disponibiliza infraestrutura computacional de processamento quantitativo de alta frequência. Os serviços consistem exclusivamente no fornecimento de capacidade de processamento algorítmico, mensurada em Micro Processing Units (MCP). A RDX não é corretora de valores, não oferece assessoria de investimentos, não capta recursos de terceiros e não se caracteriza como integrante do sistema financeiro nacional nos termos da Lei 4.595/1964 ou da Resolução CMN 4.656/2018.</p>
+        </section>
+        <section class="ct-clausula" id="ct-clausula-2" aria-labelledby="ct-clausula-2-titulo">
+          <h3 class="ct-clausula-titulo" id="ct-clausula-2-titulo">2. AVISO DE RISCO: LEIA COM ATENÇÃO</h3>
+          <p>Operações nos mercados financeiros, incluindo mas não se limitando a câmbio (Forex), criptoativos, contratos por diferença (CFDs) e commodities, envolvem riscos substanciais e podem resultar em perdas superiores ao capital inicialmente alocado.</p>
+          <p>A RDX Technology <strong>não garante, em hipótese alguma</strong>, rentabilidade, retorno sobre investimento, desempenho histórico ou futuro dos algoritmos processados em sua infraestrutura. Resultados passados não são garantia de resultados futuros.</p>
+          <p>O usuário reconhece expressamente que: (a) opera com capital de risco próprio; (b) não recebeu qualquer promessa de ganho; (c) tem plena ciência dos riscos envolvidos; (d) a decisão de operar é exclusivamente sua.</p>
+        </section>
+        <section class="ct-clausula" id="ct-clausula-3" aria-labelledby="ct-clausula-3-titulo">
+          <h3 class="ct-clausula-titulo" id="ct-clausula-3-titulo">3. LIMITAÇÃO DE RESPONSABILIDADE</h3>
+          <p>Na máxima extensão permitida pela legislação aplicável, incluindo o Código Civil Brasileiro (Lei 10.406/2002), o Código de Defesa do Consumidor (Lei 8.078/1990) e as normas da Comissão de Valores Mobiliários (CVM), a RDX Technology não será responsável por:</p>
+          <p>(a) Perdas financeiras decorrentes do uso da infraestrutura; (b) Falhas de conectividade, latência ou indisponibilidade de corretoras terceiras; (c) Decisões algorítmicas que resultem em perdas; (d) Eventos de força maior, incluindo falhas de mercado, circuit breakers, suspensões regulatórias ou volatilidade extraordinária; (e) Atos de terceiros, incluindo corretoras, exchanges e provedores de liquidez.</p>
+          <p>A responsabilidade total da RDX, em qualquer circunstância, limita-se ao valor pago pelo usuário nos últimos 30 (trinta) dias de serviço.</p>
+        </section>
+        <section class="ct-clausula" id="ct-clausula-4" aria-labelledby="ct-clausula-4-titulo">
+          <h3 class="ct-clausula-titulo" id="ct-clausula-4-titulo">4. ELEGIBILIDADE E CAPACIDADE CIVIL</h3>
+          <p>O acesso à plataforma é restrito a pessoas físicas maiores de 18 anos com plena capacidade civil, nos termos do artigo 5º do Código Civil Brasileiro. É igualmente restrito a pessoas jurídicas regularmente constituídas. O usuário declara, sob as penas da lei, ter capacidade legal para contratar e operar nos mercados financeiros em sua jurisdição. Usuários residentes nos Estados Unidos da América devem observar as normas da Securities and Exchange Commission (SEC), da Commodity Futures Trading Commission (CFTC) e das demais agências reguladoras aplicáveis.</p>
+        </section>
+        <section class="ct-clausula" id="ct-clausula-5" aria-labelledby="ct-clausula-5-titulo">
+          <h3 class="ct-clausula-titulo" id="ct-clausula-5-titulo">5. MODELO DE COBRANÇA: MCP</h3>
+          <p>O serviço é cobrado com base no consumo real de Micro Processing Units (MCP) gerado pelas operações processadas. A cobrança é realizada de forma pós-paga, em ciclos semanais, mediante débito automático no meio de pagamento cadastrado. O usuário autoriza expressamente a realização de cobranças recorrentes. A RDX reserva-se o direito de suspender o acesso em caso de inadimplência, sem prejuízo da cobrança dos valores devidos.</p>
+        </section>
+        <section class="ct-clausula" id="ct-clausula-6" aria-labelledby="ct-clausula-6-titulo">
+          <h3 class="ct-clausula-titulo" id="ct-clausula-6-titulo">6. PROPRIEDADE INTELECTUAL</h3>
+          <p>Todos os algoritmos, motores de processamento, interfaces, marcas, nomes comerciais e demais ativos intelectuais da RDX Technology são de sua propriedade exclusiva, protegidos pela Lei 9.279/1996 (Propriedade Industrial), Lei 9.610/1998 (Direitos Autorais) e pelo Lanham Act (15 U.S.C. § 1051 et seq.) no âmbito norte-americano. É vedada qualquer reprodução, engenharia reversa, cópia ou distribuição sem autorização expressa e escrita.</p>
+        </section>
+        <section class="ct-clausula" id="ct-clausula-7" aria-labelledby="ct-clausula-7-titulo">
+          <h3 class="ct-clausula-titulo" id="ct-clausula-7-titulo">7. PROTEÇÃO DE DADOS: LGPD E GDPR</h3>
+          <p>O tratamento de dados pessoais observa integralmente a Lei Geral de Proteção de Dados (Lei 13.709/2018, LGPD). Os dados coletados destinam-se exclusivamente à prestação do serviço, verificação de identidade (KYC), prevenção a fraudes e cumprimento de obrigações legais. O usuário possui os direitos de acesso, correção, portabilidade e exclusão previstos no art. 18 da LGPD, exercíveis mediante solicitação ao suporte.</p>
+        </section>
+        <section class="ct-clausula" id="ct-clausula-8" aria-labelledby="ct-clausula-8-titulo">
+          <h3 class="ct-clausula-titulo" id="ct-clausula-8-titulo">8. RESCISÃO E SUSPENSÃO</h3>
+          <p>A RDX reserva-se o direito de suspender ou encerrar o acesso de qualquer usuário, a qualquer momento, em caso de: (a) violação destes Termos; (b) suspeita de atividade fraudulenta; (c) determinação judicial ou regulatória; (d) uso indevido da plataforma. A rescisão pelo usuário pode ser realizada a qualquer tempo, sem multa, mediante solicitação formal, respeitados os valores já consumidos em MCP.</p>
+        </section>
+        <section class="ct-clausula" id="ct-clausula-9" aria-labelledby="ct-clausula-9-titulo">
+          <h3 class="ct-clausula-titulo" id="ct-clausula-9-titulo">9. JURISDIÇÃO E LEI APLICÁVEL</h3>
+          <p>Este instrumento é regido pela legislação da República Federativa do Brasil. Fica eleito o foro da Comarca de Cuiabá, Estado de Mato Grosso, para dirimir quaisquer controvérsias, renunciando as partes a qualquer outro, por mais privilegiado que seja. Para usuários situados nos Estados Unidos da América, aplica-se adicionalmente a legislação federal americana pertinente, sem prejuízo do foro brasileiro.</p>
+        </section>
+        <section class="ct-clausula" id="ct-clausula-10" aria-labelledby="ct-clausula-10-titulo">
+          <h3 class="ct-clausula-titulo" id="ct-clausula-10-titulo">10. DISPOSIÇÕES GERAIS</h3>
+          <p>A tolerância de qualquer das partes com o descumprimento de qualquer cláusula não implica novação ou renúncia. Caso qualquer disposição seja considerada inválida, as demais permanecerão em pleno vigor. Estes Termos constituem o acordo integral entre as partes e substituem quaisquer entendimentos anteriores.</p>
+        </section>
+        <p class="ct-janela-assina">RDX Technology · @rdxtechnology · © 2026 Todos os direitos reservados.</p>
+    </div>
+
+    <footer class="ct-janela-pe">
+      <button class="botao botao-verde ct-botao" type="button" data-ct-aceitar>
+        <span class="ct-botao-rotulo">Li e aceito os termos</span>
+        <svg class="ct-botao-seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+      </button>
+    </footer>
+  </div>
+</div>
+
+<script type="module" src="/src/conta/cadastro.js"></script>
+</body>
+</html>

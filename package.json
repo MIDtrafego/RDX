@@ -1,0 +1,16 @@
+{
+  "name": "rdx-site",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node ferramentas/servidor.cjs",
+    "vendor": "node ferramentas/copiar-vendor.cjs",
+    "assets": "python ferramentas/preparar-assets.py"
+  },
+  "devDependencies": {
+    "gsap": "^3.13.0",
+    "lenis": "^1.3.26",
+    "three": "^0.180.0"
+  }
+}

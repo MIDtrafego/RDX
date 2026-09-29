@@ -1,0 +1,86 @@
+/* ==========================================================================
+   SÓ DA PÁGINA DE TESTE (menu.html). NÃO levar para o index.html.
+   O site hoje trava a rolagem no body (o hero ocupa a tela inteira). Aqui a página
+   precisa rolar para testar a navegação, então a classe abaixo destrava.
+   Classes com prefixo mn-teste-.
+   ========================================================================== */
+
+.mn-teste-corpo {
+  height: auto;
+  min-height: 100%;
+  overflow: visible;
+}
+
+.mn-teste-pagina {
+  position: relative;
+  z-index: 6;
+  display: block;
+}
+
+.mn-teste-bloco {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  min-height: 100vh;
+  padding: 120px clamp(20px, 4.4vw, 84px) 80px;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+  background: #050706;
+}
+.mn-teste-bloco:nth-child(odd) { background: #0a0e0c; }
+.mn-teste-bloco > span {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  letter-spacing: .2em;
+  color: #4ade80;
+}
+.mn-teste-bloco > h2 {
+  font-size: clamp(34px, 7vw, 128px);
+  font-weight: 700;
+  line-height: .96;
+  letter-spacing: -.035em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.mn-teste-hero {
+  border-top: 0;
+  background:
+    radial-gradient(70% 60% at 70% 40%, rgba(34, 227, 214, .16), rgba(34, 227, 214, 0) 70%),
+    radial-gradient(60% 60% at 20% 80%, rgba(74, 222, 128, .18), rgba(74, 222, 128, 0) 70%),
+    #050706;
+}
+.mn-teste-etiqueta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #4ade80;
+}
+.mn-teste-titulo {
+  max-width: 16ch;
+  font-size: clamp(34px, 6.4vw, 112px);
+  font-weight: 700;
+  line-height: .96;
+  letter-spacing: -.035em;
+  text-transform: uppercase;
+}
+.mn-teste-titulo em { font-style: italic; color: #4ade80; }
+.mn-teste-texto {
+  max-width: 52ch;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #8a938e;
+}
+.mn-teste-leitura {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  margin-top: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+}
+.mn-teste-leitura div { display: flex; gap: 10px; }
+.mn-teste-leitura dt { color: #8a938e; }
+.mn-teste-leitura dd { color: #c8f52a; }

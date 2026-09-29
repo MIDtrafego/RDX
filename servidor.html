@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RDX · teste do servidor 3D</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #050706; overflow: hidden; }
+  #gl { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+  .painel {
+    position: fixed; left: 12px; top: 12px; z-index: 5; width: 218px;
+    padding: 10px 12px 12px; border-radius: 10px;
+    background: rgba(8, 14, 11, 0.86); border: 1px solid rgba(74, 222, 128, 0.22);
+    color: #cfe9d8; font: 12px/1.45 'IBM Plex Mono', Consolas, monospace;
+  }
+  .painel h1 { margin: 0 0 8px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #4ade80; }
+  .painel label { display: flex; align-items: center; gap: 6px; margin: 3px 0; cursor: pointer; }
+  .painel .linha { display: flex; gap: 10px; }
+  .painel .faixa { display: grid; grid-template-columns: 62px 1fr 38px; align-items: center; gap: 6px; margin: 3px 0; }
+  .painel input[type=range] { width: 100%; accent-color: #4ade80; }
+  .painel hr { border: 0; border-top: 1px solid rgba(74, 222, 128, 0.16); margin: 8px 0; }
+  .painel output { text-align: right; color: #4ade80; }
+  .painel small { color: #7fa08d; }
+  .painel.escondido { display: none; }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "/vendor/three/three.module.min.js"
+  }
+}
+</script>
+</head>
+<body>
+
+<canvas id="gl"></canvas>
+
+<aside class="painel" id="painel">
+  <h1>Servidor 3D · teste</h1>
+  <div class="linha">
+    <label><input type="radio" name="modo" value="3d" checked/> 3D novo</label>
+    <label><input type="radio" name="modo" value="imagem"/> imagem antiga</label>
+  </div>
+  <label><input type="checkbox" id="arame"/> malha em arame</label>
+  <label><input type="checkbox" id="extras" checked/> brilho do metal e luz de contato</label>
+  <hr/>
+  <label><input type="checkbox" id="travar"/> travar o giro</label>
+  <div class="faixa"><span>guinada</span><input type="range" id="guinada" min="-25" max="25" step="0.5" value="0"/><output id="v-guinada">0°</output></div>
+  <div class="faixa"><span>arfagem</span><input type="range" id="arfagem" min="-15" max="15" step="0.5" value="0"/><output id="v-arfagem">0°</output></div>
+  <hr/>
+  <small id="leitura">...</small>
+</aside>
+
+<script type="module" src="/src/gl/servidor3d-teste.js"></script>
+</body>
+</html>

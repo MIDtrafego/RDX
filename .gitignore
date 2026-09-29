@@ -1,0 +1,9 @@
+node_modules/
+*.log
+
+# imagens de conferência geradas pelas ferramentas
+ferramentas/_conferir-*.png
+
+# capturas de tela do site de referência: são material de estudo com imagem de terceiros,
+# ficam só na máquina. As medidas (MEDIDAS.md e medidas.json) vão para o repositório.
+referencia/lando/*.png

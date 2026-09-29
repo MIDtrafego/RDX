@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RDX Technology</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23050706%27/%3E%3Cpath d=%27M8 22V10h7a4 4 0 0 1 1.6 7.7L20 22h-3.4l-3-4H11v4zm3-6.6h3.6a1.4 1.4 0 0 0 0-2.8H11z%27 fill=%27%234ade80%27/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,700&family=IBM+Plex+Mono:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/src/estilo.css"/>
+<link rel="stylesheet" href="/src/menu/menu.css"/>
+<link rel="stylesheet" href="/vendor/lenis/lenis.css"/>
+<link rel="stylesheet" href="/src/secoes/secoes.css"/>
+<script type="importmap">
+{
+  "imports": {
+    "three": "/vendor/three/three.module.min.js",
+    "gsap": "/vendor/gsap/index.js",
+    "gsap/ScrollTrigger": "/vendor/gsap/ScrollTrigger.js",
+    "gsap/SplitText": "/vendor/gsap/SplitText.js",
+    "lenis": "/vendor/lenis/lenis.mjs"
+  }
+}
+</script>
+</head>
+<body>
+
+<!-- saída do hero: a faixa fica atrás do quadro, a marca escrita fica na frente -->
+<div class="saida-fundo" aria-hidden="true">
+  <div class="saida-trilho"><div class="saida-faixa saida-faixa-a"><span>O mercado não para <i>·</i> Os servidores também não <i>·</i> </span></div></div>
+  <div class="saida-trilho"><div class="saida-faixa saida-faixa-b"><span>Decisões baseadas em cálculo, não em emoção <i>·</i> Infraestrutura quantitativa <i>·</i> </span></div></div>
+</div>
+
+<canvas id="gl"></canvas>
+
+<div class="saida-frente" aria-hidden="true">
+  <p class="saida-rotulo">Infraestrutura quantitativa</p>
+  <!-- A logo oficial, escrita conforme a rolagem. O desenho é montado por src/marca.js -->
+  <svg class="saida-marca"></svg>
+</div>
+
+<header class="topo">
+  <a class="marca" href="/" aria-label="RDX Technology, início">
+    <span class="marca-logo" aria-hidden="true"></span>
+  </a>
+  <div class="topo-acoes">
+    <a class="botao botao-verde" href="/cadastro.html">Começar agora</a>
+    <button class="botao-menu" type="button" aria-label="Menu"><i></i><i></i></button>
+  </div>
+</header>
+
+<!-- menu em tela cheia (src/menu). O bloco vem de menu.html -->
+<div id="menu" class="mn-menu" role="dialog" aria-modal="true" aria-label="Menu do site" tabindex="-1" data-lenis-prevent hidden inert>
+  <div class="mn-cortina" aria-hidden="true"></div>
+
+  <div class="mn-painel">
+    <div class="mn-grade" aria-hidden="true"></div>
+    <div class="mn-veu" aria-hidden="true"></div>
+
+    <div class="mn-rolo">
+      <div class="mn-miolo">
+
+        <nav class="mn-nav" aria-label="Seções do site">
+          <ol class="mn-lista" role="list">
+            <li class="mn-item">
+              <a class="mn-link" href="#capacidades" data-mn-secao="capacidades">
+                <span class="mn-num" aria-hidden="true">01</span>
+                <span class="mn-mascara"><span class="mn-sobe">
+                  <span class="mn-palavra">Tecnologia</span>
+                  <span class="mn-palavra mn-palavra-ativa" aria-hidden="true">Tecnologia</span>
+                </span></span>
+              </a>
+            </li>
+            <li class="mn-item">
+              <a class="mn-link" href="#cores" data-mn-secao="cores">
+                <span class="mn-num" aria-hidden="true">02</span>
+                <span class="mn-mascara"><span class="mn-sobe">
+                  <span class="mn-palavra">Cores</span>
+                  <span class="mn-palavra mn-palavra-ativa" aria-hidden="true">Cores</span>
+                </span></span>
+              </a>
+            </li>
+            <li class="mn-item">
+              <a class="mn-link" href="#track-record" data-mn-secao="track-record">
+                <span class="mn-num" aria-hidden="true">03</span>
+                <span class="mn-mascara"><span class="mn-sobe">
+                  <span class="mn-palavra">Track Record</span>
+                  <span class="mn-palavra mn-palavra-ativa" aria-hidden="true">Track Record</span>
+                </span></span>
+              </a>
+            </li>
+            <li class="mn-item">
+              <a class="mn-link" href="#acesso" data-mn-secao="acesso">
+                <span class="mn-num" aria-hidden="true">04</span>
+                <span class="mn-mascara"><span class="mn-sobe">
+                  <span class="mn-palavra">Acesso</span>
+                  <span class="mn-palavra mn-palavra-ativa" aria-hidden="true">Acesso</span>
+                </span></span>
+              </a>
+            </li>
+            <li class="mn-item">
+              <a class="mn-link" href="#faq" data-mn-secao="faq">
+                <span class="mn-num" aria-hidden="true">05</span>
+                <span class="mn-mascara"><span class="mn-sobe">
+                  <span class="mn-palavra">Dúvidas</span>
+                  <span class="mn-palavra mn-palavra-ativa" aria-hidden="true">Dúvidas</span>
+                </span></span>
+              </a>
+            </li>
+          </ol>
+        </nav>
+
+        <div class="mn-apoio">
+          <div class="mn-acoes mn-entra">
+            <a class="mn-acao mn-acao-lima" href="/cadastro.html"><span class="mn-acao-rotulo">Começar agora</span></a>
+            <a class="mn-acao mn-acao-linha" href="/entrar.html"><span class="mn-acao-rotulo">Já tenho acesso</span></a>
+          </div>
+          <dl class="mn-dados">
+            <div class="mn-dado mn-entra">
+              <dt class="mn-rotulo">Social</dt>
+              <dd class="mn-valor">@rdxtechnology</dd>
+            </div>
+            <div class="mn-dado mn-entra">
+              <dt class="mn-rotulo">Atendimento</dt>
+              <dd class="mn-valor"><span class="mn-valor-parte">Segunda a sexta, 9h às 18h</span> <span class="mn-valor-parte">(horário de Brasília)</span></dd>
+            </div>
+          </dl>
+          <p class="mn-status mn-entra"><span class="mn-ponto" aria-hidden="true"></span>Infraestrutura em operação · 24h</p>
+        </div>
+
+      </div>
+
+      <div class="mn-rodape">
+        <span class="mn-fio" aria-hidden="true"></span>
+        <p class="mn-aviso">Operações no mercado financeiro envolvem risco de perda. A RDX Technology fornece infraestrutura de processamento e não garante rentabilidade.</p>
+        <button class="mn-fechar" type="button">Fechar menu</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="hero">
+  <aside class="cartao-status">
+    <div class="cartao-rotulo">Status do motor</div>
+    <div class="cartao-linha"><span class="ponto"></span><strong>Operando</strong></div>
+    <div class="cartao-dado"><span>Latência</span><b id="st-latencia">3.2ms</b></div>
+    <div class="cartao-dado"><span>Ciclos hoje</span><b id="st-ciclos">0</b></div>
+  </aside>
+  <div class="dica"><span class="dica-mouse"></span>Passe o mouse para revelar</div>
+  <p class="aviso-simulacao">Demonstração visual · dados simulados</p>
+</main>
+
+<!-- As seções de rolagem entram aqui. Enquanto elas estão em construção, o conteúdo vem de
+     rolagem.html (ver encaixarSecoes em src/main.js). Na versão final o HTML fica escrito aqui. -->
+<div id="encaixe-secoes"></div>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="ab-teste-pagina">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>RDX Technology · Abertura (página de teste)</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23050706%27/%3E%3Cpath d=%27M8 22V10h7a4 4 0 0 1 1.6 7.7L20 22h-3.4l-3-4H11v4zm3-6.6h3.6a1.4 1.4 0 0 0 0-2.8H11z%27 fill=%27%234ade80%27/%3E%3C/svg%3E"/>
+
+<!-- ENCAIXE 1: o CSS crítico e o script abaixo vão embutidos no <head> do index.html, o mais cedo possível.
+     O conteúdo entre os marcadores é cópia de src/abertura/abertura-critico.css e abertura-cabeca.js.
+     Para refazer a cópia: node src/abertura/sincronizar.cjs -->
+<!-- ab:critico:inicio -->
+<style id="ab-critico">
+/* RDX · abertura · CSS crítico: só o que garante o primeiro quadro. Vai embutido no <head>. */
+#abertura { display: none; }
+.ab-ligado #abertura {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  overflow: hidden;
+  background: #c8f52a;
+  color: #050706;
+}
+html.ab-travado { overflow: hidden; overscroll-behavior: none; }
+
+/* a logo é montada e escrita pelo módulo: até ele chegar, o desenho fica vazio */
+.ab-recorte { display: block; overflow: hidden; }
+.ab-marca-caixa {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(240px, 22vw, 460px);
+  margin: 0;
+  padding: 0;
+  transform: translate(-50%, -50%);
+}
+.ab-marca { display: block; width: 100%; height: auto; }
+@media (max-width: 768px) {
+  .ab-marca-caixa { width: 56vw; }
+}
+
+.ab-rodape { visibility: hidden; }
+
+/* saída de socorro: o módulo não assumiu em 8 s */
+.ab-socorro #abertura { opacity: 0; transition: opacity .4s ease; }
+</style>
+<!-- ab:critico:fim -->
+<!-- ab:cabeca:inicio -->
+<script>
+/* RDX · abertura · liga a tela de carregamento antes do primeiro quadro. Vai embutido no <head>. */
+(function (w, d) {
+  var h = d.documentElement;
+  var a = (w.__abertura = { estado: 'carregando', inicio: 0, socorro: 0 });
+  var avisar = function (nome) {
+    w.dispatchEvent(new CustomEvent(nome, { detail: { motivo: 'socorro' } }));
+  };
+  h.classList.add('ab-ligado', 'ab-travado');
+  w.requestAnimationFrame(function () { a.inicio = w.performance.now(); });
+  /* se o módulo da abertura não assumir em 8 s, ela sai sozinha */
+  a.socorro = w.setTimeout(function () {
+    a.estado = 'saindo';
+    h.classList.add('ab-socorro');
+    avisar('rdx:abertura-saindo');
+    w.setTimeout(function () {
+      h.classList.remove('ab-ligado', 'ab-travado', 'ab-socorro');
+      a.estado = 'fim';
+      avisar('rdx:abertura-fim');
+    }, 450);
+  }, 8000);
+})(window, document);
+</script>
+<!-- ab:cabeca:fim -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+
+<!-- ENCAIXE 2: esta folha vai para o <head> do index.html -->
+<link rel="stylesheet" href="/src/abertura/abertura.css"/>
+
+<!-- SÓ DA PÁGINA DE TESTE: não levar para o index.html -->
+<link rel="stylesheet" href="/src/abertura/teste.css"/>
+
+<!-- o index.html já tem este import map (com three e gsap) -->
+<script type="importmap">
+{
+  "imports": {
+    "gsap": "/vendor/gsap/index.js"
+  }
+}
+</script>
+</head>
+<body class="ab-teste-corpo">
+
+<!-- ENCAIXE 3: o bloco abaixo fica logo depois do <body> do index.html. Cópia de src/abertura/abertura-bloco.html -->
+<!-- ab:bloco:inicio -->
+<!-- ABERTURA (início): este bloco fica logo depois do <body> -->
+<div id="abertura" class="ab-abertura" role="status" aria-label="Carregando o site">
+  <div class="ab-marca-caixa ab-recorte" aria-hidden="true">
+    <svg class="ab-marca ab-sobe" viewBox="0 0 453 160" fill="none" focusable="false"></svg>
+  </div>
+  <div class="ab-rodape" aria-hidden="true">
+    <div class="ab-status"><i class="ab-cursor"></i><span class="ab-recorte ab-status-janela"><span class="ab-status-trilho ab-sobe"><span class="ab-status-texto">conectando ao cluster</span></span></span></div>
+    <div class="ab-contador"><span class="ab-recorte"><span class="ab-numero ab-sobe">000</span></span></div>
+    <span class="ab-linha"><i class="ab-linha-cheia"></i></span>
+  </div>
+</div>
+<!-- ABERTURA (fim) -->
+<!-- ab:bloco:fim -->
+
+<!-- ═══════ SÓ DA PÁGINA DE TESTE (início): substituto do topo e do hero ═══════ -->
+<header class="ab-teste-topo">
+  <a class="ab-teste-marca" href="/abertura.html">
+    <span class="ab-teste-marca-rdx">RDX</span>
+    <span class="ab-teste-marca-sub">Technology</span>
+  </a>
+  <div class="ab-teste-acoes">
+    <span class="ab-teste-botao">Começar agora</span>
+    <span class="ab-teste-menu" aria-hidden="true"><i></i><i></i></span>
+  </div>
+</header>
+
+<main class="ab-teste-hero">
+  <img class="ab-teste-servidor" src="/img/servidor.webp" width="920" height="1182" alt="Servidor da RDX"/>
+  <p class="ab-teste-nota">Substituto de teste. O hero 3D de verdade fica no index.html.</p>
+</main>
+
+<section class="ab-teste-rolagem" aria-label="Área para conferir a rolagem">
+  Área só para conferir a rolagem. Travada durante a abertura, liberada depois.
+</section>
+
+<nav class="ab-teste-casos" aria-label="Repetir a abertura">
+  <span>Repetir</span>
+  <a href="/abertura.html?caso=rapido" data-caso="rapido">Rápido 0,3 s</a>
+  <a href="/abertura.html?caso=normal" data-caso="normal">Normal 2,5 s</a>
+  <a href="/abertura.html?caso=travado" data-caso="travado">Travado</a>
+</nav>
+
+<p class="ab-teste-leitura" aria-live="polite"></p>
+
+<script type="module" src="/src/abertura/teste.js"></script>
+<!-- ═══════ SÓ DA PÁGINA DE TESTE (fim) ═══════ -->
+
+</body>
+</html>

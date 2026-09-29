@@ -1,0 +1,8 @@
+# O site é estático: tudo o que estiver na pasta seria servido ao público.
+# Isto aqui fica no repositório, mas não vai para o ar.
+node_modules
+Assets
+ferramentas
+referencia
+package.json
+package-lock.json
