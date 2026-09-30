@@ -7,7 +7,7 @@
 //
 // Quando algum arquivo do site mudar de verdade, suba o número da VERSAO: o cache antigo é
 // apagado e tudo é baixado de novo.
-const VERSAO = 'rdx-v1';
+const VERSAO = 'rdx-v2';
 
 // o que baixar já na instalação (o resto entra conforme é usado)
 const PRECARREGAR = [
@@ -47,12 +47,6 @@ const PRECARREGAR = [
   '/img/servidor-brilho.webp',
   '/img/servidor-relevo.png',
   '/img/rdx-logo.svg',
-  '/img/secao-01-continuo.webp',
-  '/img/secao-02-latencia.webp',
-  '/img/secao-03-tempo-real.webp',
-  '/img/secao-04-descansa.webp',
-  '/img/secao-05-core-a.webp',
-  '/img/secao-06-core-b.webp',
 ];
 
 // no servidor local de desenvolvimento o cache atrapalha (mostraria arquivo velho): fica desligado

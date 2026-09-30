@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "node ferramentas/servidor.cjs",
+    "dev": "node ferramentas/servidor.cjs --porta 5180",
     "vendor": "node ferramentas/copiar-vendor.cjs",
     "assets": "python ferramentas/preparar-assets.py"
   },

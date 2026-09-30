@@ -2,14 +2,17 @@
 // Serve a pasta do projeto e recarrega o navegador sozinho quando um arquivo muda.
 // CSS troca sem recarregar a página.
 //
-// Uso: node ferramentas/servidor.cjs   (ou npm run dev)
+// Uso: node ferramentas/servidor.cjs [--porta 5180]   (ou npm run dev)
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
 const RAIZ = path.resolve(__dirname, '..');
-const PORTA = Number(process.env.PORTA) || 5173;
+// porta: --porta N na linha de comando, ou a variável PORTA. 5180 de fábrica, porque a 5173
+// é a que o Vite usa e outro projeto desta máquina costuma estar nela
+const argPorta = process.argv.indexOf('--porta');
+const PORTA = Number(argPorta !== -1 ? process.argv[argPorta + 1] : process.env.PORTA) || 5180;
 
 const TIPOS = {
   '.html': 'text/html; charset=utf-8',

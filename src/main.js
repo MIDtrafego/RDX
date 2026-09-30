@@ -255,7 +255,7 @@ async function encaixarSecoes() {
   if (!secoes) return null;
   alvo.replaceWith(document.importNode(secoes, true));
   const { iniciarSecoes } = await import('./secoes/secoes.js');
-  return iniciarSecoes({ links: { cadastro: '/cadastro.html', login: '/entrar.html' } });
+  return iniciarSecoes({ cursor: false, links: { cadastro: '/cadastro.html', login: '/entrar.html' } });
 }
 
 // ───────────── menu ─────────────
