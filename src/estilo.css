@@ -266,6 +266,11 @@ body #secoes > .rx-janela::after { display: none; }
 }
 
 @media (max-width: 768px) {
+  /* saída do hero no celular: o quadro encolhe menos, então a logo e a faixa crescem junto */
+  .saida-marca { width: 58vw; }
+  .saida-faixa { font-size: 9.5vw; }
+  .saida-faixa-a { font-size: 10.5vw; }
+  .saida-rotulo { font-size: 9px; top: calc(50% - 37vh - 12px); }
   .aviso-simulacao { left: 0; right: 0; bottom: 10px; text-align: center; font-size: 8px; }
   .cartao-status { bottom: 34px; }
   .botao { height: 48px; padding: 0 16px; font-size: 12px; }

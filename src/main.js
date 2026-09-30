@@ -80,6 +80,7 @@ async function montarPainel() {
       meiaLargura: PAINEL.w / 2,
       meiaAltura: PAINEL.h / 2,
       escalar(e) { holo.grupo.scale.setScalar(e); holo.alinhar(DISTANCIA, Z_PAINEL, e); },
+      deslocar(x) { holo.grupo.position.x = x; },
       redimensionar() {},
       atualizar(dt) {
         acum += dt;
@@ -104,6 +105,7 @@ async function montarPainel() {
       meiaLargura: TERMINAL.w / 2,
       meiaAltura: TERMINAL.h / 2,
       escalar(e) { terminal.grupo.scale.setScalar(e); },
+      deslocar(x) { terminal.grupo.position.x = x; },
       redimensionar(w, h) { composicao.redimensionar(w, h); },
       atualizar(dt) { terminal.atualizar(dt); },
       desenhar() { composicao.renderizar(cenaTerminal, camera, terminal); },
@@ -143,10 +145,20 @@ function redimensionar() {
 
   if (!painel) return;
   // painel: mais largo que o servidor, flutuando na frente
-  const largPainel = estreito ? L * 0.94 : Math.min(L * 0.62, A * 1.12);
   const perspectiva = DISTANCIA / (DISTANCIA - Z_PAINEL);
-  arranjo.painel = largPainel / painel.largura / perspectiva;
-  painel.escalar(arranjo.painel);
+  if (estreito) {
+    // Celular: o terminal inteiro ficaria ilegível. Aparece o trecho do gráfico com o cabeçalho
+    // (uns 820 px do modelo) ocupando a largura; os cartões da direita saem pela lateral.
+    const visivel = 820;
+    arranjo.painel = (L * 1.04) / visivel / perspectiva;
+    painel.escalar(arranjo.painel);
+    painel.deslocar(156 * arranjo.painel);
+  } else {
+    const largPainel = Math.min(L * 0.62, A * 1.12);
+    arranjo.painel = largPainel / painel.largura / perspectiva;
+    painel.escalar(arranjo.painel);
+    painel.deslocar(0);
+  }
   painel.redimensionar(comuns.uResolucao.value.x, comuns.uResolucao.value.y);
 }
 addEventListener('resize', redimensionar);

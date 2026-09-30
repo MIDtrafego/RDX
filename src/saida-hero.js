@@ -17,7 +17,8 @@ const FIM_ENCOLHER = 0.95;     // o quadro termina de encolher
 const INI_ESCREVER = 0.53;     // a marca começa a ser escrita
 const FIM_ESCREVER = 0.90;     // a marca está pronta
 const INI_SUBIR = 1.05;        // o conjunto começa a subir junto com a página
-const ESCALA_FINAL = 0.33;     // largura final do quadro em relação à tela
+const ESCALA_FINAL = 0.33;     // largura final do quadro em relação à tela (computador)
+const ESCALA_FINAL_CELULAR = 0.74;   // no celular o quadro de 33% ficaria com 130 px
 
 const limitar = (v) => Math.max(0, Math.min(1, v));
 const suave = (t) => t * t * (3 - 2 * t);
@@ -50,7 +51,8 @@ export function iniciarSaida({ canvas }) {
     estado.fora = subida > A * 1.15;
 
     const e = suave(limitar(s / FIM_ENCOLHER));
-    const escala = 1 - (1 - ESCALA_FINAL) * e;
+    const final = window.innerWidth < 768 ? ESCALA_FINAL_CELULAR : ESCALA_FINAL;
+    const escala = 1 - (1 - final) * e;
     canvas.style.transform = 'translate3d(0,' + (-subida).toFixed(1) + 'px,0) scale(' + escala.toFixed(4) + ')';
 
     // faixa de texto atrás do quadro: aparece conforme o quadro abre espaço
