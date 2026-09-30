@@ -78,7 +78,9 @@ const estado = {
 criarFundo($('ct-fundo'), { parado: reduzido() });
 carregarMovimento().then(ligarCena);
 
-if (!CONECTADO) $('ct-demo').hidden = false;
+// a faixa de demonstração saiu da tela a pedido do Yuri (30/09); o aviso na conclusão continua
+const faixaDemo = $('ct-demo');
+if (!CONECTADO && faixaDemo) faixaDemo.hidden = false;
 
 // ═══════════════════════════════════════════════════════════════════════════
 // PROGRESSO E TROCA DE PASSO
