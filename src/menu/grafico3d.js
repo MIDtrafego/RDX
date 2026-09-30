@@ -6,8 +6,8 @@ import { Caixas } from '../gl/terminal/pecas.js';
 
 const VISIVEIS = 34;
 const PASSO = 15;
-const ALTURA = 170;            // faixa vertical do preço, em unidades
-const CHAO = -118;
+const ALTURA = 210;            // faixa vertical do preço, em unidades
+const CHAO = -125;
 
 const COR = {
   alta: [0.12, 0.91, 0.97],
@@ -33,8 +33,8 @@ export function iniciarGrafico3D(caixa) {
 
     cena = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(30, 1, 10, 4000);
-    camera.position.set(0, 120, 760);
-    camera.lookAt(0, -10, 0);
+    camera.position.set(0, 70, 600);
+    camera.lookAt(0, 8, 0);
 
     grupo = new THREE.Group();
     cena.add(grupo);
@@ -117,8 +117,8 @@ export function iniciarGrafico3D(caixa) {
     const k = 1 - Math.exp(-dt * 4);
     suave.x += (mira.x - suave.x) * k;
     suave.y += (mira.y - suave.y) * k;
-    grupo.rotation.y = -0.55 + Math.sin(comuns.uTempo.value * 0.25) * 0.12 + suave.x * 0.35;
-    grupo.rotation.x = 0.08 + suave.y * 0.12;
+    grupo.rotation.y = -0.42 + Math.sin(comuns.uTempo.value * 0.25) * 0.12 + suave.x * 0.35;
+    grupo.rotation.x = 0.10 + suave.y * 0.12;
 
     renderer.render(cena, camera);
     quadro = requestAnimationFrame(desenhar);
