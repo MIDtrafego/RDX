@@ -52,7 +52,7 @@ body {
   background: #0b0f0c;
   opacity: 0;
 }
-.saida-trilho { overflow: hidden; }
+.saida-trilho { overflow: hidden; padding-top: calc(var(--u) * .9); margin-top: calc(var(--u) * -.9); }
 .saida-faixa {
   display: inline-flex;
   white-space: nowrap;
@@ -64,20 +64,29 @@ body {
   will-change: transform;
 }
 .saida-faixa i { font-style: normal; opacity: .45; padding: 0 .1em; }
-.saida-faixa-a { color: var(--lima); font-style: italic; font-weight: 400; }
+/* a linha de cima é a segunda voz: serifada de título, na cor de destaque */
+.saida-faixa-a {
+  color: var(--lima);
+  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: calc(var(--u) * 6.1);
+  letter-spacing: calc(var(--u) * -.06);
+}
 .saida-faixa-b { color: #f1f4ee; }
 
 .saida-frente { z-index: 2; visibility: hidden; }
 .saida-marca {
   position: absolute;
   left: 50%; top: 50%;
-  width: calc(var(--u) * 44);
+  /* a logo cabe dentro do quadro do servidor (33% da largura): assim não encosta na faixa */
+  width: min(calc(var(--u) * 25), 27vw);
   transform: translate(-50%, -50%);
   overflow: visible;
 }
 .saida-rotulo {
   position: absolute;
-  left: 50%; top: calc(50% - var(--u) * 11.5);
+  left: 50%; top: calc(50% - 16.5vh - var(--u) * 2.4);
   transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center;
   gap: calc(var(--u) * .5);

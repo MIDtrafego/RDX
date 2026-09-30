@@ -1,5 +1,5 @@
 /* a segunda voz tipográfica (itálico leve) não vem na folha de fontes do site: carrega aqui */
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@1,300;1,400&family=Instrument+Serif:ital@0;1&display=swap');
 
 /* ==========================================================================
    RDX · seções de rolagem
@@ -1533,61 +1533,173 @@
    10. RODAPÉ
    ========================================================================== */
 #secoes .rx-rodape {
-  display: grid;
-  gap: calc(var(--u) * 3);
-  padding: calc(var(--u) * 7) var(--rx-margem) calc(var(--u) * 2.4);
-  overflow: hidden;
-  background: var(--rx-fundo-2);
-}
-#secoes .rx-rodape-topo { display: grid; grid-template-columns: minmax(0, 1fr); gap: calc(var(--u) * 2.4); align-items: start; }
-@media (min-width: 992px) {
-  #secoes .rx-rodape-topo { grid-template-columns: minmax(0, 48.3fr) minmax(0, 34fr) minmax(0, 17.7fr); }
-}
-#secoes .rx-rodape-assina { display: grid; gap: calc(var(--u) * .6); }
-#secoes .rx-rodape-nome { font-size: var(--rx-f-subtitulo); font-weight: 700; font-style: italic; letter-spacing: -.02em; text-transform: uppercase; }
-#secoes .rx-rodape-sub { font-family: var(--rx-mono); font-size: var(--rx-f-rotulo); letter-spacing: .2em; text-transform: uppercase; color: var(--rx-verde); }
-#secoes .rx-rodape-coluna { display: grid; gap: calc(var(--u) * .9); align-content: start; }
-#secoes .rx-rodape-nav { display: grid; gap: .35em; justify-items: start; }
-#secoes .rx-rodape-nav a {
+  /* Moldura lima com um painel escuro dentro. Em cima sobra uma faixa clara, por onde o
+     topo do site passa: por isso o tema da seção é claro e o do painel é escuro. */
+  --rx-serifa: 'Instrument Serif', 'Times New Roman', serif;
   position: relative;
-  padding: .2em 0;
-  font-size: var(--rx-f-corpo);
-  font-weight: 600;
-  letter-spacing: .02em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: color .6s var(--rx-suave);
+  padding: calc(var(--u) * 11) var(--rx-margem) var(--rx-margem);
+  background: linear-gradient(to bottom, #eef1e6 0, var(--rx-lima) calc(var(--u) * 11));
+  color: var(--rx-branco);
 }
-#secoes .rx-rodape-nav a::after {
+#secoes .rx-rodape-painel {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-height: calc(var(--u) * 50);
+  padding: calc(var(--u) * 3) calc(var(--u) * 3) calc(var(--u) * 5.6);
+  border-radius: calc(var(--u) * 1.6);
+  background: #0b0f0c;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* a aba de cima do painel, que sobe para a faixa clara */
+#secoes .rx-rodape::before {
   content: '';
   position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 1.5px;
-  background: var(--rx-lima);
-  transform: scaleX(0);
-  transform-origin: 100% 50%;
-  transition: transform .6s var(--rx-suave);
+  left: 50%;
+  top: calc(var(--u) * 8.4);
+  width: calc(var(--u) * 26);
+  height: calc(var(--u) * 4);
+  translate: -50% 0;
+  border-radius: calc(var(--u) * 2.6) calc(var(--u) * 2.6) 0 0;
+  background: #0b0f0c;
 }
+
+#secoes .rx-rodape-cabeca { position: relative; z-index: 2; display: grid; justify-items: center; gap: calc(var(--u) * 1.2); text-align: center; }
+#secoes .rx-rodape-logo { position: relative; width: calc(var(--u) * 13); aspect-ratio: 453 / 160; color: var(--rx-lima); }
+#secoes .rx-rodape-logo img,
+#secoes .rx-rodape-logo svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+/* a logo em arquivo é o que aparece sem JavaScript; com ele, entra a logo escrita */
+#secoes .rx-rodape-logo img { filter: brightness(0) saturate(100%) invert(88%) sepia(60%) saturate(640%) hue-rotate(20deg) brightness(104%); }
+#secoes .rx-rodape-escrita { display: none; overflow: visible; }
+#secoes.rx-js .rx-rodape-logo img { display: none; }
+#secoes.rx-js .rx-rodape-escrita { display: block; }
+
+#secoes .rx-rodape-frase {
+  margin: 0;
+  max-width: 17em;
+  font-size: calc(var(--u) * 5);
+  font-weight: 700;
+  line-height: .886;
+  letter-spacing: -.035em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+#secoes .rx-rodape-frase span { display: block; }
+#secoes .rx-rodape-frase em {
+  display: block;
+  font-family: var(--rx-serifa);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: -.02em;
+  color: var(--rx-lima);
+}
+
+#secoes .rx-rodape-meio {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) calc(var(--u) * 22) minmax(0, 1fr);
+  align-items: center;
+  margin-top: calc(var(--u) * .6);
+}
+#secoes .rx-rodape-coluna { position: relative; z-index: 2; display: grid; justify-items: center; gap: calc(var(--u) * .7); text-align: center; }
+#secoes .rx-rodape-rotulo { font-size: var(--rx-f-rotulo); letter-spacing: .1em; text-transform: uppercase; color: var(--rx-t2); }
+#secoes .rx-rodape-rotulo-2 { margin-top: calc(var(--u) * 1.4); }
+#secoes .rx-rodape-nav { display: grid; justify-items: center; }
+#secoes .rx-rodape-nav a,
+#secoes .rx-rodape-entrar {
+  font-size: calc(var(--u) * 1.85);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--rx-branco);
+  transition: color .6s cubic-bezier(.19, 1, .22, 1);
+}
+#secoes .rx-rodape-entrar { margin-top: calc(var(--u) * 1.2); color: var(--rx-lima); }
+#secoes .rx-rodape-social { margin: 0; font-size: calc(var(--u) * 1.85); font-weight: 700; letter-spacing: -.02em; }
+#secoes .rx-rodape-horario { margin: 0; font-size: var(--rx-f-apoio); line-height: 1.35; color: #d6dcd8; }
 @media (hover: hover) {
   #secoes .rx-rodape-nav a:hover { color: var(--rx-lima); transition-duration: .2s; }
-  #secoes .rx-rodape-nav a:hover::after { transform: scaleX(1); transform-origin: 0 50%; transition-duration: .35s; }
+  #secoes .rx-rodape-entrar:hover { color: var(--rx-branco); transition-duration: .2s; }
 }
-#secoes .rx-rodape-social { font-family: var(--rx-mono); font-size: var(--rx-f-corpo); }
-#secoes .rx-rodape-marca {
-  display: flex;
-  justify-content: center;
+
+#secoes .rx-rodape-servidor { position: relative; z-index: 1; display: grid; justify-items: center; }
+#secoes .rx-rodape-servidor img { display: block; width: 100%; height: auto; }
+#secoes .rx-rodape-servidor::before {
+  content: '';
+  position: absolute;
+  inset: 8% -18%;
+  z-index: -1;
+  background: radial-gradient(closest-side, rgba(74, 222, 128, .22), rgba(74, 222, 128, 0));
+}
+
+/* no lugar das marcas de parceiros da referência: os mercados atendidos, em faixa */
+#secoes .rx-rodape-mercados {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: calc(var(--u) * 6.6);
+  z-index: 0;
   overflow: hidden;
+  -webkit-mask: linear-gradient(to right, transparent, #000 12%, #000 38%, transparent 46%, transparent 54%, #000 62%, #000 88%, transparent);
+          mask: linear-gradient(to right, transparent, #000 12%, #000 38%, transparent 46%, transparent 54%, #000 62%, #000 88%, transparent);
 }
-#secoes .rx-rodape-marca img {
-  display: block;
-  width: min(100%, calc(62vh * 2.83));      /* a logo tem proporção 453 por 160 */
-  height: auto;
-  will-change: transform;
-  user-select: none;
+#secoes .rx-rodape-mercados-trilho {
+  display: flex;
+  width: max-content;
+  gap: calc(var(--u) * 5);
+  padding-right: calc(var(--u) * 5);
+  font-size: calc(var(--u) * 1.5);
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--rx-lima);
+  animation: rx-rodape-passa 38s linear infinite;
 }
-#secoes .rx-rodape-base { display: grid; gap: calc(var(--u) * 1.2); padding-top: calc(var(--u) * 1.6); border-top: 1px solid var(--rx-borda); }
-#secoes .rx-rodape-risco { font-size: var(--rx-f-apoio); line-height: 1.5; color: var(--rx-t2); max-width: 96em; }
-#secoes .rx-rodape-direitos { font-family: var(--rx-mono); font-size: var(--rx-f-rotulo); letter-spacing: .12em; text-transform: uppercase; color: var(--rx-t2); }
+@keyframes rx-rodape-passa { to { transform: translate3d(-50%, 0, 0); } }
+
+#secoes .rx-rodape-botao {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--u) * 1.6);
+  z-index: 3;
+  translate: -50% 0;
+  display: inline-flex;
+  align-items: center;
+  height: max(40px, calc(var(--u) * 3));
+  padding: 0 calc(var(--u) * 1.6);
+  border-radius: 3px;
+  background: var(--rx-lima);
+  font-size: max(11px, calc(var(--u) * .9));
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #050706;
+  transition: background-color .6s cubic-bezier(.19, 1, .22, 1);
+}
+@media (hover: hover) { #secoes .rx-rodape-botao:hover { background: #ffffff; transition-duration: .2s; } }
+
+#secoes .rx-rodape-base { display: grid; gap: calc(var(--u) * .9); padding: calc(var(--u) * 1.4) calc(var(--u) * .4) 0; color: #050706; }
+#secoes .rx-rodape-risco { margin: 0; max-width: 118em; font-size: max(11px, calc(var(--u) * .8)); line-height: 1.45; color: rgba(5, 7, 6, .82); }
+#secoes .rx-rodape-direitos { margin: 0; font-size: max(10px, calc(var(--u) * .75)); font-weight: 600; }
+
+@media (max-width: 991.98px) {
+  #secoes .rx-rodape { padding-top: calc(var(--u) * 8); background: linear-gradient(to bottom, #eef1e6 0, var(--rx-lima) calc(var(--u) * 8)); }
+  #secoes .rx-rodape::before { top: calc(var(--u) * 6); width: calc(var(--u) * 22); height: calc(var(--u) * 3); }
+  #secoes .rx-rodape-painel { min-height: 0; padding: calc(var(--u) * 3) calc(var(--u) * 2) calc(var(--u) * 7); }
+  #secoes .rx-rodape-logo { width: calc(var(--u) * 14); }
+  #secoes .rx-rodape-frase { font-size: calc(var(--u) * 3.6); }
+  #secoes .rx-rodape-meio { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); row-gap: calc(var(--u) * 2.4); margin-top: calc(var(--u) * 1.4); align-items: start; }
+  #secoes .rx-rodape-servidor { grid-column: 1 / -1; grid-row: 1; width: calc(var(--u) * 22); justify-self: center; }
+  #secoes .rx-rodape-nav a, #secoes .rx-rodape-entrar, #secoes .rx-rodape-social { font-size: calc(var(--u) * 1.7); }
+  #secoes .rx-rodape-mercados { position: static; margin-top: calc(var(--u) * 2.4); }
+  #secoes .rx-rodape-botao { bottom: calc(var(--u) * 2); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #secoes .rx-rodape-mercados-trilho { animation: none; }
+}
 
 /* ==========================================================================
    CURSOR PRÓPRIO (só com mouse; em toque nem é criado)

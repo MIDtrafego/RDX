@@ -555,3 +555,75 @@ html.mn-travado.mn-calha { scrollbar-gutter: stable; }
   button.mn-gatilho i,
   button.mn-gatilho.mn-aberto i { transition-duration: .01s; transition-delay: 0s; }
 }
+
+
+/* ==========================================================================
+   COMPOSIÇÃO DE COMPUTADOR (pedido do Yuri em 29/09): à esquerda um quadro de
+   quatro imagens, à direita as seções centralizadas e, embaixo delas, o apoio.
+   No tablet e no celular continua a composição de uma coluna, sem as imagens.
+   ========================================================================== */
+.mn-fotos { display: none; }
+
+@media (min-width: 1024px) {
+  .mn-menu { --mn-corpo: max(34px, calc(var(--mn-u) * 5.2)); }
+
+  .mn-miolo {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    column-gap: calc(var(--mn-u) * 6);
+    row-gap: calc(var(--mn-u) * 2.6);
+    align-content: center;
+    align-items: center;
+  }
+
+  .mn-fotos {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    display: grid;
+    grid-template-columns: repeat(2, calc(var(--mn-u) * 16.5));
+    gap: calc(var(--mn-u) * 2.4) calc(var(--mn-u) * 3);
+    justify-content: center;
+  }
+  .mn-foto {
+    aspect-ratio: 10 / 11;
+    overflow: hidden;
+    border-radius: 3px;
+    background: #0b0f0c;
+  }
+  .mn-foto img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(.7) brightness(.82);
+    transition: filter .6s var(--mn-suave), transform .9s var(--mn-suave);
+  }
+
+  .mn-nav { grid-column: 2; grid-row: 1; align-self: end; }
+  .mn-lista { align-items: center; }
+  .mn-num { display: none; }
+  .mn-link { line-height: 1; }
+
+  .mn-apoio {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+    justify-items: center;
+    text-align: center;
+    row-gap: calc(var(--mn-u) * 1.5);
+    padding-bottom: 0;
+  }
+  .mn-status { order: 1; }
+  .mn-acoes { order: 2; justify-content: center; flex-wrap: nowrap; }
+  .mn-acao { flex: 0 0 auto; padding: 0 calc(var(--mn-u) * 2.4); }
+  .mn-dados { order: 3; grid-template-columns: auto auto; column-gap: calc(var(--mn-u) * 4); justify-content: center; }
+  .mn-dado { justify-items: center; }
+}
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .mn-foto:hover img { filter: none; transform: scale(1.04); transition-duration: .2s, .9s; }
+}
+
+/* aberto, o botão do topo fica lima com o X escuro */
+button.mn-gatilho { transition: background-color .3s ease, border-color .3s ease; }
+button.mn-gatilho.mn-aberto { background: var(--lima, #c8f52a); border-color: var(--lima, #c8f52a); }
+button.mn-gatilho.mn-aberto i { background: #050706; }
