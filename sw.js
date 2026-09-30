@@ -7,7 +7,7 @@
 //
 // Quando algum arquivo do site mudar de verdade, suba o número da VERSAO: o cache antigo é
 // apagado e tudo é baixado de novo.
-const VERSAO = 'rdx-v2';
+const VERSAO = 'rdx-v3';
 
 // o que baixar já na instalação (o resto entra conforme é usado)
 const PRECARREGAR = [
@@ -87,6 +87,9 @@ self.addEventListener('fetch', (e) => {
   if (!guardavel(url)) return;
 
   const ehPagina = req.mode === 'navigate' || url.pathname.endsWith('.html');
+  // código e estilo (src/) mudam a cada ajuste do site: vão pela rede primeiro, para um deploy
+  // aparecer na recarga seguinte. O cache deles só entra sem rede
+  const ehCodigo = url.origin === self.location.origin && url.pathname.startsWith('/src/');
 
   e.respondWith(caches.open(VERSAO).then(async (cache) => {
     const guardado = await cache.match(req, { ignoreSearch: url.origin === self.location.origin && !ehPagina });
@@ -95,8 +98,8 @@ self.addEventListener('fetch', (e) => {
       return resp;
     });
 
-    if (ehPagina) {
-      // página: rede primeiro, para uma atualização aparecer logo; sem rede, a cópia guardada
+    if (ehPagina || ehCodigo) {
+      // rede primeiro, para uma atualização aparecer logo; sem rede, a cópia guardada
       return buscar.catch(() => guardado || Response.error());
     }
     // arquivo estático: responde do cache na hora e atualiza a cópia por trás
