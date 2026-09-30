@@ -27,7 +27,9 @@ const senha = document.getElementById('ct-senha');
 criarFundo(document.getElementById('ct-fundo'), { parado: reduzido() });
 carregarMovimento().then(ligarCena);
 
-if (!CONECTADO) document.getElementById('ct-demo').hidden = false;
+// a faixa de demonstração saiu da tela de entrar a pedido do Yuri (30/09); o aviso ao enviar continua
+const faixaDemo = document.getElementById('ct-demo');
+if (!CONECTADO && faixaDemo) faixaDemo.hidden = false;
 
 const campos = ligarCampos(form, {
   email: (v) => {

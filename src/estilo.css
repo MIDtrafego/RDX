@@ -118,7 +118,7 @@ body #secoes > .rx-janela::after { display: none; }
   display: block;
   color: var(--branco);
   text-decoration: none;
-  transition: color .35s ease;
+  transition: color .35s ease, opacity .25s ease;
 }
 /* a logo entra como máscara: assim ela pega a cor do texto e inverte sobre seção clara */
 .marca-logo {

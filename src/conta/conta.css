@@ -237,7 +237,7 @@ html.ct-travado body.ct-corpo { padding-right: var(--ct-barra, 0px); }
   letter-spacing: -.035em;
   text-transform: uppercase;
 }
-.ct-frase em { display: block; color: var(--ct-verde); }
+.ct-frase em { display: block; color: var(--ct-lima); }
 /* a máscara de cada linha precisa de folga para o acento e para o itálico */
 .ct-frase-linha {
   display: block;

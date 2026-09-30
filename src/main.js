@@ -231,18 +231,29 @@ const rolagem = { y: 0, saida: 0 };
 const saida = iniciarSaida({ canvas });
 const elTopo = document.querySelector('.topo');
 const elHero = document.querySelector('.hero');
+const elMarca = document.querySelector('.topo .marca');
+
+// a logo do topo pertence à primeira tela: some assim que a rolagem começa e só volta
+// dentro do painel escuro do rodapé (que tem a própria logo)
+function esconderMarca(y) {
+  if (!elMarca) return;
+  const some = Math.min(1, y / (innerHeight * 0.22));
+  elMarca.style.opacity = (1 - some).toFixed(3);
+  elMarca.style.pointerEvents = some > 0.9 ? 'none' : '';
+}
 
 addEventListener('rdx:rolagem', (e) => {
   const d = e.detail;
   rolagem.y = d.y;
   rolagem.saida = Math.min(3, d.y / Math.max(1, innerHeight));
+  esconderMarca(d.y);
   if (elTopo) {
     elTopo.dataset.tema = d.tema || 'escuro';
     elTopo.dataset.temaBotoes = d.temaBotoes || 'escuro';
   }
 });
 // antes de as seções carregarem ninguém avisa a rolagem: ouve a janela também
-addEventListener('scroll', () => { rolagem.y = scrollY; rolagem.saida = Math.min(3, scrollY / Math.max(1, innerHeight)); }, { passive: true });
+addEventListener('scroll', () => { rolagem.y = scrollY; rolagem.saida = Math.min(3, scrollY / Math.max(1, innerHeight)); esconderMarca(scrollY); }, { passive: true });
 
 // Encaixe provisório: enquanto as seções estão em construção, o HTML delas é lido de
 // rolagem.html, para esta página acompanhar sozinha o que muda lá.
