@@ -7,7 +7,7 @@
 //
 // Quando algum arquivo do site mudar de verdade, suba o número da VERSAO: o cache antigo é
 // apagado e tudo é baixado de novo.
-const VERSAO = 'rdx-v3';
+const VERSAO = 'rdx-v5';
 
 // o que baixar já na instalação (o resto entra conforme é usado)
 const PRECARREGAR = [
@@ -31,6 +31,7 @@ const PRECARREGAR = [
   '/src/secoes/secoes.js',
   '/src/menu/menu.css',
   '/src/menu/menu.js',
+  '/src/menu/grafico3d.js',
   '/src/abertura/abertura.css',
   '/src/abertura/abertura.js',
   '/vendor/three/three.module.min.js',

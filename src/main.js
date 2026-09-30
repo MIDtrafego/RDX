@@ -17,6 +17,7 @@ import { criarFundo } from './gl/cenario.js';
 import { criarServidor3D } from './gl/servidor3d.js';
 import { iniciarSaida } from './saida-hero.js';
 import { iniciarMenu } from './menu/menu.js';
+import { iniciarGrafico3D } from './menu/grafico3d.js';
 
 const DISTANCIA = 1500;     // distância da câmera: 1 unidade = 1 px no plano z = 0
 const Z_PAINEL = 190;       // o terminal flutua na frente do servidor
@@ -268,7 +269,11 @@ const menu = iniciarMenu({
     else document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   },
 });
+// o gráfico 3D do menu só desenha enquanto o menu está aberto
+const graficoMenu = document.querySelector('#menu .mn-grafico');
+const grafico3d = graficoMenu && matchMedia('(min-width: 1024px)').matches ? iniciarGrafico3D(graficoMenu) : null;
 addEventListener('rdx:menu', (e) => {
+  if (grafico3d) { if (e.detail.aberto) grafico3d.ligar(); else setTimeout(() => grafico3d.desligar(), 700); }
   const lenis = window.__rdx.secoes && window.__rdx.secoes.lenis;
   if (!lenis) return;
   if (e.detail.aberto) lenis.stop();

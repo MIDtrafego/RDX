@@ -558,46 +558,34 @@ html.mn-travado.mn-calha { scrollbar-gutter: stable; }
 
 
 /* ==========================================================================
-   COMPOSIÇÃO DE COMPUTADOR (pedido do Yuri em 29/09): à esquerda um quadro de
-   quatro imagens, à direita as seções centralizadas e, embaixo delas, o apoio.
-   No tablet e no celular continua a composição de uma coluna, sem as imagens.
+   COMPOSIÇÃO DE COMPUTADOR: à esquerda um gráfico de velas em 3D (src/menu/grafico3d.js),
+   à direita as seções centralizadas e, embaixo delas, o apoio. No tablet e no celular
+   continua a composição de uma coluna, sem o gráfico.
    ========================================================================== */
-.mn-fotos { display: none; }
+.mn-grafico { display: none; }
 
 @media (min-width: 1024px) {
-  .mn-menu { --mn-corpo: max(34px, calc(var(--mn-u) * 5.2)); }
+  .mn-menu { --mn-corpo: max(34px, calc(var(--mn-u) * 5)); }
 
   .mn-miolo {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-template-rows: auto auto;
-    column-gap: calc(var(--mn-u) * 6);
-    row-gap: calc(var(--mn-u) * 2.6);
+    column-gap: calc(var(--mn-u) * 5);
+    row-gap: calc(var(--mn-u) * 2.2);
     align-content: center;
     align-items: center;
   }
 
-  .mn-fotos {
+  .mn-grafico {
     grid-column: 1;
     grid-row: 1 / span 2;
-    display: grid;
-    grid-template-columns: repeat(2, calc(var(--mn-u) * 16.5));
-    gap: calc(var(--mn-u) * 2.4) calc(var(--mn-u) * 3);
-    justify-content: center;
-  }
-  .mn-foto {
-    aspect-ratio: 10 / 11;
-    overflow: hidden;
-    border-radius: 3px;
-    background: #0b0f0c;
-  }
-  .mn-foto img {
     display: block;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(.7) brightness(.82);
-    transition: filter .6s var(--mn-suave), transform .9s var(--mn-suave);
+    max-width: calc(var(--mn-u) * 46);
+    aspect-ratio: 4 / 3;
+    justify-self: center;
   }
+  .mn-grafico canvas { display: block; width: 100%; height: 100%; }
 
   .mn-nav { grid-column: 2; grid-row: 1; align-self: end; }
   .mn-lista { align-items: center; }
@@ -610,7 +598,7 @@ html.mn-travado.mn-calha { scrollbar-gutter: stable; }
     align-self: start;
     justify-items: center;
     text-align: center;
-    row-gap: calc(var(--mn-u) * 1.5);
+    row-gap: calc(var(--mn-u) * 1.3);
     padding-bottom: 0;
   }
   .mn-status { order: 1; }
@@ -618,9 +606,6 @@ html.mn-travado.mn-calha { scrollbar-gutter: stable; }
   .mn-acao { flex: 0 0 auto; padding: 0 calc(var(--mn-u) * 2.4); }
   .mn-dados { order: 3; grid-template-columns: auto auto; column-gap: calc(var(--mn-u) * 4); justify-content: center; }
   .mn-dado { justify-items: center; }
-}
-@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
-  .mn-foto:hover img { filter: none; transform: scale(1.04); transition-duration: .2s, .9s; }
 }
 
 /* aberto, o botão do topo fica lima com o X escuro */
