@@ -284,7 +284,7 @@ const DEGRAUS = [
   { dpr: 1.0, composicao: 0.75, amostras: 0 },
   { dpr: 0.85, composicao: 0.6, amostras: 0 },
 ];
-const qualidade = { nivel: 0, soma: 0, n: 0, calma: 0, travado: new URLSearchParams(location.search).has('qualidade') };
+const qualidade = { nivel: 0, soma: 0, n: 0, calma: 0, desde: Infinity, falhou: [], travado: new URLSearchParams(location.search).has('qualidade') };
 if (qualidade.travado) qualidade.nivel = Math.min(DEGRAUS.length - 1, Number(new URLSearchParams(location.search).get('qualidade')) || 0);
 
 function aplicarQualidade(nivel) {
@@ -299,23 +299,30 @@ function aplicarQualidade(nivel) {
 }
 
 function medirQualidade(dt) {
-  if (qualidade.travado) return;
+  // os primeiros segundos não contam: é quando os shaders compilam e tudo engasga
+  if (qualidade.travado || performance.now() < qualidade.desde) return;
   qualidade.soma += dt;
   qualidade.n++;
-  if (qualidade.n < 45) return;
+  if (qualidade.n < 90) return;
   const media = qualidade.soma / qualidade.n;
   qualidade.soma = 0;
   qualidade.n = 0;
+  const agora = performance.now();
   if (media > 1 / 40 && qualidade.nivel < DEGRAUS.length - 1) {
+    qualidade.falhou[qualidade.nivel] = agora;
     aplicarQualidade(qualidade.nivel + 1);
     qualidade.calma = 0;
-  } else if (media < 1 / 75 && qualidade.nivel > 0) {
-    // só sobe depois de 4 medições seguidas com folga, para não ficar oscilando
-    if (++qualidade.calma >= 4) { aplicarQualidade(qualidade.nivel - 1); qualidade.calma = 0; }
+  } else if (media < 1 / 90 && qualidade.nivel > 0) {
+    // só sobe com folga de sobra, depois de 4 medições seguidas, e nunca para um degrau
+    // que falhou no último minuto: senão fica subindo e descendo sem parar
+    const acima = qualidade.nivel - 1;
+    const recente = qualidade.falhou[acima] && agora - qualidade.falhou[acima] < 60000;
+    if (!recente && ++qualidade.calma >= 4) { aplicarQualidade(acima); qualidade.calma = 0; }
   } else {
     qualidade.calma = 0;
   }
 }
+addEventListener('rdx:abertura-fim', () => { qualidade.desde = performance.now() + 3000; });
 
 // ───────────── laço ─────────────
 const relogio = new THREE.Clock();
