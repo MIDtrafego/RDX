@@ -82,11 +82,11 @@ export function criarFundo(comuns) {
         float tinta = texture2D(uMascara, uf).r;
         float larga = tinta * 0.20;
         vec2 anel = vec2(uResolucao.y / uResolucao.x, 1.0);
-        for (int i = 0; i < 8; i++) {
-          float a = float(i) * 0.7854;
+        for (int i = 0; i < 4; i++) {
+          float a = float(i) * 1.5708 + 0.3927;
           vec2 d = vec2(cos(a), sin(a)) * anel;
-          larga += texture2D(uMascara, uf + d * 0.018).r * 0.06;
-          larga += texture2D(uMascara, uf + d * 0.040).r * 0.04;
+          larga += texture2D(uMascara, uf + d * 0.018).r * 0.12;
+          larga += texture2D(uMascara, uf + d * 0.040).r * 0.08;
         }
         float nevoa = smoothstep(0.03, 0.85, larga);
         cor += uPoca * (nevoa * uSuave + liquido(tinta) * uMiolo) * uEntrada * uLiquido;

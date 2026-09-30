@@ -394,7 +394,7 @@ export class Terminal {
     const me = this.mercado, m = me.motor;
     for (const k of Object.keys(r)) r[k] += dt;
 
-    if (r.cabecalho > 1 / 12) {
+    if (r.cabecalho > 1 / 8) {
       r.cabecalho = 0;
       const delta = me.preco - ATIVO.ref24h;
       this.cabecalho.redesenhar({ preco: me.preco, delta, pct: (delta / ATIVO.ref24h) * 100 });
@@ -404,19 +404,19 @@ export class Terminal {
         this.etiqueta.redesenhar({ preco: arredondado });
       }
     }
-    if (r.motor > 1 / 10) {
+    if (r.motor > 1 / 6) {
       r.motor = 0;
       this.motor.redesenhar({ estado: this._estadoDoMotor(), ciclos: m.ciclos, tempo: this.tempo });
     }
-    if (r.operacao > 1 / 8) {
+    if (r.operacao > 1 / 6) {
       r.operacao = 0;
       this.operacao.redesenhar({ estado: m.estado, direcao: m.direcao, entrada: m.entrada, alvo: m.alvo, stop: m.stop, resultado: m.resultado });
     }
-    if (r.eixo > 1 / 10) {
+    if (r.eixo > 1 / 6) {
       r.eixo = 0;
       this._eixo();
     }
-    if (r.contexto > 1 / 5) {
+    if (r.contexto > 1 / 3) {
       r.contexto = 0;
       this.contexto.redesenhar({ ind: me.ind });
     }

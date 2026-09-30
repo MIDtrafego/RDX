@@ -114,6 +114,10 @@ export class Composicao {
 
     this.preto = new THREE.Color(0x000000);
     this.corAnterior = new THREE.Color();
+    // escala dos alvos em relação ao buffer da tela: o terminal ocupa 60% da largura, então
+    // desenhar tudo em resolução cheia é pagar por pixel que não aparece
+    this.escala = 1;
+    this.amostras = 2;
   }
 
   _alvo(w, h, amostras, profundidade) {
@@ -130,10 +134,12 @@ export class Composicao {
 
   redimensionar(w, h) {
     for (const k of ['solido', 'malha', 'luz', 'c1', 'c2', 'l1', 'l2']) this[k] && this[k].dispose();
+    w = Math.max(2, Math.round(w * this.escala));
+    h = Math.max(2, Math.round(h * this.escala));
     this.w = w;
     this.h = h;
-    this.solido = this._alvo(w, h, 4, true);
-    this.malha = this._alvo(w, h, 4, false);
+    this.solido = this._alvo(w, h, this.amostras, true);
+    this.malha = this._alvo(w, h, this.amostras, false);
     this.luz = this._alvo(Math.max(2, Math.round(w / 2)), Math.max(2, Math.round(h / 2)), 0, true);
     const w4 = Math.max(2, Math.round(w / 4)), h4 = Math.max(2, Math.round(h / 4));
     const w8 = Math.max(2, Math.round(w / 8)), h8 = Math.max(2, Math.round(h / 8));

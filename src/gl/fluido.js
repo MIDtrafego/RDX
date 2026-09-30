@@ -190,12 +190,12 @@ export const CORTE_LIQUIDO = /* glsl */ `
 `;
 
 export const AJUSTES_FLUIDO = {
-  resSim: 190,          // resolução da velocidade (lado menor)
-  resTinta: 540,        // resolução da máscara (lado menor). baixa de propósito: gota gorda, não fiapo
+  resSim: 128,          // resolução da velocidade (lado menor)
+  resTinta: 420,        // resolução da máscara (lado menor). baixa de propósito: gota gorda, não fiapo
   dissipacaoTinta: 0.0, // a tinta não fica transparente: quem faz ela sumir é o encolhimento
   dissipacaoVel: 1.1,   // líquido grosso: desacelera logo depois que o mouse para
   pressao: 0.8,
-  iteracoes: 18,
+  iteracoes: 12,
   redemoinho: 0,        // redemoinho faz fiapo, que é cara de fumaça
   raio: 0.85,           // tamanho do pincel
   alongar: 1.7,         // pincel mais largo que alto

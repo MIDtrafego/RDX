@@ -6,3 +6,8 @@ ferramentas
 referencia
 package.json
 package-lock.json
+
+# páginas de teste das partes do site
+menu.html
+abertura.html
+servidor.html

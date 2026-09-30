@@ -24,7 +24,9 @@ const MOCKUP = new URLSearchParams(location.search).get('painel') === 'mockup';
 
 const canvas = document.getElementById('gl');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance' });
-renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+// A escala de pixels é o que mais pesa: cada 0,25 a mais é 40% mais pixels em tudo.
+// Começa em até 1,5 e a qualidade automática (abaixo) reduz se a placa não der conta.
+renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5));
 renderer.outputColorSpace = THREE.LinearSRGBColorSpace; // os shaders já trabalham na cor final
 renderer.setClearColor(0x050706, 1);
 
@@ -49,7 +51,7 @@ const comuns = {
 const loader = new THREE.TextureLoader();
 const fundo = criarFundo(comuns);
 // o servidor é um objeto 3D: a imagem projetada sobre a geometria do gabinete
-const servidor3d = criarServidor3D(loader, comuns, { distancia: DISTANCIA });
+const servidor3d = criarServidor3D(loader, comuns, { distancia: DISTANCIA, celula: 6 });
 const servidor = servidor3d.objeto;
 const palcoServidor = new THREE.Group();
 palcoServidor.add(servidor);
@@ -273,6 +275,48 @@ addEventListener('rdx:menu', (e) => {
   else lenis.start();
 });
 
+// ───────────── qualidade automática ─────────────
+// Mede o tempo de cada quadro. Se a placa não acompanha, desce um degrau: menos pixels
+// na tela e na composição do terminal. Se sobra folga por um bom tempo, sobe de volta.
+const DEGRAUS = [
+  { dpr: 1.5, composicao: 1.0, amostras: 2 },
+  { dpr: 1.25, composicao: 0.85, amostras: 2 },
+  { dpr: 1.0, composicao: 0.75, amostras: 0 },
+  { dpr: 0.85, composicao: 0.6, amostras: 0 },
+];
+const qualidade = { nivel: 0, soma: 0, n: 0, calma: 0, travado: new URLSearchParams(location.search).has('qualidade') };
+if (qualidade.travado) qualidade.nivel = Math.min(DEGRAUS.length - 1, Number(new URLSearchParams(location.search).get('qualidade')) || 0);
+
+function aplicarQualidade(nivel) {
+  const d = DEGRAUS[nivel];
+  qualidade.nivel = nivel;
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, d.dpr));
+  if (painel && painel.composicao) {
+    painel.composicao.escala = d.composicao;
+    painel.composicao.amostras = d.amostras;
+  }
+  redimensionar();
+}
+
+function medirQualidade(dt) {
+  if (qualidade.travado) return;
+  qualidade.soma += dt;
+  qualidade.n++;
+  if (qualidade.n < 45) return;
+  const media = qualidade.soma / qualidade.n;
+  qualidade.soma = 0;
+  qualidade.n = 0;
+  if (media > 1 / 40 && qualidade.nivel < DEGRAUS.length - 1) {
+    aplicarQualidade(qualidade.nivel + 1);
+    qualidade.calma = 0;
+  } else if (media < 1 / 75 && qualidade.nivel > 0) {
+    // só sobe depois de 4 medições seguidas com folga, para não ficar oscilando
+    if (++qualidade.calma >= 4) { aplicarQualidade(qualidade.nivel - 1); qualidade.calma = 0; }
+  } else {
+    qualidade.calma = 0;
+  }
+}
+
 // ───────────── laço ─────────────
 const relogio = new THREE.Clock();
 const suave = { x: 0, y: 0 };
@@ -308,6 +352,7 @@ function quadro() {
   comuns.uVelocidade.value = fluido.velocidade;
 
   if (painel) painel.atualizar(dt);
+  if (presenca > 0.5) medirQualidade(dt);
 
   // parallax: cada camada responde um pouco diferente ao mouse, o que cria profundidade
   const k = 1 - Math.exp(-dt * 4.2);
@@ -352,6 +397,7 @@ montarPainel()
       if (elCiclos) elCiclos.textContent = milhar(n);
       if (elLatencia) elLatencia.textContent = (3.0 + Math.random() * 0.5).toFixed(1) + 'ms';
     });
+    aplicarQualidade(0);
     return painel.carregar();
   })
   // a entrada do hero começa no mesmo instante em que a abertura começa a sair
@@ -365,4 +411,4 @@ montarPainel()
   });
 
 // acesso para depuração e testes automáticos
-window.__rdx = { renderer, cena, camera, fluido, comuns, ponteiro, piloto, estado, servidor, servidor3d, fundo, riscar, palcoPainel, depurar, menu, abertura, get painel() { return painel; } };
+window.__rdx = { renderer, cena, camera, fluido, comuns, ponteiro, piloto, estado, servidor, servidor3d, fundo, riscar, palcoPainel, depurar, menu, abertura, qualidade, aplicarQualidade, get painel() { return painel; } };

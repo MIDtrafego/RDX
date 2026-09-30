@@ -78,9 +78,18 @@ html.ab-travado { overflow: hidden; overscroll-behavior: none; }
 <meta property="og:image:height" content="630"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23050706%27/%3E%3Cpath d=%27M8 22V10h7a4 4 0 0 1 1.6 7.7L20 22h-3.4l-3-4H11v4zm3-6.6h3.6a1.4 1.4 0 0 0 0-2.8H11z%27 fill=%27%234ade80%27/%3E%3C/svg%3E"/>
+<!-- o navegador começa a baixar o pesado antes de ler o restante da página -->
+<link rel="modulepreload" href="/vendor/three/three.module.min.js"/>
+<link rel="modulepreload" href="/vendor/three/three.core.min.js"/>
+<link rel="modulepreload" href="/vendor/gsap/index.js"/>
+<link rel="modulepreload" href="/vendor/gsap/gsap-core.js"/>
+<link rel="modulepreload" href="/src/main.js"/>
+<link rel="preload" as="image" href="/img/servidor.webp"/>
+<link rel="preload" as="image" href="/img/servidor-luz.png"/>
+<link rel="preload" as="image" href="/img/servidor-relevo.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400;1,700&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400;1,700&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="/src/estilo.css"/>
 <link rel="stylesheet" href="/src/abertura/abertura.css"/>
 <link rel="stylesheet" href="/src/menu/menu.css"/>
@@ -253,5 +262,7 @@ html.ab-travado { overflow: hidden; overscroll-behavior: none; }
 <!-- a abertura começa antes de o hero 3D baixar -->
 <script type="module">import { iniciarAbertura } from "/src/abertura/abertura.js"; iniciarAbertura();</script>
 <script type="module" src="/src/main.js"></script>
+<!-- cache do site: a partir da segunda visita os arquivos pesados vêm do disco -->
+<script>if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {}));</script>
 </body>
 </html>

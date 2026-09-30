@@ -99,9 +99,11 @@ export class Cartao {
 
     this.textura = new THREE.CanvasTexture(this.canvas);
     this.textura.premultiplyAlpha = true;
-    this.textura.minFilter = THREE.LinearMipmapLinearFilter;
+    // sem mipmap: cada redesenho regenerava a pirâmide inteira da textura, várias vezes por segundo
+    this.textura.generateMipmaps = false;
+    this.textura.minFilter = THREE.LinearFilter;
     this.textura.magFilter = THREE.LinearFilter;
-    this.textura.anisotropy = 8;
+    this.textura.anisotropy = 4;
 
     this.uPosicao = { value: new THREE.Vector3(x, y, z) };
     this.uEscalaXY = { value: new THREE.Vector2(1, 1) };
