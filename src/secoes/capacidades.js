@@ -125,7 +125,8 @@ export function iniciarCapacidades(ctx) {
       if (esquerda > L * 1.3 || esquerda + item.larg < -L * 0.3) continue;
       // -0.5: entrando pela direita · 0: no centro da tela · 0.5: saindo pela esquerda
       const d = (L / 2 - (esquerda + item.larg / 2)) / L;
-      item.el.style.transform = 'translate3d(' + (d * item.z * L).toFixed(1) + 'px,0,0)';
+      // 0.4: o parallax era forte o bastante para uma peça cobrir a vizinha
+      item.el.style.transform = 'translate3d(' + (d * item.z * L * 0.4).toFixed(1) + 'px,0,0)';
     }
   }
 

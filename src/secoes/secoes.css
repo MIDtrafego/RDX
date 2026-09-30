@@ -592,7 +592,7 @@
 #secoes .rx-trilho.rx-trilho-fixo .rx-trilho-palco { height: 100vh; height: 100svh; }
 #secoes .rx-trilho.rx-trilho-fixo .rx-trilho-pista {
   display: block;
-  width: calc(var(--u) * 336);
+  width: calc(var(--u) * 418);   /* até depois da última peça (382 + 22) com folga para ela parar inteira na tela */
   height: 100%;
   padding: 0;
   overflow: visible;
