@@ -1072,8 +1072,9 @@
 @media (min-width: 992px) {
   /* grade assimétrica: a coluna do meio com o dobro das vizinhas */
   #secoes .rx-tr-destaques { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr); }
-  #secoes .rx-tr-miolo { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); }
-  #secoes .rx-tr-lado { border-left: 1px solid var(--rx-borda); grid-template-rows: 1fr auto; }
+  /* como na referência: números à esquerda, a curva grande à direita */
+  #secoes .rx-tr-miolo { grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); }
+  #secoes .rx-tr-lado { order: -1; border-right: 1px solid var(--rx-borda); grid-template-rows: 1fr auto; }
 }
 @media (min-width: 768px) and (max-width: 991.98px) {
   #secoes .rx-tr-lado { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }

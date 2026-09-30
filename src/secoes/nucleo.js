@@ -123,7 +123,10 @@ export function revelarTitulo(el, opcoes = {}) {
 export function revelarBlocos(elementos, opcoes = {}) {
   const lista = gsap.utils.toArray(elementos);
   if (!lista.length) return;
-  gsap.set(lista, { autoAlpha: 0, y: opcoes.y ?? 24 });
+  // botão magnético já usa x e y para seguir o mouse: nele a entrada é só de opacidade,
+  // senão uma animação derruba a outra
+  const sobe = (el) => (el.hasAttribute('data-rx-ima') ? 0 : (opcoes.y ?? 24));
+  lista.forEach((el) => gsap.set(el, el.hasAttribute('data-rx-ima') ? { autoAlpha: 0 } : { autoAlpha: 0, y: sobe(el) }));
 
   let fila = [];
   let agendado = false;
@@ -131,7 +134,9 @@ export function revelarBlocos(elementos, opcoes = {}) {
     const lote = fila;
     fila = [];
     agendado = false;
-    gsap.to(lote, {
+    const imas = lote.filter((el) => el.hasAttribute('data-rx-ima'));
+    if (imas.length) gsap.to(imas, { autoAlpha: 1, duration: 0.9, ease: 'expo.out' });
+    gsap.to(lote.filter((el) => !el.hasAttribute('data-rx-ima')), {
       autoAlpha: 1,
       y: 0,
       duration: opcoes.duracao || 0.9,

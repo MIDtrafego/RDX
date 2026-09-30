@@ -59,14 +59,16 @@ export function montarMarca(svg, { cor = '#ffffff', comAssinatura = true } = {})
     svg.appendChild(assinatura);
   }
 
-  // cada traço ocupa um trecho do total, proporcional ao comprimento, com pequena sobreposição
+  // cada traço ocupa um trecho do total, proporcional ao comprimento. Um traço só começa quando
+  // o anterior termina: com sobreposição, a ponta do traço seguinte aparecia antes da hora,
+  // como um pontinho solto no cruzamento do X
   const comprimentos = tracos.map((p) => p.getTotalLength());
   const total = comprimentos.reduce((a, b) => a + b, 0) || 1;
   let acumulado = 0;
   const trechos = comprimentos.map((c) => {
     const ini = acumulado / total;
     acumulado += c;
-    return [Math.max(0, ini - 0.025), acumulado / total];
+    return [ini, acumulado / total];
   });
   tracos.forEach((p, i) => { p.style.strokeDasharray = comprimentos[i] + ' ' + (comprimentos[i] + 4); });
 
@@ -80,7 +82,7 @@ export function montarMarca(svg, { cor = '#ffffff', comAssinatura = true } = {})
       const [ini, fim] = trechos[i];
       const t = suave(limitar((w - ini) / (fim - ini)));
       p.style.strokeDashoffset = (comprimentos[i] * (1 - t)).toFixed(2);
-      p.style.visibility = t <= 0 ? 'hidden' : 'visible';
+      p.style.visibility = t <= 0.002 ? 'hidden' : 'visible';
     });
     if (assinatura) {
       const t = suave(limitar((a - FIM_LETRAS) / (1 - FIM_LETRAS)));
