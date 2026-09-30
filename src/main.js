@@ -179,7 +179,7 @@ function riscar(x0, y0, x1, y1, tinta) {
   const dx = x1 - x0, dy = y1 - y0;
   const dist = Math.hypot(dx * (L / A), dy);
   if (dist < 0.0004) return;
-  const passos = Math.min(8, Math.max(1, Math.ceil(dist / 0.018)));
+  const passos = Math.min(4, Math.max(1, Math.ceil(dist / 0.024)));
   for (let i = 1; i <= passos; i++) {
     const t = i / passos;
     // a tinta tem teto, então cada pingo pode vir cheio: o miolo da pincelada sempre satura
@@ -294,11 +294,15 @@ addEventListener('rdx:menu', (e) => {
 // ───────────── qualidade automática ─────────────
 // Mede o tempo de cada quadro. Se a placa não acompanha, desce um degrau: menos pixels
 // na tela e na composição do terminal. Se sobra folga por um bom tempo, sobe de volta.
+// Regra: nunca abaixo de 1 pixel por pixel da tela nem abaixo de 85% na composição do
+// terminal. Abaixo disso a imagem fica pixelada (aconteceu em máquinas fracas). Os degraus
+// de baixo cortam TRABALHO: iterações do fluido, brilho largo, suavização.
 const DEGRAUS = [
-  { dpr: 1.5, composicao: 1.0, amostras: 2 },
-  { dpr: 1.25, composicao: 0.85, amostras: 2 },
-  { dpr: 1.0, composicao: 0.75, amostras: 0 },
-  { dpr: 0.85, composicao: 0.6, amostras: 0 },
+  { dpr: 1.5, composicao: 1.0, amostras: 2, fluido: 12, brilho: 2 },
+  { dpr: 1.25, composicao: 1.0, amostras: 0, fluido: 10, brilho: 2 },
+  { dpr: 1.0, composicao: 1.0, amostras: 0, fluido: 8, brilho: 1 },
+  { dpr: 1.0, composicao: 0.85, amostras: 0, fluido: 6, brilho: 1 },
+  { dpr: 1.0, composicao: 0.85, amostras: 0, fluido: 6, brilho: 0 },
 ];
 const qualidade = { nivel: 0, soma: 0, n: 0, calma: 0, desde: Infinity, falhou: [], travado: new URLSearchParams(location.search).has('qualidade') };
 if (qualidade.travado) qualidade.nivel = Math.min(DEGRAUS.length - 1, Number(new URLSearchParams(location.search).get('qualidade')) || 0);
@@ -310,7 +314,9 @@ function aplicarQualidade(nivel) {
   if (painel && painel.composicao) {
     painel.composicao.escala = d.composicao;
     painel.composicao.amostras = d.amostras;
+    painel.composicao.brilho = d.brilho;
   }
+  fluido.a.iteracoes = d.fluido;
   redimensionar();
 }
 

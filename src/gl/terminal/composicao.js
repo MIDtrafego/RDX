@@ -114,10 +114,12 @@ export class Composicao {
 
     this.preto = new THREE.Color(0x000000);
     this.corAnterior = new THREE.Color();
+    this.vazio = this._alvo(2, 2, 0, false);   // fica preto: nunca é desenhado
     // escala dos alvos em relação ao buffer da tela: o terminal ocupa 60% da largura, então
     // desenhar tudo em resolução cheia é pagar por pixel que não aparece
     this.escala = 1;
     this.amostras = 2;
+    this.brilho = 2;   // 2: curto e largo · 1: só o curto · 0: nenhum
   }
 
   _alvo(w, h, amostras, profundidade) {
@@ -188,20 +190,25 @@ export class Composicao {
       this.borrar.uniforms.uDirecao.value.set(dx, dy);
       this._passar(this.borrar, para);
     };
-    borra(this.c1, this.c2, 1 / this.c1.width, 0);
-    borra(this.c2, this.c1, 0, 1 / this.c1.height);
-    borra(this.c1, this.l1, 1.6 / this.l1.width, 0);
-    borra(this.l1, this.l2, 0, 1.6 / this.l1.height);
-    borra(this.l2, this.l1, 1.6 / this.l1.width, 0);
-    borra(this.l1, this.l2, 0, 1.6 / this.l1.height);
+    if (this.brilho >= 1) {
+      borra(this.c1, this.c2, 1 / this.c1.width, 0);
+      borra(this.c2, this.c1, 0, 1 / this.c1.height);
+    }
+    if (this.brilho >= 2) {
+      borra(this.c1, this.l1, 1.6 / this.l1.width, 0);
+      borra(this.l1, this.l2, 0, 1.6 / this.l1.height);
+      borra(this.l2, this.l1, 1.6 / this.l1.width, 0);
+      borra(this.l1, this.l2, 0, 1.6 / this.l1.height);
+    }
 
     // 4: mistura na tela, por cima do fundo e do servidor
     r.setClearColor(this.corAnterior, alfaAnterior);
     const u = this.compor.uniforms;
     u.uSolido.value = this.solido.texture;
     u.uMalha.value = this.malha.texture;
-    u.uBrilhoCurto.value = this.c1.texture;
-    u.uBrilhoLargo.value = this.l2.texture;
+    // sem brilho: entra uma textura preta no lugar
+    u.uBrilhoCurto.value = this.brilho >= 1 ? this.c1.texture : this.vazio.texture;
+    u.uBrilhoLargo.value = this.brilho >= 2 ? this.l2.texture : this.vazio.texture;
     const limpar = r.autoClear;
     r.autoClear = false;
     this._passar(this.compor, null);
