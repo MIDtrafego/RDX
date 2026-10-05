@@ -76,8 +76,9 @@ Regras de texto (valem para o site inteiro):
 ## Cores (módulos de processamento)
 - Etiqueta: Módulos De Processamento
 - Título: Vários módulos. Uma infraestrutura.
-- Apoio: Cinco Cores em produção: quatro dedicados ao ouro e um multi-ativo. Cada um com lógica
-  própria, identificado só pela sigla na ordem executada.
+- Apoio (05/10/2026, pacote do Pedro: são seis Cores, core05 e core06 em STANDBY): Seis Cores, quatro
+  em produção e dois em validação, entre ouro e multi-ativo. Cada um com lógica própria, identificado
+  só pela sigla na ordem executada.
 
 | Core | Sigla | Ativos | Ordens positivas | Amostra | Resultado médio por ordem | Frequência | Consumo por ciclo |
 |---|---|---|---|---|---|---|---|
@@ -86,6 +87,7 @@ Regras de texto (valem para o site inteiro):
 | GT Core 03 | NT | XAU/USD | 25,0% | 4 ordens | -9,30 USD | ~3 ciclos / mês | 73 MCP por 0,01 lote |
 | GT Core 04 | FM | XAU/USD | 40,0% | 5 ordens | +11,94 USD | ~3 ciclos / mês | 76 MCP por 0,01 lote |
 | GT Core 05 | TT | XAU/USD | Beta, validação interna | track record previsto Q4/26 | sem dado | Baixa, ciclos semanais | 67 MCP por 0,01 lote |
+| GT Core 06 | RX | XAU/USD · EUR/USD | Beta, validação interna | sem dado | sem dado | sem dado | 70 MCP por 0,01 lote (fator 70, versão 0.9.0, STANDBY em rdx_ops_reais.json) |
 
 Descrições:
 - Core 01: Core dedicado ao ouro, com rotina própria de entrada, saída e gestão de exposição.
@@ -93,7 +95,8 @@ Descrições:
 - Core 03: Core dedicado ao ouro, com rotina própria e amostra ainda pequena no período.
 - Core 04: Core dedicado ao ouro, com entradas seletivas e gestão por rotina própria.
 - Core 05: Core dedicado ao ouro, com ciclos menos frequentes e posições de maior duração.
-- Cartão extra: Próximo Core. Novos motores entram no registro após validação interna.
+- Core 06: Core multi-ativo, ouro e câmbio, com lógica própria. Entra no registro após a validação interna.
+- (O cartão "Próximo Core" saiu em 05/10/2026: o sexto Core ocupa o lugar dele.)
 
 ATENÇÃO: os Cores 03 e 04 têm resultado fraco ou negativo. Isso é para aparecer como está. O
 posicionamento da marca é "sem maquiagem". Não esconder, não arredondar, não reordenar para favorecer.
