@@ -132,10 +132,15 @@ html.ab-travado { overflow: hidden; overscroll-behavior: none; }
 
 <canvas id="gl"></canvas>
 
-<div class="saida-frente" aria-hidden="true">
-  <p class="saida-rotulo">Infraestrutura quantitativa</p>
+<div class="saida-frente">
+  <p class="saida-rotulo" aria-hidden="true">Infraestrutura quantitativa</p>
   <!-- A logo oficial, escrita conforme a rolagem. O desenho é montado por src/marca.js -->
-  <svg class="saida-marca"></svg>
+  <svg class="saida-marca" aria-hidden="true"></svg>
+  <!-- chamada abaixo do cartão: abre o passo a passo em outra aba -->
+  <a class="saida-chamada" href="/comecar.html" target="_blank" rel="noopener">
+    <span class="saida-chamada-rotulo">Coloque seus dólares para trabalhar hoje</span>
+    <svg class="saida-chamada-seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
 </div>
 
 <header class="topo">

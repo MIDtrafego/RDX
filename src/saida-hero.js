@@ -30,6 +30,7 @@ export function iniciarSaida({ canvas }) {
 
   const faixas = [...fundo.querySelectorAll('.saida-faixa')];
   const rotulo = frente.querySelector('.saida-rotulo');
+  const chamada = frente.querySelector('.saida-chamada');
   const marca = montarMarca(frente.querySelector('.saida-marca'), { cor: '#c8f52a' });
 
   // cada faixa repete o próprio texto até passar de duas telas, para o passeio não ter emenda
@@ -71,6 +72,14 @@ export function iniciarSaida({ canvas }) {
     frente.style.transform = 'translate3d(0,' + (-subida).toFixed(1) + 'px,0)';
     frente.style.visibility = s > INI_ESCREVER - 0.05 && !estado.fora ? 'visible' : 'hidden';
     if (rotulo) rotulo.style.opacity = limitar((s - INI_ESCREVER) / 0.12).toFixed(3);
+
+    // a chamada entra quando a marca está quase pronta e sobe junto com o conjunto
+    if (chamada) {
+      const c = suave(limitar((s - (FIM_ESCREVER - 0.08)) / 0.12));
+      chamada.style.opacity = c.toFixed(3);
+      chamada.style.transform = 'translate(-50%,' + ((1 - c) * 18).toFixed(1) + 'px)';
+      chamada.style.pointerEvents = c > 0.6 && !estado.fora ? 'auto' : 'none';
+    }
 
     return estado;
   }

@@ -97,6 +97,73 @@ body {
   white-space: nowrap;
 }
 
+/* chamada grande abaixo do cartão: aparece quando a marca termina de se escrever */
+.saida-chamada {
+  --sc-fundo: var(--lima);
+  --sc-tinta: #000;
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 16.5vh + var(--u) * 2.4);
+  transform: translate(-50%, 0);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .9em;
+  min-height: max(56px, calc(var(--u) * 4.6));
+  padding: 0 calc(var(--u) * 2.6);
+  border-radius: 6px;
+  overflow: hidden;
+  isolation: isolate;
+  font-size: max(15px, calc(var(--u) * 1.25));
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--sc-tinta);
+  background: var(--sc-fundo);
+  box-shadow: 0 0 0 0 rgba(200, 245, 42, .55), 0 18px 60px rgba(200, 245, 42, .28);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: saida-chamada-pulso 2.4s ease-out infinite;
+}
+.saida-chamada::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: -10%; right: -10%;
+  top: 0; bottom: 0;
+  border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+  background: #fff;
+  transform: translateY(104%);
+  transition: transform .7s cubic-bezier(.19, 1, .22, 1), border-radius .7s cubic-bezier(.19, 1, .22, 1);
+}
+.saida-chamada-rotulo { position: relative; }
+.saida-chamada-seta {
+  flex: none;
+  width: 1.3em; height: 1.3em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform .3s cubic-bezier(.19, 1, .22, 1);
+}
+@media (hover: hover) {
+  .saida-chamada:hover::before { transform: translateY(0); border-radius: 0; transition-duration: .42s; }
+  .saida-chamada:hover .saida-chamada-seta { transform: translateX(.3em); }
+}
+@keyframes saida-chamada-pulso {
+  0%   { box-shadow: 0 0 0 0 rgba(200, 245, 42, .55), 0 18px 60px rgba(200, 245, 42, .28); }
+  70%  { box-shadow: 0 0 0 18px rgba(200, 245, 42, 0), 0 18px 60px rgba(200, 245, 42, .28); }
+  100% { box-shadow: 0 0 0 18px rgba(200, 245, 42, 0), 0 18px 60px rgba(200, 245, 42, .28); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .saida-chamada { animation: none; }
+}
+
 /* a janela do hero dura duas telas: uma para a transição, outra para o conjunto sair */
 body #secoes > .rx-janela { height: 205svh; }
 body #secoes > .rx-janela::after { display: none; }
@@ -271,6 +338,16 @@ body #secoes > .rx-janela::after { display: none; }
   .saida-faixa { font-size: 9.5vw; }
   .saida-faixa-a { font-size: 10.5vw; }
   .saida-rotulo { font-size: 9px; top: calc(50% - 37vh - 12px); }
+  .saida-chamada {
+    top: calc(50% + 37vh + 12px);
+    min-height: 50px;
+    padding: 0 18px;
+    font-size: 12px;
+    white-space: normal;
+    text-align: center;
+    width: max-content;
+    max-width: 88vw;
+  }
   .aviso-simulacao { left: 0; right: 0; bottom: 10px; text-align: center; font-size: 8px; }
   .cartao-status { bottom: 34px; }
   .botao { height: 48px; padding: 0 16px; font-size: 12px; }

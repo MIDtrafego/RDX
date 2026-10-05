@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Comece hoje · RDX Technology</title>
+<meta name="description" content="O passo a passo para colocar seus dólares para trabalhar: o vídeo, a conta na corretora e a sua conta RDX."/>
+<meta property="og:title" content="Coloque seus dólares para trabalhar hoje · RDX Technology"/>
+<meta property="og:description" content="Três passos, numa página só: o vídeo, a conta na corretora e a sua conta RDX."/>
+<meta property="og:image" content="https://rdx-silk.vercel.app/img/rdx-capa.jpg"/>
+<meta property="og:url" content="https://rdx-silk.vercel.app/comecar.html"/>
+<meta property="og:type" content="website"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23050706%27/%3E%3Cpath d=%27M8 22V10h7a4 4 0 0 1 1.6 7.7L20 22h-3.4l-3-4H11v4zm3-6.6h3.6a1.4 1.4 0 0 0 0-2.8H11z%27 fill=%27%234ade80%27/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<!-- estilo.css entra só para herdar as variáveis, a marca e os botões do site -->
+<link rel="stylesheet" href="/src/estilo.css"/>
+<link rel="stylesheet" href="/src/comecar/comecar.css"/>
+<script>document.documentElement.classList.add('cm-js');</script>
+</head>
+<body class="cm-corpo">
+
+<canvas class="cm-fundo" id="cm-fundo" aria-hidden="true"></canvas>
+<div class="cm-veu" aria-hidden="true"></div>
+
+<header class="topo cm-topo">
+  <!-- mesma marca do topo do site: a logo oficial entra como máscara (estilo.css) -->
+  <a class="marca" href="/" aria-label="RDX Technology, voltar ao site">
+    <span class="marca-logo" aria-hidden="true"></span>
+  </a>
+  <div class="topo-acoes">
+    <a class="botao botao-verde" href="/entrar.html" data-cm-link="painel">Entrar</a>
+  </div>
+</header>
+
+<main class="cm-pagina">
+
+  <!-- ─────────── cabeça ─────────── -->
+  <header class="cm-cabeca">
+    <p class="cm-etiqueta cm-revela">Passo a passo</p>
+    <h1 class="cm-frase cm-revela" style="--cm-atraso:.08s">Coloque seus dólares para trabalhar <em>hoje.</em></h1>
+    <p class="cm-apoio cm-apoio-grande cm-revela" style="--cm-atraso:.16s">Três passos, nesta página. Comece pelo vídeo.</p>
+    <ol class="cm-indice cm-revela" style="--cm-atraso:.24s" aria-label="Os três passos">
+      <li><a href="#passo-1"><b>01</b><span>O vídeo</span></a></li>
+      <li><a href="#passo-2"><b>02</b><span>A corretora</span></a></li>
+      <li><a href="#passo-3"><b>03</b><span>Sua conta RDX</span></a></li>
+    </ol>
+  </header>
+
+  <ol class="cm-passos">
+
+    <!-- ═══════ PASSO 1: O VÍDEO ═══════ -->
+    <li class="cm-passo" id="passo-1" data-cm-passo="1">
+      <div class="cm-passo-lado" aria-hidden="true">
+        <span class="cm-passo-numero">01</span>
+        <span class="cm-passo-fio"><i></i></span>
+      </div>
+      <div class="cm-passo-corpo">
+        <p class="cm-etiqueta cm-revela">Passo 1</p>
+        <h2 class="cm-titulo cm-revela" style="--cm-atraso:.06s">Veja como funciona.</h2>
+        <p class="cm-apoio cm-revela" style="--cm-atraso:.12s">Dê o play. O vídeo mostra o caminho inteiro antes de você começar.</p>
+
+        <div class="cm-video cm-revela" id="cm-video" data-cm-estado="parado" style="--cm-atraso:.18s">
+          <video class="cm-video-midia" preload="metadata" playsinline poster="/video/comecar.jpg">
+            <source src="/video/comecar.mp4" type="video/mp4"/>
+          </video>
+          <button class="cm-video-play" type="button" aria-label="Dar play no vídeo">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+          </button>
+          <p class="cm-video-falta" hidden>Vídeo em breve.</p>
+        </div>
+      </div>
+    </li>
+
+    <!-- ═══════ PASSO 2: A CORRETORA ═══════ -->
+    <li class="cm-passo" id="passo-2" data-cm-passo="2">
+      <div class="cm-passo-lado" aria-hidden="true">
+        <span class="cm-passo-numero">02</span>
+        <span class="cm-passo-fio"><i></i></span>
+      </div>
+      <div class="cm-passo-corpo">
+        <p class="cm-etiqueta cm-revela">Passo 2</p>
+        <h2 class="cm-titulo cm-revela" style="--cm-atraso:.06s">Abra sua conta na corretora.</h2>
+        <p class="cm-apoio cm-revela" style="--cm-atraso:.12s">Seu dinheiro fica nela. 4 cliques.</p>
+
+        <ol class="cm-lista" aria-label="Os quatro cliques na corretora">
+          <li class="cm-item cm-revela" style="--cm-atraso:.18s">
+            <span class="cm-item-n" aria-hidden="true">1</span>
+            <div class="cm-item-texto"><b>Cadastro na Exness</b><span>e-mail e senha</span></div>
+            <a class="cm-item-botao" href="https://www.exness.com/" target="_blank" rel="noopener" data-cm-link="exness">
+              <span>Abrir</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </li>
+          <li class="cm-item cm-revela" style="--cm-atraso:.24s">
+            <span class="cm-item-n" aria-hidden="true">2</span>
+            <div class="cm-item-texto"><b>Documento</b><span>foto + selfie</span></div>
+            <a class="cm-item-botao" href="https://www.exness.com/" target="_blank" rel="noopener" data-cm-link="exness">
+              <span>Abrir</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </li>
+          <li class="cm-item cm-item-abre cm-revela" style="--cm-atraso:.30s">
+            <span class="cm-item-n" aria-hidden="true">3</span>
+            <div class="cm-item-texto"><b>Conta Standard Cent · MT5</b><span>anote o número</span></div>
+            <button class="cm-item-botao" type="button" aria-expanded="false" aria-controls="cm-como-3">
+              <span>Como</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <div class="cm-como" id="cm-como-3" hidden>
+              <p>Na área do cliente da Exness, abra uma nova conta de negociação: tipo <b>Standard Cent</b>, plataforma <b>MT5</b>, conta real. Anote o número da conta e o nome do servidor. Os dois entram no passo 3.</p>
+            </div>
+          </li>
+          <li class="cm-item cm-item-abre cm-revela" style="--cm-atraso:.36s">
+            <span class="cm-item-n" aria-hidden="true">4</span>
+            <div class="cm-item-texto"><b>PIX</b><span>mínimo <em>R$ 590</em></span></div>
+            <button class="cm-item-botao" type="button" aria-expanded="false" aria-controls="cm-como-4">
+              <span>Como</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <div class="cm-como" id="cm-como-4" hidden>
+              <p>Na área do cliente da Exness, escolha <b>Depositar</b> e depois <b>PIX</b>. O mínimo para começar é <b>R$ 590</b>. O dinheiro fica na sua conta da corretora, no seu nome.</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="cm-anote cm-revela" style="--cm-atraso:.42s">
+          <p class="cm-anote-titulo">Anote para o passo 3</p>
+          <dl class="cm-anote-lista">
+            <div><dt>Número da conta MT5</dt><dd>ex.: 75062604</dd></div>
+            <div><dt>Servidor</dt><dd>ex.: Exness-MT5Real8</dd></div>
+          </dl>
+        </div>
+      </div>
+    </li>
+
+    <!-- ═══════ PASSO 3: SUA CONTA RDX ═══════ -->
+    <li class="cm-passo" id="passo-3" data-cm-passo="3">
+      <div class="cm-passo-lado" aria-hidden="true">
+        <span class="cm-passo-numero">03</span>
+        <span class="cm-passo-fio"><i></i></span>
+      </div>
+      <div class="cm-passo-corpo">
+        <p class="cm-etiqueta cm-revela">Passo 3</p>
+        <h2 class="cm-titulo cm-revela" style="--cm-atraso:.06s">Sua conta RDX.</h2>
+        <p class="cm-apoio cm-revela" style="--cm-atraso:.12s">Nada a pagar agora.</p>
+
+        <div class="cm-grupos">
+          <section class="cm-grupo cm-revela" style="--cm-atraso:.18s" aria-labelledby="cm-g-dados">
+            <p class="cm-grupo-titulo" id="cm-g-dados">Seus dados</p>
+            <ul class="cm-campos">
+              <li>Nome</li>
+              <li>WhatsApp</li>
+              <li>E-mail</li>
+              <li>Senha</li>
+            </ul>
+          </section>
+          <section class="cm-grupo cm-revela" style="--cm-atraso:.24s" aria-labelledby="cm-g-aceites">
+            <p class="cm-grupo-titulo" id="cm-g-aceites">Aceites</p>
+            <ul class="cm-aceites">
+              <li>Li e aceito os Termos de Uso e o Aviso de Risco.</li>
+              <li>A conta é minha e o capital é meu.</li>
+              <li>Aceito a arbitragem para disputas.</li>
+            </ul>
+          </section>
+          <section class="cm-grupo cm-grupo-largo cm-revela" style="--cm-atraso:.30s" aria-labelledby="cm-g-mt5">
+            <p class="cm-grupo-titulo" id="cm-g-mt5">Conectar MT5</p>
+            <ul class="cm-campos">
+              <li>Login MT5 <span>vem do passo 2</span></li>
+              <li>Servidor <span>vem do passo 2</span></li>
+              <li>Senha de negociação</li>
+            </ul>
+            <p class="cm-nota">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+              <span>A infraestrutura da RDX se conecta ao servidor da sua corretora e executa as ordens dos Cores na sua conta. Sem acesso a depósitos ou saques: o dinheiro fica na corretora, no seu nome.</span>
+            </p>
+          </section>
+        </div>
+
+        <a class="cm-botao cm-revela" style="--cm-atraso:.36s" href="/cadastro.html" data-cm-link="cadastro">
+          <span>Criar minha conta RDX</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </li>
+
+  </ol>
+
+  <!-- ─────────── fim: o painel ─────────── -->
+  <section class="cm-fim" aria-labelledby="cm-fim-titulo">
+    <p class="cm-etiqueta cm-revela">Pronto</p>
+    <h2 class="cm-frase cm-frase-fim cm-revela" id="cm-fim-titulo" style="--cm-atraso:.08s">Tudo conectado? <em>Entre no painel.</em></h2>
+    <a class="cm-botao-grande cm-revela" style="--cm-atraso:.16s" href="/entrar.html" data-cm-link="painel">
+      <span class="cm-botao-grande-rotulo">Entrar no painel</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </section>
+
+  <footer class="cm-rodape">
+    <p class="cm-risco">Aviso de risco: operações no mercado financeiro envolvem risco substancial de perda e podem não ser adequadas a todos os perfis de investidor. A RDX Technology fornece exclusivamente infraestrutura computacional de processamento algorítmico e não oferece assessoria de investimentos, gestão de recursos ou garantia de rentabilidade. Rentabilidade passada não é garantia de resultado futuro. O capital investido pode ser parcial ou totalmente perdido. Verifique a regulamentação aplicável em sua jurisdição antes de operar. Este serviço não se destina a residentes em países onde tal atividade seja proibida por lei.</p>
+    <p class="cm-direitos">© 2026 RDX Technology · Todos os direitos reservados</p>
+  </footer>
+
+</main>
+
+<script type="module" src="/src/comecar/comecar.js"></script>
+</body>
+</html>
