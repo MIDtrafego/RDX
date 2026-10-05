@@ -18,7 +18,8 @@ export function iniciarRodape(ctx) {
   }
 
   revelarBlocos(secao.querySelectorAll('.rx-rodape-frase, .rx-rodape-coluna, .rx-rodape-botao'), { y: 18, inicio: 'top 88%' });
-  revelarBlocos(secao.querySelectorAll('.rx-rodape-base > *'), { y: 12, inicio: 'top 98%' });
+  // a base fica colada no fim da página: um gatilho em 98% nunca era cruzado pela última linha
+  revelarBlocos(secao.querySelectorAll('.rx-rodape-base > *'), { y: 12, inicio: 'top 100%' });
 
   const servidor = secao.querySelector('.rx-rodape-servidor img');
   const sobe = servidor

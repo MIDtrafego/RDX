@@ -143,28 +143,14 @@
                 <p class="ct-erro" id="ct-email-erro" hidden></p>
               </div>
 
-              <div class="ct-campo" data-ct-campo="cpf">
-                <label class="ct-rotulo" for="ct-cpf">CPF <span class="ct-rotulo-nota" id="ct-cpf-nota" hidden>opcional</span></label>
-                <div class="ct-caixa">
-                  <input class="ct-entrada ct-numero" id="ct-cpf" name="cpf" type="text" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" maxlength="14" required/>
-                </div>
-                <p class="ct-erro" id="ct-cpf-erro" hidden></p>
-              </div>
-
+              <!-- CPF e data de nascimento saíram do cadastro (05/10/2026): o KYC fica para o
+                   painel, depois da conta criada, conforme a especificação do Pedro. -->
               <div class="ct-campo" data-ct-campo="telefone">
                 <label class="ct-rotulo" for="ct-telefone">Telefone</label>
                 <div class="ct-caixa">
                   <input class="ct-entrada ct-numero" id="ct-telefone" name="telefone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(99) 99999-9999" maxlength="24" required/>
                 </div>
                 <p class="ct-erro" id="ct-telefone-erro" hidden></p>
-              </div>
-
-              <div class="ct-campo" data-ct-campo="nascimento">
-                <label class="ct-rotulo" for="ct-nascimento">Nascimento</label>
-                <div class="ct-caixa">
-                  <input class="ct-entrada ct-numero" id="ct-nascimento" name="nascimento" type="date" autocomplete="bday" min="1900-01-01" required/>
-                </div>
-                <p class="ct-erro" id="ct-nascimento-erro" hidden></p>
               </div>
 
               <div class="ct-campo" data-ct-campo="pais">
@@ -261,17 +247,40 @@
               <span>Após criar a conta, você precisará verificar sua identidade (KYC) para ativar o acesso completo.</span>
             </p>
 
-            <div class="ct-aceites">
+            <!--
+              Três caixas de aceite (Termos de Uso v1.0, cláusula 16.1). Nascem desligadas e só
+              ligam depois que a pessoa rolou os dois documentos até o fim dentro da janela
+              (src/conta/termos.js registra leuTermos e leuRisco). A caixa 3 (arbitragem) fica em
+              destaque separado, como pede a Lei 9.307/96, art. 4º, § 2º.
+              Cada botão de texto abre a janela num ponto: data-ct-termos é o id do alvo dentro
+              de src/conta/documentos.html.
+            -->
+            <div class="ct-aceites" id="ct-aceites" data-ct-liberado="0">
+              <p class="ct-nota ct-aceites-trava" id="ct-aceites-trava">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+                <span>Leia os Termos de Uso e o Aviso de Risco até o fim para liberar o aceite. <button class="ct-link" type="button" data-ct-termos="ct-doc-termos" id="ct-abrir-documentos">Abrir os documentos</button></span>
+              </p>
+
               <div class="ct-campo ct-marcar" data-ct-campo="aceiteTermos">
-                <input class="ct-marcar-caixa" id="ct-aceite-termos" name="aceiteTermos" type="checkbox" required/>
-                <label class="ct-marcar-texto" for="ct-aceite-termos">Li e aceito os <button class="ct-link" type="button" data-ct-termos="1">Termos de Uso</button>, a <button class="ct-link" type="button" data-ct-termos="7">Política de Privacidade</button> e o <button class="ct-link" type="button" data-ct-termos="2">Aviso de Risco</button>.</label>
+                <input class="ct-marcar-caixa" id="ct-aceite-termos" name="aceiteTermos" type="checkbox" required disabled/>
+                <!-- "Política de Privacidade" aponta para a cláusula 11 (dados e privacidade) até o
+                     Pedro mandar o documento próprio da política -->
+                <label class="ct-marcar-texto" for="ct-aceite-termos">Li e aceito os <button class="ct-link" type="button" data-ct-termos="ct-doc-termos">Termos de Uso</button>, o <button class="ct-link" type="button" data-ct-termos="ct-doc-risco">Aviso de Risco</button> e a <button class="ct-link" type="button" data-ct-termos="ct-clausula-11">Política de Privacidade</button>.</label>
                 <p class="ct-erro" id="ct-aceite-termos-erro" hidden></p>
               </div>
 
-              <div class="ct-campo ct-marcar" data-ct-campo="aceiteRisco">
-                <input class="ct-marcar-caixa" id="ct-aceite-risco" name="aceiteRisco" type="checkbox" required/>
-                <label class="ct-marcar-texto" for="ct-aceite-risco">Declaro que compreendo que operações no mercado financeiro envolvem riscos inerentes, podendo resultar em perdas parciais ou totais do capital investido, e que a RDX Technology não garante rentabilidade.</label>
-                <p class="ct-erro" id="ct-aceite-risco-erro" hidden></p>
+              <div class="ct-campo ct-marcar" data-ct-campo="aceiteTitular">
+                <input class="ct-marcar-caixa" id="ct-aceite-titular" name="aceiteTitular" type="checkbox" required disabled/>
+                <label class="ct-marcar-texto" for="ct-aceite-titular">Declaro que a conta conectada é de minha titularidade e que opero exclusivamente capital próprio.</label>
+                <p class="ct-erro" id="ct-aceite-titular-erro" hidden></p>
+              </div>
+
+              <div class="ct-campo ct-marcar ct-marcar-destaque" data-ct-campo="aceiteArbitragem">
+                <p class="ct-marcar-selo" aria-hidden="true">Aceite separado, Lei 9.307/96, art. 4º, § 2º</p>
+                <input class="ct-marcar-caixa" id="ct-aceite-arbitragem" name="aceiteArbitragem" type="checkbox" required disabled aria-describedby="ct-aceite-arbitragem-selo"/>
+                <label class="ct-marcar-texto" for="ct-aceite-arbitragem">Aceito a <button class="ct-link" type="button" data-ct-termos="ct-clausula-13">arbitragem</button> (cláusula 13.2) como forma exclusiva de solução de disputas, em caráter individual.</label>
+                <span class="ct-so-leitor" id="ct-aceite-arbitragem-selo">Aceite separado, conforme a Lei 9.307/96, artigo 4º, parágrafo 2º.</span>
+                <p class="ct-erro" id="ct-aceite-arbitragem-erro" hidden></p>
               </div>
             </div>
 
@@ -452,71 +461,37 @@
 </main>
 
 <!-- ─────────── janela dos termos ─────────── -->
-<!-- O texto das cláusulas é jurídico e foi copiado de referencia/conta.md sem alteração. -->
+<!--
+  O texto jurídico não fica mais aqui: src/conta/termos.js carrega /src/conta/documentos.html
+  (Termos de Uso v1.0 + Aviso de Risco, convertidos de referencia/pedro-2026-10/) por fetch na
+  primeira abertura. A mesma fonte é mostrada na página pública termos.html.
+-->
 <div class="ct-janela" id="ct-termos" hidden>
   <div class="ct-janela-fundo" data-ct-fechar></div>
   <div class="ct-janela-caixa" role="dialog" aria-modal="true" aria-labelledby="ct-termos-titulo" aria-describedby="ct-termos-versao" tabindex="-1">
     <header class="ct-janela-topo">
       <div>
-        <h2 class="ct-janela-titulo" id="ct-termos-titulo">Termos de Uso, Política de Privacidade e Aviso de Risco</h2>
-        <p class="ct-janela-versao" id="ct-termos-versao">Versão 1.0. Vigência a partir de 18 de março de 2026</p>
+        <h2 class="ct-janela-titulo" id="ct-termos-titulo">Termos de Uso e Aviso de Risco</h2>
+        <p class="ct-janela-versao" id="ct-termos-versao">Versão 1.0 · outubro de 2026</p>
       </div>
       <button class="ct-janela-fechar" type="button" data-ct-fechar aria-label="Fechar">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
       </button>
+      <!-- cada aba rola até o começo do documento; ganha a marca quando ele foi lido até o fim -->
+      <nav class="ct-janela-abas" aria-label="Documentos">
+        <button class="ct-aba" type="button" data-ct-aba="termos" aria-current="true"><i class="ct-aba-marca" aria-hidden="true"></i>Termos de Uso<span class="ct-so-leitor ct-aba-voz"></span></button>
+        <button class="ct-aba" type="button" data-ct-aba="risco"><i class="ct-aba-marca" aria-hidden="true"></i>Aviso de Risco<span class="ct-so-leitor ct-aba-voz"></span></button>
+      </nav>
       <span class="ct-janela-leitura" aria-hidden="true"><i></i></span>
     </header>
 
-    <div class="ct-janela-texto" id="ct-termos-texto" tabindex="0" role="region" aria-label="Texto dos termos">
-        <section class="ct-clausula" id="ct-clausula-1" aria-labelledby="ct-clausula-1-titulo">
-          <h3 class="ct-clausula-titulo" id="ct-clausula-1-titulo">1. NATUREZA DO SERVIÇO</h3>
-          <p>A RDX Technology ("RDX", "nós", "nossa") disponibiliza infraestrutura computacional de processamento quantitativo de alta frequência. Os serviços consistem exclusivamente no fornecimento de capacidade de processamento algorítmico, mensurada em Micro Processing Units (MCP). A RDX não é corretora de valores, não oferece assessoria de investimentos, não capta recursos de terceiros e não se caracteriza como integrante do sistema financeiro nacional nos termos da Lei 4.595/1964 ou da Resolução CMN 4.656/2018.</p>
-        </section>
-        <section class="ct-clausula" id="ct-clausula-2" aria-labelledby="ct-clausula-2-titulo">
-          <h3 class="ct-clausula-titulo" id="ct-clausula-2-titulo">2. AVISO DE RISCO: LEIA COM ATENÇÃO</h3>
-          <p>Operações nos mercados financeiros, incluindo mas não se limitando a câmbio (Forex), criptoativos, contratos por diferença (CFDs) e commodities, envolvem riscos substanciais e podem resultar em perdas superiores ao capital inicialmente alocado.</p>
-          <p>A RDX Technology <strong>não garante, em hipótese alguma</strong>, rentabilidade, retorno sobre investimento, desempenho histórico ou futuro dos algoritmos processados em sua infraestrutura. Resultados passados não são garantia de resultados futuros.</p>
-          <p>O usuário reconhece expressamente que: (a) opera com capital de risco próprio; (b) não recebeu qualquer promessa de ganho; (c) tem plena ciência dos riscos envolvidos; (d) a decisão de operar é exclusivamente sua.</p>
-        </section>
-        <section class="ct-clausula" id="ct-clausula-3" aria-labelledby="ct-clausula-3-titulo">
-          <h3 class="ct-clausula-titulo" id="ct-clausula-3-titulo">3. LIMITAÇÃO DE RESPONSABILIDADE</h3>
-          <p>Na máxima extensão permitida pela legislação aplicável, incluindo o Código Civil Brasileiro (Lei 10.406/2002), o Código de Defesa do Consumidor (Lei 8.078/1990) e as normas da Comissão de Valores Mobiliários (CVM), a RDX Technology não será responsável por:</p>
-          <p>(a) Perdas financeiras decorrentes do uso da infraestrutura; (b) Falhas de conectividade, latência ou indisponibilidade de corretoras terceiras; (c) Decisões algorítmicas que resultem em perdas; (d) Eventos de força maior, incluindo falhas de mercado, circuit breakers, suspensões regulatórias ou volatilidade extraordinária; (e) Atos de terceiros, incluindo corretoras, exchanges e provedores de liquidez.</p>
-          <p>A responsabilidade total da RDX, em qualquer circunstância, limita-se ao valor pago pelo usuário nos últimos 30 (trinta) dias de serviço.</p>
-        </section>
-        <section class="ct-clausula" id="ct-clausula-4" aria-labelledby="ct-clausula-4-titulo">
-          <h3 class="ct-clausula-titulo" id="ct-clausula-4-titulo">4. ELEGIBILIDADE E CAPACIDADE CIVIL</h3>
-          <p>O acesso à plataforma é restrito a pessoas físicas maiores de 18 anos com plena capacidade civil, nos termos do artigo 5º do Código Civil Brasileiro. É igualmente restrito a pessoas jurídicas regularmente constituídas. O usuário declara, sob as penas da lei, ter capacidade legal para contratar e operar nos mercados financeiros em sua jurisdição. Usuários residentes nos Estados Unidos da América devem observar as normas da Securities and Exchange Commission (SEC), da Commodity Futures Trading Commission (CFTC) e das demais agências reguladoras aplicáveis.</p>
-        </section>
-        <section class="ct-clausula" id="ct-clausula-5" aria-labelledby="ct-clausula-5-titulo">
-          <h3 class="ct-clausula-titulo" id="ct-clausula-5-titulo">5. MODELO DE COBRANÇA: MCP</h3>
-          <p>O serviço é cobrado com base no consumo real de Micro Processing Units (MCP) gerado pelas operações processadas. A cobrança é realizada de forma pós-paga, em ciclos semanais, mediante débito automático no meio de pagamento cadastrado. O usuário autoriza expressamente a realização de cobranças recorrentes. A RDX reserva-se o direito de suspender o acesso em caso de inadimplência, sem prejuízo da cobrança dos valores devidos.</p>
-        </section>
-        <section class="ct-clausula" id="ct-clausula-6" aria-labelledby="ct-clausula-6-titulo">
-          <h3 class="ct-clausula-titulo" id="ct-clausula-6-titulo">6. PROPRIEDADE INTELECTUAL</h3>
-          <p>Todos os algoritmos, motores de processamento, interfaces, marcas, nomes comerciais e demais ativos intelectuais da RDX Technology são de sua propriedade exclusiva, protegidos pela Lei 9.279/1996 (Propriedade Industrial), Lei 9.610/1998 (Direitos Autorais) e pelo Lanham Act (15 U.S.C. § 1051 et seq.) no âmbito norte-americano. É vedada qualquer reprodução, engenharia reversa, cópia ou distribuição sem autorização expressa e escrita.</p>
-        </section>
-        <section class="ct-clausula" id="ct-clausula-7" aria-labelledby="ct-clausula-7-titulo">
-          <h3 class="ct-clausula-titulo" id="ct-clausula-7-titulo">7. PROTEÇÃO DE DADOS: LGPD E GDPR</h3>
-          <p>O tratamento de dados pessoais observa integralmente a Lei Geral de Proteção de Dados (Lei 13.709/2018, LGPD). Os dados coletados destinam-se exclusivamente à prestação do serviço, verificação de identidade (KYC), prevenção a fraudes e cumprimento de obrigações legais. O usuário possui os direitos de acesso, correção, portabilidade e exclusão previstos no art. 18 da LGPD, exercíveis mediante solicitação ao suporte.</p>
-        </section>
-        <section class="ct-clausula" id="ct-clausula-8" aria-labelledby="ct-clausula-8-titulo">
-          <h3 class="ct-clausula-titulo" id="ct-clausula-8-titulo">8. RESCISÃO E SUSPENSÃO</h3>
-          <p>A RDX reserva-se o direito de suspender ou encerrar o acesso de qualquer usuário, a qualquer momento, em caso de: (a) violação destes Termos; (b) suspeita de atividade fraudulenta; (c) determinação judicial ou regulatória; (d) uso indevido da plataforma. A rescisão pelo usuário pode ser realizada a qualquer tempo, sem multa, mediante solicitação formal, respeitados os valores já consumidos em MCP.</p>
-        </section>
-        <section class="ct-clausula" id="ct-clausula-9" aria-labelledby="ct-clausula-9-titulo">
-          <h3 class="ct-clausula-titulo" id="ct-clausula-9-titulo">9. JURISDIÇÃO E LEI APLICÁVEL</h3>
-          <p>Este instrumento é regido pela legislação da República Federativa do Brasil. Fica eleito o foro da Comarca de Cuiabá, Estado de Mato Grosso, para dirimir quaisquer controvérsias, renunciando as partes a qualquer outro, por mais privilegiado que seja. Para usuários situados nos Estados Unidos da América, aplica-se adicionalmente a legislação federal americana pertinente, sem prejuízo do foro brasileiro.</p>
-        </section>
-        <section class="ct-clausula" id="ct-clausula-10" aria-labelledby="ct-clausula-10-titulo">
-          <h3 class="ct-clausula-titulo" id="ct-clausula-10-titulo">10. DISPOSIÇÕES GERAIS</h3>
-          <p>A tolerância de qualquer das partes com o descumprimento de qualquer cláusula não implica novação ou renúncia. Caso qualquer disposição seja considerada inválida, as demais permanecerão em pleno vigor. Estes Termos constituem o acordo integral entre as partes e substituem quaisquer entendimentos anteriores.</p>
-        </section>
-        <p class="ct-janela-assina">RDX Technology · @rdxtechnology · © 2026 Todos os direitos reservados.</p>
-    </div>
+    <!-- vazio de propósito: o texto entra por fetch (ver comentário acima) -->
+    <div class="ct-janela-texto" id="ct-termos-texto" tabindex="0" role="region" aria-label="Texto dos documentos"></div>
 
     <footer class="ct-janela-pe">
-      <button class="botao botao-verde ct-botao" type="button" data-ct-aceitar>
+      <p class="ct-janela-falta" data-ct-falta role="status" aria-live="polite">Role os dois documentos até o fim para liberar o aceite.</p>
+      <!-- só liga depois que os dois documentos foram rolados até o fim (termos.js) -->
+      <button class="botao botao-verde ct-botao" type="button" data-ct-aceitar disabled>
         <span class="ct-botao-rotulo">Li e aceito os termos</span>
         <svg class="ct-botao-seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
       </button>

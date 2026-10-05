@@ -5,8 +5,8 @@
 // o servidor é src/conta/api.js, que hoje devolve SEM_SERVIDOR.
 import { CONECTADO, VERSAO_DOS_TERMOS, criarConta, enviarDocumento } from './api.js';
 import {
-  soNumeros, emailValido, mascaraCpf, cpfValido, mascaraTelefoneBR, numerosDoTelefoneBR,
-  limparTelefoneLivre, telefoneValido, idade, limiteDeNascimento, forcaDaSenha, SENHA_MINIMO,
+  soNumeros, emailValido, mascaraTelefoneBR, numerosDoTelefoneBR,
+  limparTelefoneLivre, telefoneValido, forcaDaSenha, SENHA_MINIMO,
 } from './validacao.js';
 import { ligarCampos, ligarMascara, ligarOlho, ocupar } from './campos.js';
 import { carregarMovimento, ligarCena, reduzido, revelar, trocarPasso } from './movimento.js';
@@ -20,26 +20,20 @@ const TEXTOS = {
   sobrenome: 'Informe o sobrenome.',
   emailVazio: 'Informe o e-mail.',
   email: 'E-mail inválido. Confira o endereço.',
-  cpfVazio: 'Informe o CPF.',
-  cpfCurto: 'CPF incompleto. São 11 números.',
-  cpf: 'CPF inválido. Confira os números.',
   telefoneVazio: 'Informe o telefone.',
   telefoneBR: 'Telefone inválido. Use DDD e número.',
   telefone: 'Telefone inválido. Confira os números.',
-  nascimentoVazio: 'Informe a data de nascimento.',
-  nascimentoMetade: 'Data incompleta. Informe dia, mês e ano.',
-  nascimento: 'Data inválida. Confira dia, mês e ano.',
-  menor: 'É preciso ter 18 anos ou mais para criar a conta.',
   pais: 'Escolha o país.',
   senhaVazia: 'Crie uma senha.',
   senhaCurta: 'A senha precisa de no mínimo 8 caracteres.',
   confirmaVazia: 'Confirme a senha.',
   confirma: 'As senhas não são iguais.',
   caixa: 'Marque esta caixa para continuar.',
+  caixaTravada: 'Leia os Termos de Uso e o Aviso de Risco até o fim para liberar esta caixa.',
   frente: 'Envie a frente do documento.',
   verso: 'Envie o verso do documento.',
   emailUsado: 'Este e-mail já tem conta.',
-  cpfUsado: 'Este CPF já tem conta.',
+  cpfUsado: 'Já existe uma conta com este CPF.',
   falhaCriar: 'Não foi possível criar a conta agora. Tente de novo em instantes.',
   falhaEnviar: 'Não foi possível enviar o documento agora. Tente de novo em instantes.',
   envioDesligado: 'O envio de documento ainda não está conectado. Nenhum arquivo foi enviado.',
@@ -47,7 +41,8 @@ const TEXTOS = {
 };
 
 const PAISES = ['BR', 'PT', 'US'];
-const DO_PASSO_1 = ['nome', 'sobrenome', 'email', 'cpf', 'telefone', 'nascimento', 'pais', 'origem'];
+// CPF e nascimento saíram do passo 1 (05/10/2026): o KYC fica para o painel, depois
+const DO_PASSO_1 = ['nome', 'sobrenome', 'email', 'telefone', 'pais', 'origem'];
 
 const $ = (id) => document.getElementById(id);
 
@@ -124,11 +119,8 @@ async function irPara(n) {
 // ═══════════════════════════════════════════════════════════════════════════
 // PASSO 1: DADOS PESSOAIS
 // ═══════════════════════════════════════════════════════════════════════════
-const elCpf = $('ct-cpf');
 const elTelefone = $('ct-telefone');
-const elNascimento = $('ct-nascimento');
 const elPais = $('ct-pais');
-const notaCpf = $('ct-cpf-nota');
 
 const doBrasil = () => elPais.value === 'BR';
 
@@ -140,40 +132,22 @@ const dados = ligarCampos(formDados, {
     if (!e) return TEXTOS.emailVazio;
     return emailValido(e) ? '' : TEXTOS.email;
   },
-  cpf: (v) => {
-    const n = soNumeros(v);
-    if (!n.length) return doBrasil() ? TEXTOS.cpfVazio : '';
-    if (n.length < 11) return TEXTOS.cpfCurto;
-    return cpfValido(n) ? '' : TEXTOS.cpf;
-  },
   telefone: (v) => {
     if (!soNumeros(v).length) return TEXTOS.telefoneVazio;
     if (telefoneValido(v, elPais.value)) return '';
     return doBrasil() ? TEXTOS.telefoneBR : TEXTOS.telefone;
   },
-  nascimento: (v, { controle }) => {
-    if (!v) return controle.validity && controle.validity.badInput ? TEXTOS.nascimentoMetade : TEXTOS.nascimentoVazio;
-    const anos = idade(v);
-    if (anos === null || anos < 0 || anos > 120) return TEXTOS.nascimento;
-    return anos < 18 ? TEXTOS.menor : '';
-  },
   pais: (v) => (PAISES.indexOf(v) !== -1 ? '' : TEXTOS.pais),
 });
 
-ligarMascara(elCpf, mascaraCpf);
 const mascararTelefone = ligarMascara(elTelefone, (v) => (doBrasil() ? mascaraTelefoneBR(v) : limparTelefoneLivre(v)));
-elNascimento.max = limiteDeNascimento();
 
-// O CPF só é exigido de quem mora no Brasil. A máscara do telefone também é só de lá.
+// A máscara do telefone é só de quem mora no Brasil.
 function aplicarPais() {
   const br = doBrasil();
-  elCpf.required = br;
-  notaCpf.hidden = br;
   elTelefone.placeholder = br ? '(99) 99999-9999' : '';
   if (br) mascararTelefone();
-  ['cpf', 'telefone'].forEach((nome) => {
-    if (dados.campos.get(nome).comErro) dados.validar(nome);
-  });
+  if (dados.campos.get('telefone').comErro) dados.validar('telefone');
 }
 elPais.addEventListener('change', aplicarPais);
 aplicarPais();
@@ -216,7 +190,11 @@ formDados.addEventListener('submit', (e) => {
 const elSenha = $('ct-senha');
 const elConfirma = $('ct-confirma');
 const elAceiteTermos = $('ct-aceite-termos');
-const elAceiteRisco = $('ct-aceite-risco');
+const elAceiteTitular = $('ct-aceite-titular');
+const elAceiteArbitragem = $('ct-aceite-arbitragem');
+const caixasDeAceite = [elAceiteTermos, elAceiteTitular, elAceiteArbitragem];
+const blocoAceites = $('ct-aceites');
+const travaAceites = $('ct-aceites-trava');
 const elForca = $('ct-forca');
 const elForcaTexto = $('ct-forca-texto');
 const criterios = Array.from(document.querySelectorAll('[data-ct-criterio]'));
@@ -230,9 +208,16 @@ const seguranca = ligarCampos(formSeguranca, {
     if (!v) return TEXTOS.confirmaVazia;
     return v === elSenha.value ? '' : TEXTOS.confirma;
   },
-  aceiteTermos: (v) => (v ? '' : TEXTOS.caixa),
-  aceiteRisco: (v) => (v ? '' : TEXTOS.caixa),
+  aceiteTermos: regraDeCaixa,
+  aceiteTitular: regraDeCaixa,
+  aceiteArbitragem: regraDeCaixa,
 });
+
+// caixa desligada: a pessoa ainda não leu os documentos até o fim
+function regraDeCaixa(v, { controle }) {
+  if (v) return '';
+  return controle.disabled ? TEXTOS.caixaTravada : TEXTOS.caixa;
+}
 
 const esconderSenhas = Array.from(formSeguranca.querySelectorAll('.ct-olho')).map(ligarOlho);
 
@@ -251,11 +236,22 @@ elSenha.addEventListener('blur', () => {
   if (elConfirma.value && elSenha.value) seguranca.validar('confirma');
 });
 
-// "Criar conta" só liga com as duas caixas marcadas
+// "Criar conta" só liga com as três caixas marcadas
 function pintarCriar() {
-  btCriar.disabled = !(elAceiteTermos.checked && elAceiteRisco.checked);
+  btCriar.disabled = !caixasDeAceite.every((c) => c.checked);
 }
-[elAceiteTermos, elAceiteRisco].forEach((c) => c.addEventListener('change', pintarCriar));
+caixasDeAceite.forEach((c) => c.addEventListener('change', pintarCriar));
+
+// As caixas nascem desligadas e só ligam depois que os dois documentos foram rolados até
+// o fim dentro da janela (termos.js avisa por aoLer).
+function liberarAceites(leitura) {
+  if (!(leitura.leuTermos && leitura.leuRisco)) return;
+  if (blocoAceites.dataset.ctLiberado === '1') return;
+  blocoAceites.dataset.ctLiberado = '1';
+  caixasDeAceite.forEach((c) => { c.disabled = false; });
+  travaAceites.hidden = true;
+  ['aceiteTermos', 'aceiteTitular', 'aceiteArbitragem'].forEach((n) => seguranca.limparErro(n));
+}
 
 btVoltar.addEventListener('click', () => {
   if (estado.ocupado) return;
@@ -264,20 +260,23 @@ btVoltar.addEventListener('click', () => {
 
 function dadosDoCadastro() {
   const br = doBrasil();
+  const leitura = janela.leitura();
   return {
     nome: $('ct-nome').value.trim(),
     sobrenome: $('ct-sobrenome').value.trim(),
     email: $('ct-email').value.trim().toLowerCase(),
     pais: elPais.value,
-    cpf: soNumeros(elCpf.value),
     telefone: br ? numerosDoTelefoneBR(elTelefone.value) : soNumeros(elTelefone.value),
-    nascimento: elNascimento.value,
     origem: $('ct-origem').value,
     senha: elSenha.value,
     aceites: {
-      termos: elAceiteTermos.checked,
-      risco: elAceiteRisco.checked,
+      termos: elAceiteTermos.checked,            // caixa 1
+      titular: elAceiteTitular.checked,          // caixa 2
+      arbitragem: elAceiteArbitragem.checked,    // caixa 3 (aceite separado)
       versao: VERSAO_DOS_TERMOS,
+      leuTermos: leitura.leuTermos,              // rolou os Termos de Uso até o fim
+      leuRisco: leitura.leuRisco,                // rolou o Aviso de Risco até o fim
+      tempoLeituraMs: leitura.tempoLeituraMs,    // tempo somado com a janela aberta
     },
   };
 }
@@ -332,7 +331,9 @@ async function tentarCriar() {
     } else if (codigo === 'EMAIL_JA_CADASTRADO') {
       await mostrarErrosDoServidor({ email: (falha && falha.mensagem) || TEXTOS.emailUsado });
     } else if (codigo === 'CPF_JA_CADASTRADO') {
-      await mostrarErrosDoServidor({ cpf: (falha && falha.mensagem) || TEXTOS.cpfUsado });
+      // o CPF não é mais pedido aqui (fica para o KYC no painel); se o servidor
+      // devolver este código mesmo assim, vira aviso geral
+      avisar(erroCriar, (falha && falha.mensagem) || TEXTOS.cpfUsado);
     } else if (falha && falha.campos && Object.keys(falha.campos).length) {
       await mostrarErrosDoServidor(falha.campos);
     } else {
@@ -359,17 +360,21 @@ formSeguranca.addEventListener('keydown', (e) => {
 });
 
 // ───────────── janela dos termos ─────────────
+// O texto vem de /src/conta/documentos.html por fetch na primeira abertura (termos.js).
+// aoLer: um documento foi rolado até o fim. aoAceitar: "Li e aceito" (só liga com os dois lidos).
 const janela = criarJanela($('ct-termos'), {
-  aoAceitar() {
-    [elAceiteTermos, elAceiteRisco].forEach((c) => {
+  aoLer: liberarAceites,
+  aoAceitar(leitura) {
+    liberarAceites(leitura);
+    caixasDeAceite.forEach((c) => {
       c.checked = true;
       c.dispatchEvent(new Event('change', { bubbles: true }));
     });
-    seguranca.limparErro('aceiteTermos');
-    seguranca.limparErro('aceiteRisco');
+    ['aceiteTermos', 'aceiteTitular', 'aceiteArbitragem'].forEach((n) => seguranca.limparErro(n));
     pintarCriar();
   },
 });
+// data-ct-termos é o id do alvo dentro do fragmento (ct-doc-termos, ct-doc-risco, ct-clausula-13...)
 document.querySelectorAll('[data-ct-termos]').forEach((botao) => {
   botao.addEventListener('click', (e) => {
     e.preventDefault();

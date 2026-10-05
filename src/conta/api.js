@@ -46,16 +46,20 @@
 //
 //     Nomes aceitos em "campos":
 //       entrar           email, senha
-//       criarConta       nome, sobrenome, email, cpf, telefone, nascimento, pais,
-//                        origem, senha, confirma, aceiteTermos, aceiteRisco
+//       criarConta       nome, sobrenome, email, telefone, pais, origem, senha,
+//                        confirma, aceiteTermos, aceiteTitular, aceiteArbitragem
 //       enviarDocumento  tipo, frente, verso
+//
+//     CPF e data de nascimento NÃO são mais pedidos no cadastro (05/10/2026): o
+//     KYC fica para o painel, depois da conta criada. CPF_JA_CADASTRADO continua
+//     previsto, mas sem campo para marcar vira um aviso geral na tela.
 //
 // O QUE A TELA JÁ CONFERE ANTES DE CHAMAR (o servidor precisa conferir de novo)
 //
-//   e-mail em formato válido · CPF com os dois dígitos verificadores · telefone
-//   completo · 18 anos ou mais · senha com 8 ou mais caracteres e confirmação
-//   igual · as duas caixas marcadas · arquivo PNG, JPG ou PDF (pela assinatura
-//   do arquivo, não pela extensão) com no máximo 10 MB.
+//   e-mail em formato válido · telefone completo · senha com 8 ou mais caracteres
+//   e confirmação igual · os dois documentos rolados até o fim na janela · as três
+//   caixas marcadas · arquivo PNG, JPG ou PDF (pela assinatura do arquivo, não
+//   pela extensão) com no máximo 10 MB.
 //
 // AINDA SEM FUNÇÃO AQUI
 //
@@ -66,9 +70,12 @@
 // false: as telas mostram a faixa de demonstração. true: servidor ligado.
 export const CONECTADO = false;
 
-// Versão do texto jurídico mostrado na janela dos termos. Vai junto no cadastro
-// para o servidor registrar qual versão foi aceita.
-export const VERSAO_DOS_TERMOS = '1.0';
+// Versão do texto jurídico mostrado na janela dos termos (Termos de Uso v1.0 e
+// Aviso de Risco, outubro de 2026, em /src/conta/documentos.html). Vai junto no
+// cadastro para o servidor registrar qual versão foi aceita. Quando o texto mudar,
+// troque aqui também: o servidor deve guardar o hash do texto desta versão
+// (Termos, cláusula 16.2).
+export const VERSAO_DOS_TERMOS = '1.0-2026-10';
 
 const semServidor = () => Promise.reject({ codigo: 'SEM_SERVIDOR' });
 
@@ -107,18 +114,23 @@ export function entrar(dados) { // eslint-disable-line no-unused-vars
  *     sobrenome: 'Teste',
  *     email: 'pessoa@exemplo.com',    em minúsculas
  *     pais: 'BR',                     'BR' | 'PT' | 'US'
- *     cpf: '12345678909',             só os 11 números. '' quando o país não é BR e a pessoa não informou
  *     telefone: '11987654321',        só números. BR: DDD + número (10 ou 11). fora do BR: 7 a 15 números
- *     nascimento: '1990-05-20',       AAAA-MM-DD
  *     origem: 'instagram',            'indicacao' | 'instagram' | 'youtube' | 'google' | 'outro' | '' (não respondeu)
  *     senha: 'texto como digitado',
  *     aceites: {
- *       termos: true,                 caixa 1: Termos de Uso, Política de Privacidade e Aviso de Risco
- *       risco: true,                  caixa 2: declaração de ciência de risco
- *       versao: '1.0',                versão do texto aceito
+ *       termos: true,                 caixa 1: Termos de Uso, Aviso de Risco e Política de Privacidade
+ *       titular: true,                caixa 2: conta de titularidade própria, só capital próprio
+ *       arbitragem: true,             caixa 3: arbitragem (cláusula 13.2), aceite separado (Lei 9.307/96, art. 4º, § 2º)
+ *       versao: '1.0-2026-10',        versão do texto aceito (VERSAO_DOS_TERMOS)
+ *       leuTermos: true,              rolou os Termos de Uso até o fim dentro da janela
+ *       leuRisco: true,               rolou o Aviso de Risco até o fim dentro da janela
+ *       tempoLeituraMs: 184000,       tempo somado com a janela dos documentos aberta, em milissegundos
  *     },
  *   }
- *   A data e a hora do aceite devem ser registradas pelo servidor.
+ *   Os três aceites são obrigatórios; a tela só chama com os três true e com os dois
+ *   documentos lidos. O servidor registra data e hora (UTC) de cada aceite, IP, user
+ *   agent, idioma e fuso, e o hash SHA-256 do texto de cada documento da versão
+ *   aceita (Termos de Uso, cláusula 16.2). CPF, nascimento e documento ficam para o KYC.
  *
  * SAÍDA (resolve)
  *   {}                                 nada é obrigatório. a conta criada já deve
@@ -127,8 +139,8 @@ export function entrar(dados) { // eslint-disable-line no-unused-vars
  *
  * FALHA (rejeita)
  *   { codigo: 'EMAIL_JA_CADASTRADO' }
- *   { codigo: 'CPF_JA_CADASTRADO' }
- *   { codigo: 'DADOS_INVALIDOS', campos: { nascimento: '...' } }
+ *   { codigo: 'CPF_JA_CADASTRADO' }        só faz sentido depois do KYC; na tela vira aviso geral
+ *   { codigo: 'DADOS_INVALIDOS', campos: { telefone: '...' } }
  *
  * @param {object} dados
  * @returns {Promise<object>}

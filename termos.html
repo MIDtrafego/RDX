@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Termos de Uso e Aviso de Risco · RDX Technology</title>
+<meta name="description" content="Termos de Uso, Contrato de Prestação de Serviço de Infraestrutura de Execução, Termo de Ciência de Risco e Aviso de Risco da RDX Technology, na íntegra."/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23050706%27/%3E%3Cpath d=%27M8 22V10h7a4 4 0 0 1 1.6 7.7L20 22h-3.4l-3-4H11v4zm3-6.6h3.6a1.4 1.4 0 0 0 0-2.8H11z%27 fill=%27%234ade80%27/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<!-- estilo.css entra só para herdar as variáveis, a marca e os botões do site -->
+<link rel="stylesheet" href="/src/estilo.css"/>
+<link rel="stylesheet" href="/src/conta/conta.css"/>
+<script>document.documentElement.classList.add('ct-js');</script>
+</head>
+<body class="ct-corpo ct-tela-termos ct-aberto">
+
+<!-- fundo simples: só o véu em degradê, sem o canvas das telas de conta -->
+<div class="ct-veu" aria-hidden="true"></div>
+
+<header class="topo ct-topo">
+  <!-- mesma marca do topo do site: a logo oficial entra como máscara (estilo.css) -->
+  <a class="marca" href="/" aria-label="RDX Technology, voltar ao site">
+    <span class="marca-logo" aria-hidden="true"></span>
+  </a>
+  <p class="ct-assinatura">Infraestrutura Quantitativa</p>
+</header>
+
+<main class="ct-pagina-termos">
+  <div class="ct-termos-cabeca">
+    <p class="ct-etiqueta">Documentos</p>
+    <h1 class="ct-titulo">Termos de Uso e Aviso de Risco</h1>
+    <p class="ct-apoio">Versão 1.0 · outubro de 2026. Os mesmos documentos mostrados no cadastro, na íntegra.</p>
+  </div>
+
+  <nav class="ct-termos-nav" aria-label="Navegação dos documentos">
+    <a class="ct-aba" href="#termos">Termos de Uso</a>
+    <a class="ct-aba" href="#aviso-de-risco">Aviso de Risco</a>
+    <a class="ct-link ct-link-fraco ct-termos-voltar" href="/">Voltar ao site</a>
+  </nav>
+
+  <noscript>
+    <p class="ct-aviso ct-aviso-demo">Sem JavaScript esta página não monta os documentos. <a class="ct-link" href="/src/conta/documentos.html">Abrir o texto dos documentos</a>.</p>
+  </noscript>
+
+  <!--
+    O texto vem de /src/conta/documentos.html (a mesma fonte da janela do cadastro).
+    O script abaixo põe os Termos de Uso em #termos e o Aviso de Risco em #aviso-de-risco,
+    para as âncoras funcionarem.
+  -->
+  <div class="ct-documentos" id="ct-documentos">
+    <p class="ct-janela-carregando" id="ct-documentos-estado" role="status">Carregando os documentos</p>
+    <div class="ct-ancora" id="termos"></div>
+    <div class="ct-ancora" id="aviso-de-risco"></div>
+  </div>
+
+  <div class="ct-pe ct-termos-pe">
+    <p><a class="ct-link" href="/cadastro.html">Criar conta</a></p>
+    <p><a class="ct-link ct-link-fraco" href="/">Voltar ao site</a></p>
+  </div>
+</main>
+
+<script type="module">
+  // Carrega o fragmento e encaixa cada documento na sua âncora.
+  const FONTE = '/src/conta/documentos.html';
+  const estado = document.getElementById('ct-documentos-estado');
+  const alvoTermos = document.getElementById('termos');
+  const alvoRisco = document.getElementById('aviso-de-risco');
+
+  function falhou() {
+    estado.className = 'ct-aviso ct-aviso-erro';
+    estado.setAttribute('role', 'alert');
+    estado.innerHTML = '';
+    estado.append('Não foi possível carregar os documentos agora. ');
+    const a = document.createElement('a');
+    a.className = 'ct-link';
+    a.href = FONTE;
+    a.textContent = 'Abrir o texto direto';
+    estado.append(a, '.');
+  }
+
+  function irParaAncora() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ block: 'start' });
+  }
+
+  fetch(FONTE, { credentials: 'same-origin' })
+    .then((r) => (r.ok ? r.text() : Promise.reject(new Error('HTTP ' + r.status))))
+    .then((html) => {
+      const molde = document.createElement('template');
+      molde.innerHTML = html;
+      const termos = molde.content.querySelector('#ct-doc-termos');
+      const risco = molde.content.querySelector('#ct-doc-risco');
+      if (!termos || !risco) throw new Error('fragmento sem os dois documentos');
+      alvoTermos.appendChild(termos);
+      alvoRisco.appendChild(risco);
+      const assina = molde.content.querySelector('.ct-janela-assina');
+      if (assina) alvoRisco.appendChild(assina);
+      estado.remove();
+      irParaAncora();
+    })
+    .catch(falhou);
+</script>
+</body>
+</html>

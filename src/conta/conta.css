@@ -1517,9 +1517,236 @@ noscript .ct-aviso { margin-bottom: 18px; }
 }
 .ct-janela-pe {
   flex: none;
-  padding: 16px clamp(18px, 2.6vw, 34px) clamp(16px, 2vw, 24px);
+  display: grid;
+  gap: 10px;
+  padding: 14px clamp(18px, 2.6vw, 34px) clamp(16px, 2vw, 24px);
   border-top: 1px solid var(--ct-borda);
 }
+/* o que falta para liberar o aceite */
+.ct-janela-falta {
+  font-family: var(--ct-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ct-t2);
+  transition: color .4s;
+}
+.ct-janela-falta-ok { color: var(--ct-verde); }
+
+/* ─── abas da janela: um botão por documento ───
+   a bolinha enche quando o documento foi rolado até o fim; aria-current marca
+   o documento que está sob os olhos */
+.ct-janela-abas {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ct-aba {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 36px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .04);
+  box-shadow: inset 0 0 0 1px var(--ct-borda);
+  color: var(--ct-claro);
+  font-family: var(--ct-mono);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color .3s, background-color .3s, box-shadow .3s;
+}
+.ct-aba-marca {
+  flex: none;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1.5px currentColor;
+  transition: background-color .35s, box-shadow .35s, transform .45s var(--ct-suave);
+}
+.ct-aba[aria-current="true"] {
+  color: var(--ct-branco);
+  background: rgba(74, 222, 128, .1);
+  box-shadow: inset 0 0 0 1.5px var(--ct-verde);
+}
+.ct-aba-lida { color: var(--ct-verde); }
+.ct-aba-lida .ct-aba-marca { background: var(--ct-verde); box-shadow: none; transform: scale(1.15); }
+.ct-corpo .ct-aba:focus-visible { border-radius: 999px; outline-offset: 2px; }
+@media (hover: hover) {
+  .ct-aba:hover { color: var(--ct-branco); box-shadow: inset 0 0 0 1px var(--ct-borda-forte); }
+}
+
+/* ─── carregando e falha ─── */
+.ct-janela-carregando {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  padding: 56px 0;
+  font-family: var(--ct-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ct-t2);
+}
+.ct-janela-carregando::before {
+  content: '';
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--ct-borda-forte);
+  border-top-color: var(--ct-verde);
+  animation: ct-gira .8s linear infinite;
+}
+@keyframes ct-gira { to { transform: rotate(360deg); } }
+.ct-janela-falha { display: grid; gap: 8px; }
+.ct-janela-falha-acoes { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+
+/* ─── um documento dentro do texto (Termos de Uso, Aviso de Risco) ─── */
+.ct-documento {
+  display: grid;
+  gap: clamp(20px, 2.2vw, 30px);
+  scroll-margin-top: 18px;
+}
+.ct-documento + .ct-documento {
+  padding-top: clamp(26px, 3vw, 40px);
+  border-top: 1px solid var(--ct-borda-forte);
+}
+.ct-documento-cabeca { display: grid; gap: 8px; }
+.ct-documento-titulo {
+  font-size: clamp(17px, 1.6vw, 21px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--ct-branco);
+}
+.ct-documento-versao {
+  font-family: var(--ct-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ct-verde);
+}
+.ct-documento-apoio {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ct-t2);
+  text-wrap: pretty;
+}
+.ct-documento-fim {
+  padding-top: 10px;
+  border-top: 1px dashed var(--ct-borda);
+  font-family: var(--ct-mono);
+  font-size: 10.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ct-t3);
+}
+.ct-clausula :where(ul, ol) { display: grid; gap: 8px; }
+.ct-clausula :where(ul) { list-style: disc; padding-left: 1.3em; }
+.ct-clausula :where(li) { text-wrap: pretty; }
+.ct-clausula-caixas li {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .035);
+  box-shadow: inset 0 0 0 1px var(--ct-borda);
+}
+
+/* ─── caixas de aceite travadas e caixa 3 em destaque ─── */
+.ct-aceites-trava {
+  background: rgba(200, 245, 42, .05);
+  box-shadow: inset 0 0 0 1px rgba(200, 245, 42, .3);
+}
+.ct-aceites-trava svg { stroke: var(--ct-lima); }
+.ct-marcar-caixa:disabled {
+  opacity: .38;
+  cursor: not-allowed;
+  box-shadow: inset 0 0 0 1.5px var(--ct-borda);
+}
+.ct-marcar-caixa:disabled + .ct-marcar-texto { color: var(--ct-t2); cursor: default; }
+@media (hover: hover) {
+  .ct-marcar-caixa:disabled:not(:checked):hover { box-shadow: inset 0 0 0 1.5px var(--ct-borda); }
+}
+/* arbitragem: aceite separado e em destaque (Lei 9.307/96, art. 4º, § 2º) */
+.ct-marcar-destaque {
+  margin-top: 4px;
+  padding: 14px 16px 14px 14px;
+  border-radius: 12px;
+  background: rgba(200, 245, 42, .045);
+  box-shadow: inset 0 0 0 1.5px rgba(200, 245, 42, .55);
+}
+.ct-marcar-selo {
+  grid-column: 1 / -1;
+  margin-bottom: 2px;
+  font-family: var(--ct-mono);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ct-lima);
+}
+.ct-marcar-destaque .ct-marcar-caixa:checked {
+  background: var(--ct-lima);
+  box-shadow: inset 0 0 0 1.5px var(--ct-lima), 0 0 0 4px rgba(200, 245, 42, .16);
+}
+@media (hover: hover) {
+  .ct-marcar-destaque .ct-marcar-caixa:not(:disabled):not(:checked):hover { box-shadow: inset 0 0 0 1.5px var(--ct-lima); }
+}
+
+/* ─── página pública dos documentos (termos.html) ─── */
+.ct-tela-termos .ct-pagina-termos {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 2 * var(--ct-beira), 860px);
+  margin: 0 auto;
+  padding: 104px 0 64px;
+}
+.ct-termos-cabeca {
+  display: grid;
+  gap: 12px;
+  margin-bottom: clamp(18px, 2.4vw, 28px);
+}
+.ct-tela-termos .ct-titulo { font-size: clamp(28px, 3.2vw, 44px); }
+.ct-termos-nav {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin: 0 calc(-1 * var(--ct-beira));
+  padding: 12px var(--ct-beira);
+  background: linear-gradient(to bottom, rgba(5, 7, 6, .98) 0%, rgba(5, 7, 6, .94) 100%);
+  border-bottom: 1px solid var(--ct-borda);
+}
+.ct-termos-nav .ct-termos-voltar { margin-left: auto; font-size: 13.5px; }
+.ct-documentos {
+  display: grid;
+  gap: clamp(28px, 3.4vw, 48px);
+  padding-top: clamp(24px, 3vw, 40px);
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--ct-claro);
+}
+.ct-documentos .ct-ancora { scroll-margin-top: 76px; }
+.ct-tela-termos .ct-documento-titulo { font-size: clamp(21px, 2.3vw, 30px); }
+.ct-tela-termos .ct-documento + .ct-documento { border-top: 0; padding-top: 0; }
+.ct-documentos .ct-ancora + .ct-ancora { padding-top: clamp(26px, 3vw, 40px); border-top: 1px solid var(--ct-borda-forte); }
+.ct-termos-pe { margin-top: clamp(28px, 3vw, 44px); }
 
 /* ─── abertura da página (só uma vez) ────────── */
 @keyframes ct-cartao-entra {

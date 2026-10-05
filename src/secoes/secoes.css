@@ -1352,7 +1352,6 @@
   #secoes .rx-garantias li { padding-right: calc(var(--u) * 1.4); }
   #secoes .rx-garantias li + li { padding-left: calc(var(--u) * 1.6); border-left: 1px solid var(--rx-borda); }
 }
-#secoes .rx-acesso-nota { margin: calc(var(--u) * 1.4) var(--rx-margem) 0; font-size: var(--rx-f-apoio); color: var(--rx-t2); max-width: 64em; }
 
 #secoes .rx-cobranca { margin-top: calc(var(--u) * 6); border-top: 1px solid var(--rx-borda); }
 #secoes .rx-passos {
@@ -1682,8 +1681,12 @@
 }
 @media (hover: hover) { #secoes .rx-rodape-botao:hover { background: #ffffff; transition-duration: .2s; } }
 
-#secoes .rx-rodape-base { display: grid; gap: calc(var(--u) * .9); padding: calc(var(--u) * 1.4) calc(var(--u) * .4) 0; color: #050706; }
+/* folga embaixo: a linha de direitos é revelada ao entrar em 98% da tela (rodape.js); sem a
+   folga ela fica colada no fim da página e nunca cruza o gatilho */
+#secoes .rx-rodape-base { display: grid; gap: calc(var(--u) * .9); padding: calc(var(--u) * 1.4) calc(var(--u) * .4) max(24px, calc(var(--u) * 1.4)); color: #050706; }
 #secoes .rx-rodape-risco { margin: 0; max-width: 118em; font-size: max(11px, calc(var(--u) * .8)); line-height: 1.45; color: rgba(5, 7, 6, .82); }
+#secoes .rx-rodape-link { color: #050706; font-weight: 600; text-decoration: underline; text-underline-offset: .18em; }
+@media (hover: hover) { #secoes .rx-rodape-link:hover { text-decoration-thickness: 2px; } }
 #secoes .rx-rodape-direitos { margin: 0; font-size: max(10px, calc(var(--u) * .75)); font-weight: 600; }
 
 @media (max-width: 991.98px) {

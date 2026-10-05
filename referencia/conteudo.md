@@ -1,5 +1,11 @@
 # Conteúdo do site RDX (extraído do site antigo, rdx_landing.html)
 
+Atualizado em 05/10/2026 com o pacote do Pedro (referencia/pedro-2026-10/): modelo comercial novo
+(licença semestral US$ 49 lançada na primeira fatura, mínimo US$ 100, conta Cent até US$ 10.000, MT4 ou
+MT5, teto de 3% do saldo médio), Aviso de Risco v1.0, entidade RDX Gestão e Tecnologia Ltda (CNPJ
+65.079.034/0001-69) e as três caixas de aceite. A taxa de conexão (US$ 15/mês, US$ 3 abaixo de
+US$ 1.000) NÃO aparece no site: só no contrato e na fatura, por decisão do Pedro.
+
 Fonte: HTML antigo colado pelo Yuri em 29/09/2026. Este arquivo guarda os TEXTOS e NÚMEROS para as
 seções novas. Não inventar número, promessa ou depoimento que não esteja aqui.
 
@@ -122,10 +128,11 @@ o dado (com estado vazio bem resolvido), sem número inventado.
 
 ## Acesso e uso (preço)
 - Etiqueta: Acesso E Uso
-- Título: Uma adesão. Depois, só o que processou.
-- Apoio: Sem planos. Sem mensalidade fixa. Cobrança por ciclo computacional completado.
-- Passo 1, única vez: Adesão US$ 400, ativação da infraestrutura
-  - Sua conta MT5, na sua corretora. Capital mínimo US$ 1.000
+- Título: Nada antes de usar. Depois, só o que processou.
+- Apoio: Sem ativação antecipada. Sem planos. Sem mensalidade fixa. Cobrança por ciclo computacional
+  completado.
+- Passo 1, por semestre: Licença semestral US$ 49, lançada na primeira fatura, após 30 dias de uso
+  - Sua conta MT4 ou MT5, na sua corretora, a partir de US$ 100
   - Cores executam na sua conta pela nuvem RDX, sem VPS
   - Control Center completo, web e mobile
   - Guardian, telemetria e auditoria
@@ -133,13 +140,14 @@ o dado (com estado vazio bem resolvido), sem número inventado.
 - Passo 2, todo mês: Uso pós-pago, US$ 0,0167 por MCP consumido, fatura no fim do mês
   - Nada a pagar antes de usar. Sem VPS, sem instalar nada
   - Consumo por ciclo: lote × fator do Core
-  - Fatura mensal com o consumo real, 5 dias para pagar
+  - Fatura mensal com o consumo real, nunca acima de 3% do saldo médio da conta
   - USDT (TRC-20 / ERC-20)
   - Consumo do mês em tempo real no painel
 - Três garantias: Sem contrato (pare quando quiser, paga só o que usou) / Capital na sua corretora
   (a RDX nunca custodia) / Simulador no painel (veja quanto custa um cenário antes de começar)
-- Nota: A fatura mensal inclui o processamento (MCP × preço) e a manutenção da conexão em nuvem de
-  cada conta ativa, conforme Termos de Uso.
+- Sem nota sobre a taxa de conexão: ela fica só no contrato e na fatura (decisão do Pedro, out/2026).
+- Modelo antigo (substituído em 05/10/2026, não usar): adesão US$ 400 paga antes, capital mínimo
+  US$ 1.000, "5 dias para pagar", nota sobre a conexão em nuvem na fatura.
 
 ## Como funciona a cobrança
 - Etiqueta: Transparência Total
@@ -158,12 +166,13 @@ o dado (com estado vazio bem resolvido), sem número inventado.
 1. O que é um MCP e como é calculado?
    MCP (Unidade de Processamento) mede o uso da infraestrutura de execução da RDX na sua conta. Cada
    ordem executada consome MCP proporcional ao lote (lote ÷ 0,01 × fator do Core). A fatura sai no
-   fim do mês, só com o que foi usado.
+   fim do mês, só com o que foi usado. O valor de MCP de um mês nunca passa de 3% do saldo médio da
+   sua conta.
 2. Preciso ter conhecimento técnico para usar a plataforma?
    Não. Você não instala nada, não precisa de VPS nem de deixar o MetaTrader aberto. Conecta a conta
    no painel e acompanha as ordens, o consumo e a fatura em tempo real.
 3. Como a RDX se conecta à minha corretora?
-   Você informa login, servidor e senha de negociação da sua conta MT5 no painel. A infraestrutura
+   Você informa login, servidor e senha de negociação da sua conta MT4 ou MT5 no painel. A infraestrutura
    de execução em nuvem da RDX se conecta diretamente ao servidor da sua corretora e executa as
    ordens dos Cores na sua conta. Sem acesso a depósitos ou saques: o dinheiro fica na corretora, no
    seu nome.
@@ -173,18 +182,39 @@ o dado (com estado vazio bem resolvido), sem número inventado.
 5. Posso cancelar a qualquer momento?
    Sim. Sem fidelidade, sem multa. Você desconecta a conta pelo painel e paga só o que foi consumido
    até ali. Posições abertas seguem sob gestão até o fechamento.
+6. Quanto preciso ter na conta para começar?
+   A partir de US$ 100 na sua corretora. Até US$ 10.000 recomendamos conta do tipo Cent (Exness
+   Standard Cent, XM Micro, RoboForex ProCent): ela permite executar lotes menores, na mesma
+   proporção das contas maiores. Acima de US$ 10.000, conta Padrão. A exposição e os Cores da sua
+   conta são definidos automaticamente pelo capital.
+7. O que pago e quando?
+   Nada antes de usar. Você conecta a conta, os Cores operam por 30 dias e a primeira fatura sai no
+   fim do ciclo: a licença semestral de US$ 49 mais o MCP consumido. Dali em diante, só o MCP do mês.
+   O valor de MCP de um mês nunca passa de 3% do saldo médio da sua conta.
 - Atendimento: até 4 horas úteis, segunda a sexta, 9h às 18h (horário de Brasília)
 
-## Rodapé
-- © 2026 RDX Technology · Todos os direitos reservados
-- Aviso de risco (texto integral, obrigatório):
-  Aviso de risco: operações no mercado financeiro envolvem risco substancial de perda e podem não
-  ser adequadas a todos os perfis de investidor. A RDX Technology fornece exclusivamente
-  infraestrutura computacional de processamento algorítmico e não oferece assessoria de
-  investimentos, gestão de recursos ou garantia de rentabilidade. Rentabilidade passada não é
-  garantia de resultado futuro. O capital investido pode ser parcial ou totalmente perdido. Verifique
-  a regulamentação aplicável em sua jurisdição antes de operar. Este serviço não se destina a
-  residentes em países onde tal atividade seja proibida por lei.
+## Rodapé (rolagem.html e comecar.html)
+- © 2026 RDX Gestão e Tecnologia Ltda · CNPJ 65.079.034/0001-69 · RDX Technology · Todos os direitos
+  reservados
+- Aviso de risco (texto integral, obrigatório; frases das seções 1, 2, 3, 4, 5 e 9 do
+  RDX_disclaimer_e_termo_de_risco.md, nesta ordem):
+  Aviso de risco: operar nos mercados financeiros envolve risco. Forex, metais, índices, criptoativos
+  e CFDs são instrumentos alavancados, e o capital aplicado está sujeito a oscilações e a perdas, que
+  podem ser significativas ou totais. A execução por algoritmos não elimina esse risco. A RDX é uma
+  empresa de tecnologia: não é instituição financeira, corretora, gestora, administradora ou
+  consultora de investimentos, e não recebe, não custodia, não movimenta e não tem acesso ao dinheiro
+  do cliente, que fica sempre na conta dele, na corretora, no seu nome. A RDX não promete, não
+  garante, não projeta e não sugere rentabilidade de qualquer natureza. Resultados passados
+  referem-se a contas e períodos específicos e não se repetem necessariamente na sua conta. O serviço
+  não é oferecido a residentes nos Estados Unidos.
+- Depois do aviso, link "Aviso de Risco e Termos de Uso completos" para /termos.html#aviso-de-risco.
+- Aviso curto do menu (index.html, .mn-aviso): Operações no mercado financeiro envolvem risco de
+  perda, que pode ser total. A RDX Gestão e Tecnologia Ltda fornece infraestrutura de execução e não
+  garante rentabilidade.
+- Caixas de aceite (comecar.html, passo 3, e cadastro):
+  1. Li e aceito os Termos de Uso, o Aviso de Risco e a Política de Privacidade.
+  2. Declaro que a conta conectada é de minha titularidade e que opero exclusivamente capital próprio.
+  3. Aceito a arbitragem como forma exclusiva de solução de disputas, em caráter individual.
 
 ## FICOU DE FORA DE PROPÓSITO (contradições do site antigo, o Yuri e o Pedro precisam decidir)
 Não usar nenhum destes trechos até haver decisão:
@@ -194,5 +224,6 @@ Não usar nenhum destes trechos até haver decisão:
    que não há plano nem assinatura).
 4. "Clientes Enterprise têm suporte dedicado" (não existe plano Enterprise).
 5. Termos de Uso falam em "ciclos semanais com débito automático" e a página fala em fatura mensal.
-6. "Funciona com qualquer corretora MetaTrader 4 ou 5" (o resto do site só fala em MT5).
+6. "Funciona com qualquer corretora MetaTrader 4 ou 5". Resolvido em 05/10/2026: o pacote do Pedro
+   fala em "MT4/MT5", e o site passou a dizer "MT4 ou MT5" no cartão de preço e na FAQ 03.
 7. "5.400 MCP processados por mês": sem fonte.
