@@ -97,24 +97,26 @@ body {
   white-space: nowrap;
 }
 
-/* chamada grande abaixo do cartão: aparece quando a marca termina de se escrever */
+/* chamada grande abaixo do cartão: aparece quando a marca termina de se escrever.
+   Fica no meio exato entre a base do cartão (50% + 16,5%) e o começo da seção seguinte,
+   que chega a 33,5% da altura abaixo dela: centro em 50% + 16,5% + 16,75%. */
 .saida-chamada {
   --sc-fundo: var(--lima);
   --sc-tinta: #000;
   position: absolute;
   left: 50%;
-  top: calc(50% + 16.5vh + var(--u) * 2.4);
-  transform: translate(-50%, 0);
+  top: 83.25%;
+  transform: translate(-50%, -50%);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: .9em;
-  min-height: max(56px, calc(var(--u) * 4.6));
-  padding: 0 calc(var(--u) * 2.6);
-  border-radius: 6px;
+  min-height: max(87px, calc(var(--u) * 7.2));
+  padding: 0 calc(var(--u) * 3.4);
+  border-radius: 8px;
   overflow: hidden;
   isolation: isolate;
-  font-size: max(15px, calc(var(--u) * 1.25));
+  font-size: max(19px, calc(var(--u) * 1.625));
   font-weight: 700;
   line-height: 1;
   letter-spacing: .03em;
@@ -338,15 +340,16 @@ body #secoes > .rx-janela::after { display: none; }
   .saida-faixa { font-size: 9.5vw; }
   .saida-faixa-a { font-size: 10.5vw; }
   .saida-rotulo { font-size: 9px; top: calc(50% - 37vh - 12px); }
+  /* cartão de 66%: base em 50% + 33%; a seção seguinte chega 17% abaixo: centro em 91,5% */
   .saida-chamada {
-    top: calc(50% + 37vh + 12px);
-    min-height: 50px;
-    padding: 0 18px;
-    font-size: 12px;
+    top: 91.5%;
+    min-height: 72px;
+    padding: 0 22px;
+    font-size: 14px;
     white-space: normal;
     text-align: center;
     width: max-content;
-    max-width: 88vw;
+    max-width: 90vw;
   }
   .aviso-simulacao { left: 0; right: 0; bottom: 10px; text-align: center; font-size: 8px; }
   .cartao-status { bottom: 34px; }

@@ -11,6 +11,7 @@ import {
 import { ligarCampos, ligarMascara, ligarOlho, ocupar } from './campos.js';
 import { carregarMovimento, ligarCena, reduzido, revelar, trocarPasso } from './movimento.js';
 import { criarFundo } from './fundo.js';
+import { lerGuardado } from './guardado.js';
 import { criarJanela } from './termos.js';
 import { ligarArquivo, segurarSoltaFora } from './documento.js';
 
@@ -176,6 +177,26 @@ function aplicarPais() {
 }
 elPais.addEventListener('change', aplicarPais);
 aplicarPais();
+
+// O que a pessoa já preencheu na página "Comece hoje" (comecar.html) chega pronto aqui.
+// Só entra em campo vazio; o que ela digitar por cima vale.
+(function preencherDoComecar() {
+  const g = lerGuardado();
+  const elNome = $('ct-nome');
+  const elSobrenome = $('ct-sobrenome');
+  const elEmail = $('ct-email');
+  if (g.nome && !elNome.value) {
+    const partes = g.nome.trim().split(/\s+/);
+    elNome.value = partes[0];
+    if (partes.length > 1 && !elSobrenome.value) elSobrenome.value = partes.slice(1).join(' ');
+  }
+  if (g.email && !elEmail.value) elEmail.value = g.email;
+  if (g.whatsapp && !elTelefone.value) {
+    elTelefone.value = g.whatsapp;
+    if (doBrasil()) mascararTelefone();
+  }
+  dados.atualizarMarcas();
+})();
 
 formDados.addEventListener('submit', (e) => {
   e.preventDefault();

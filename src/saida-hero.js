@@ -18,7 +18,7 @@ const INI_ESCREVER = 0.53;     // a marca começa a ser escrita
 const FIM_ESCREVER = 0.90;     // a marca está pronta
 const INI_SUBIR = 1.05;        // o conjunto começa a subir junto com a página
 const ESCALA_FINAL = 0.33;     // largura final do quadro em relação à tela (computador)
-const ESCALA_FINAL_CELULAR = 0.74;   // no celular o quadro de 33% ficaria com 130 px
+const ESCALA_FINAL_CELULAR = 0.66;   // no celular o quadro de 33% ficaria com 130 px; 66% deixa lugar para a chamada
 
 const limitar = (v) => Math.max(0, Math.min(1, v));
 const suave = (t) => t * t * (3 - 2 * t);
@@ -77,7 +77,7 @@ export function iniciarSaida({ canvas }) {
     if (chamada) {
       const c = suave(limitar((s - (FIM_ESCREVER - 0.08)) / 0.12));
       chamada.style.opacity = c.toFixed(3);
-      chamada.style.transform = 'translate(-50%,' + ((1 - c) * 18).toFixed(1) + 'px)';
+      chamada.style.transform = 'translate(-50%, calc(-50% + ' + ((1 - c) * 18).toFixed(1) + 'px))';
       chamada.style.pointerEvents = c > 0.6 && !estado.fora ? 'auto' : 'none';
     }
 
