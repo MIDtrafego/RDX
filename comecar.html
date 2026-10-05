@@ -4,9 +4,9 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>Comece hoje · RDX Technology</title>
-<meta name="description" content="O passo a passo para colocar seus dólares para trabalhar: o vídeo, a conta na corretora, os dados do MT5, a sua conta RDX e a conexão."/>
+<meta name="description" content="O passo a passo para colocar seus dólares para trabalhar: o vídeo, a conta na corretora, a sua conta RDX e a conexão."/>
 <meta property="og:title" content="Coloque seus dólares para trabalhar hoje · RDX Technology"/>
-<meta property="og:description" content="Tudo numa página só: o vídeo, a conta na corretora, os dados do MT5, a sua conta RDX e a conexão."/>
+<meta property="og:description" content="Tudo numa página só: o vídeo, a conta na corretora, a sua conta RDX e a conexão."/>
 <meta property="og:image" content="https://rdx-silk.vercel.app/img/rdx-capa.jpg"/>
 <meta property="og:url" content="https://rdx-silk.vercel.app/comecar.html"/>
 <meta property="og:type" content="website"/>
@@ -41,7 +41,7 @@
     <p class="cm-etiqueta cm-revela">Passo a passo</p>
     <h1 class="cm-frase cm-revela" style="--cm-atraso:.08s">Coloque seus dólares para trabalhar <em>hoje.</em></h1>
     <p class="cm-apoio cm-apoio-grande cm-revela" style="--cm-atraso:.16s">Tudo nesta página, do vídeo à conexão. Comece pelo vídeo.</p>
-    <p class="cm-apoio cm-revela" style="--cm-atraso:.22s">Já opera no mercado internacional e tem conta em corretora de Forex? Pule o tutorial e <a class="cm-link" href="#passo-3">vá direto para os seus dados do MT5</a>.</p>
+    <p class="cm-apoio cm-revela" style="--cm-atraso:.22s">Já opera no mercado internacional e tem conta em corretora de Forex? Pule o tutorial e <a class="cm-link" href="#cm-mt5">vá direto para os dados da sua conta MT5</a>.</p>
   </header>
 
   <ol class="cm-passos">
@@ -95,15 +95,45 @@
               <span>Abrir</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
           </li>
-          <li class="cm-item cm-item-abre cm-revela" style="--cm-atraso:.30s">
+          <li class="cm-item cm-item-mt5 cm-revela" id="cm-mt5" style="--cm-atraso:.30s">
             <span class="cm-item-n" aria-hidden="true">3</span>
-            <div class="cm-item-texto"><b>Conta Standard Cent · MT5</b><span>anote o número</span></div>
-            <button class="cm-item-botao" type="button" aria-expanded="false" aria-controls="cm-como-3">
-              <span>Como</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </button>
-            <div class="cm-como" id="cm-como-3" hidden>
-              <p>Na área do cliente da Exness, abra uma nova conta de negociação: tipo <b>Standard Cent</b>, plataforma <b>MT5</b>, conta real. Anote o número da conta e o nome do servidor. Os dois entram no passo 3.</p>
-            </div>
+            <div class="cm-item-texto"><b>Conta Standard Cent · MT5</b><span>abra a conta na Exness, copie de lá e cole aqui</span></div>
+            <a class="cm-item-botao" href="https://my.exness.com/" target="_blank" rel="noopener" data-cm-link="exnessContas">
+              <span>Abrir</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+            </a>
+
+            <!-- os dados da conta ficam salvos aqui mesmo: o cadastro e a conexão (passo 4) puxam daqui -->
+            <form class="cm-form cm-form-interna" id="cm-form-mt5" method="dialog" novalidate>
+              <p class="cm-form-dica">Na área do cliente da Exness: nova conta de negociação, tipo <b>Standard Cent</b>, plataforma <b>MT5</b>, conta real. O número, o servidor e a senha de negociação aparecem lá.</p>
+              <div class="cm-grade">
+                <div class="cm-campo" data-cm-campo="mt5Login">
+                  <label class="cm-rotulo" for="cm-mt5-login">Número da conta MT5</label>
+                  <div class="cm-caixa"><input class="cm-entrada cm-mono" id="cm-mt5-login" name="mt5Login" type="text" inputmode="numeric" autocomplete="off" placeholder="ex.: 75062604" maxlength="16"/></div>
+                  <p class="cm-erro" hidden></p>
+                </div>
+                <div class="cm-campo" data-cm-campo="mt5Servidor">
+                  <label class="cm-rotulo" for="cm-mt5-servidor">Servidor</label>
+                  <div class="cm-caixa"><input class="cm-entrada cm-mono" id="cm-mt5-servidor" name="mt5Servidor" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="ex.: Exness-MT5Real8" maxlength="40"/></div>
+                  <p class="cm-erro" hidden></p>
+                </div>
+                <div class="cm-campo cm-campo-largo" data-cm-campo="mt5Senha">
+                  <label class="cm-rotulo" for="cm-mt5-senha">Senha de negociação <span class="cm-rotulo-nota">a da plataforma, não a da Exness</span></label>
+                  <div class="cm-caixa">
+                    <input class="cm-entrada cm-mono" id="cm-mt5-senha" name="mt5Senha" type="password" autocomplete="off" placeholder="••••••••" maxlength="64"/>
+                    <button class="cm-olho" type="button" aria-controls="cm-mt5-senha" aria-pressed="false" aria-label="Mostrar senha">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="cm-olho-risco" d="M4 4l16 16"/></svg>
+                    </button>
+                  </div>
+                  <p class="cm-erro" hidden></p>
+                </div>
+              </div>
+              <div class="cm-acoes">
+                <button class="cm-botao" type="submit">
+                  <span>Salvar</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+                </button>
+                <p class="cm-salvo" role="status" aria-live="polite"></p>
+              </div>
+            </form>
           </li>
           <li class="cm-item cm-item-abre cm-revela" style="--cm-atraso:.36s">
             <span class="cm-item-n" aria-hidden="true">4</span>
@@ -117,17 +147,14 @@
           </li>
         </ol>
 
-        <div class="cm-anote cm-revela" style="--cm-atraso:.42s">
-          <p class="cm-anote-titulo">Anote para o passo 3</p>
-          <dl class="cm-anote-lista">
-            <div><dt>Número da conta MT5</dt><dd>ex.: 75062604</dd></div>
-            <div><dt>Servidor</dt><dd>ex.: Exness-MT5Real8</dd></div>
-          </dl>
-        </div>
+        <p class="cm-nota cm-revela" style="--cm-atraso:.42s">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+          <span>Ainda sem servidor: o que você salva no item 3 fica neste navegador. A senha de negociação some quando o navegador fecha.</span>
+        </p>
       </div>
     </li>
 
-    <!-- ═══════ PASSO 3: OS DADOS DO MT5 ═══════ -->
+    <!-- ═══════ PASSO 3: SUA CONTA RDX ═══════ -->
     <li class="cm-passo" id="passo-3" data-cm-passo="3">
       <div class="cm-passo-lado" aria-hidden="true">
         <span class="cm-passo-numero">03</span>
@@ -135,59 +162,6 @@
       </div>
       <div class="cm-passo-corpo">
         <p class="cm-etiqueta cm-revela">Passo 3</p>
-        <h2 class="cm-titulo cm-revela" style="--cm-atraso:.06s">Seus dados do MT5.</h2>
-        <p class="cm-apoio cm-revela" style="--cm-atraso:.12s">Abra a sua conta na Exness em outra aba, copie de lá e cole aqui. Fica salvo para o cadastro e para a conexão.</p>
-
-        <a class="cm-botao-linha cm-revela" style="--cm-atraso:.18s" href="https://www.exness.com/" target="_blank" rel="noopener" data-cm-link="exnessContas">
-          <span>Abrir minhas contas na Exness</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
-        </a>
-
-        <form class="cm-form cm-revela" id="cm-form-mt5" method="dialog" novalidate style="--cm-atraso:.24s">
-          <div class="cm-grade">
-            <div class="cm-campo" data-cm-campo="mt5Login">
-              <label class="cm-rotulo" for="cm-mt5-login">Número da conta MT5</label>
-              <div class="cm-caixa"><input class="cm-entrada cm-mono" id="cm-mt5-login" name="mt5Login" type="text" inputmode="numeric" autocomplete="off" placeholder="ex.: 75062604" maxlength="16"/></div>
-              <p class="cm-erro" hidden></p>
-            </div>
-            <div class="cm-campo" data-cm-campo="mt5Servidor">
-              <label class="cm-rotulo" for="cm-mt5-servidor">Servidor</label>
-              <div class="cm-caixa"><input class="cm-entrada cm-mono" id="cm-mt5-servidor" name="mt5Servidor" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="ex.: Exness-MT5Real8" maxlength="40"/></div>
-              <p class="cm-erro" hidden></p>
-            </div>
-            <div class="cm-campo cm-campo-largo" data-cm-campo="mt5Senha">
-              <label class="cm-rotulo" for="cm-mt5-senha">Senha de negociação <span class="cm-rotulo-nota">a da plataforma, não a da Exness</span></label>
-              <div class="cm-caixa">
-                <input class="cm-entrada cm-mono" id="cm-mt5-senha" name="mt5Senha" type="password" autocomplete="off" placeholder="••••••••" maxlength="64"/>
-                <button class="cm-olho" type="button" aria-controls="cm-mt5-senha" aria-pressed="false" aria-label="Mostrar senha">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="cm-olho-risco" d="M4 4l16 16"/></svg>
-                </button>
-              </div>
-              <p class="cm-erro" hidden></p>
-            </div>
-          </div>
-          <div class="cm-acoes">
-            <button class="cm-botao" type="submit">
-              <span>Salvar</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
-            </button>
-            <p class="cm-salvo" role="status" aria-live="polite"></p>
-          </div>
-        </form>
-
-        <p class="cm-nota cm-revela" style="--cm-atraso:.30s">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
-          <span>Ainda sem servidor: o que você salva aqui fica neste navegador. A senha de negociação some quando o navegador fecha.</span>
-        </p>
-      </div>
-    </li>
-
-    <!-- ═══════ PASSO 4: SUA CONTA RDX ═══════ -->
-    <li class="cm-passo" id="passo-4" data-cm-passo="4">
-      <div class="cm-passo-lado" aria-hidden="true">
-        <span class="cm-passo-numero">04</span>
-        <span class="cm-passo-fio"><i></i></span>
-      </div>
-      <div class="cm-passo-corpo">
-        <p class="cm-etiqueta cm-revela">Passo 4</p>
         <h2 class="cm-titulo cm-revela" style="--cm-atraso:.06s">Sua conta RDX.</h2>
         <p class="cm-apoio cm-revela" style="--cm-atraso:.12s">Nada a pagar agora. O que você preencher aqui já chega pronto no cadastro.</p>
 
@@ -229,16 +203,16 @@
       </div>
     </li>
 
-    <!-- ═══════ PASSO 5: CONECTAR MT5 (conferência) ═══════ -->
-    <li class="cm-passo" id="passo-5" data-cm-passo="5">
+    <!-- ═══════ PASSO 4: CONECTAR MT5 (conferência) ═══════ -->
+    <li class="cm-passo" id="passo-4" data-cm-passo="4">
       <div class="cm-passo-lado" aria-hidden="true">
-        <span class="cm-passo-numero">05</span>
+        <span class="cm-passo-numero">04</span>
         <span class="cm-passo-fio"><i></i></span>
       </div>
       <div class="cm-passo-corpo">
-        <p class="cm-etiqueta cm-revela">Passo 5</p>
+        <p class="cm-etiqueta cm-revela">Passo 4</p>
         <h2 class="cm-titulo cm-revela" style="--cm-atraso:.06s">Conectar MT5.</h2>
-        <p class="cm-apoio cm-revela" style="--cm-atraso:.12s">O que você salvou no passo 3, conferido. Com os três selos verdes, é só entrar no painel.</p>
+        <p class="cm-apoio cm-revela" style="--cm-atraso:.12s">O que você salvou no item 3 do passo 2, conferido. Com os três selos verdes, é só entrar no painel.</p>
 
         <ul class="cm-selos cm-revela" id="cm-selos" style="--cm-atraso:.18s" aria-label="Conferência dos dados do MT5">
           <li class="cm-selo" data-cm-selo="mt5Login">
@@ -271,7 +245,7 @@
         </ul>
 
         <p class="cm-selos-falta cm-revela" id="cm-selos-falta" style="--cm-atraso:.24s" hidden>
-          Falta alguma coisa. <a class="cm-link" href="#passo-3">Volte ao passo 3</a>, preencha e salve de novo.
+          Falta alguma coisa. <a class="cm-link" href="#cm-mt5">Volte ao item 3 do passo 2</a>, preencha e salve de novo.
         </p>
 
         <p class="cm-nota cm-revela" style="--cm-atraso:.30s">

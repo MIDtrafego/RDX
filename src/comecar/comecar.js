@@ -1,4 +1,5 @@
-// Página "Comece hoje" (comecar.html): o vídeo, os cinco passos e o botão do painel.
+// Página "Comece hoje" (comecar.html): o vídeo, os quatro passos e o botão do painel.
+// Os dados da conta MT5 são colhidos no item 3 do passo 2 e conferidos no passo 4.
 //
 // Os endereços que a página aponta ficam todos aqui, num lugar só.
 // Quando o Pedro passar o link de afiliado da Exness e o endereço do painel, é só trocar.
@@ -26,9 +27,9 @@ const TEXTOS = {
   email: 'E-mail inválido. Confira o endereço.',
   salvo: 'Salvo neste navegador',
   naoSalvou: 'Não deu para salvar neste navegador. Confira as configurações de privacidade.',
-  faltaLogin: 'Falta. Salve no passo 3.',
-  faltaServidor: 'Falta. Salve no passo 3.',
-  faltaSenha: 'Falta. A senha não fica guardada depois que o navegador fecha: salve de novo no passo 3.',
+  faltaLogin: 'Falta. Salve no item 3 do passo 2.',
+  faltaServidor: 'Falta. Salve no item 3 do passo 2.',
+  faltaSenha: 'Falta. A senha não fica guardada depois que o navegador fecha: salve de novo no item 3 do passo 2.',
   ok: 'Confere.',
 };
 

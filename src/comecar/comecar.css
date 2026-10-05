@@ -605,6 +605,21 @@ body.cm-corpo {
 .cm-salvo-erro { color: #ff9d92; }
 .cm-form .cm-grupo { background: rgba(5, 7, 6, .4); }
 
+/* o formulário da conta MT5 mora dentro do item 3 do passo 2 */
+.cm-item-mt5 { scroll-margin-top: calc(var(--u) * 8); }
+.cm-form-interna {
+  grid-column: 1 / -1;
+  margin-top: calc(var(--u) * .5);
+  padding: calc(var(--u) * 1.2) 0 calc(var(--u) * .3);
+  border: 0;
+  border-top: 1px solid var(--cm-borda);
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
+}
+.cm-form-dica { margin: 0; max-width: 52em; font-size: max(13px, calc(var(--u) * .98)); line-height: 1.45; color: var(--cm-t2); }
+.cm-form-dica b { color: var(--cm-branco); font-weight: 600; }
+
 /* ─── selos (passo 5) ────────────────────────── */
 .cm-selos { display: grid; gap: calc(var(--u) * .7); width: 100%; margin: calc(var(--u) * .8) 0 0; padding: 0; }
 .cm-selo {
@@ -677,5 +692,6 @@ html.cm-js .cm-revela.cm-visto { opacity: 1; transform: none; }
   .cm-titulo { font-size: clamp(24px, 8vw, 34px); }
   .cm-item { grid-template-columns: auto minmax(0, 1fr); row-gap: calc(var(--u) * .8); }
   .cm-item-botao { grid-column: 2; justify-self: start; }
+  .cm-form-interna { grid-column: 1 / -1; }
   .cm-botao-grande { white-space: normal; text-align: center; padding: 1em 1.4em; }
 }
