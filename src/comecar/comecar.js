@@ -11,6 +11,7 @@ import { emailValido, mascaraTelefoneBR, numerosDoTelefoneBR, soNumeros } from '
 const LINKS = {
   exness: 'https://www.exness.com/',          // link de afiliado: cadastro e documento na corretora
   exnessContas: 'https://my.exness.com/',     // área do cliente, onde ficam as contas MT5
+  exnessDeposito: 'https://my.exness.com/',   // página de depósito (PIX) dentro da área do cliente
   cadastro: '/cadastro.html',                  // criar a conta RDX
   painel: '/entrar.html',                      // entrar no painel
 };
