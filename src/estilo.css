@@ -326,14 +326,6 @@ body #secoes > .rx-janela::after { display: none; }
   100% { transform: translateY(7px); opacity: 0; }
 }
 
-.aviso-simulacao {
-  position: absolute;
-  right: 18px; bottom: 22px;
-  font-size: 9px; font-weight: 600;
-  letter-spacing: 1.6px; text-transform: uppercase;
-  color: #5d6661;
-}
-
 @media (max-width: 768px) {
   /* saída do hero no celular: o quadro encolhe menos, então a logo e a faixa crescem junto */
   .saida-marca { width: 58vw; }
@@ -341,17 +333,15 @@ body #secoes > .rx-janela::after { display: none; }
   .saida-faixa-a { font-size: 10.5vw; }
   .saida-rotulo { font-size: 9px; top: calc(50% - 37vh - 12px); }
   /* cartão de 66%: base em 50% + 33%; a seção seguinte chega 17% abaixo: centro em 91,5% */
+  /* o rótulo é curto ("Ative seu cluster agora"): cabe em uma linha até 320 px de largura */
   .saida-chamada {
     top: 91.5%;
     min-height: 72px;
     padding: 0 22px;
     font-size: 14px;
-    white-space: normal;
-    text-align: center;
-    width: max-content;
-    max-width: 90vw;
+    white-space: nowrap;
+    max-width: 92vw;
   }
-  .aviso-simulacao { left: 0; right: 0; bottom: 10px; text-align: center; font-size: 8px; }
   .cartao-status { bottom: 34px; }
   .botao { height: 48px; padding: 0 16px; font-size: 12px; }
   .botao-menu { width: 48px; height: 48px; }

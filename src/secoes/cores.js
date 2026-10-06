@@ -1,8 +1,8 @@
 // 5. Grade dos Cores.
 // Quatro colunas desencontradas, cartões de borda fina com o canto recortado e a legenda
 // embaixo, à direita. Cada coluna anda numa velocidade na rolagem, o cartão inclina e ganha
-// uma luz que segue o mouse, a sigla enche de cor. Os números ficam como estão no registro:
-// Core 03 e Core 04 aparecem com o resultado que tiveram.
+// uma luz que segue o mouse, a sigla enche de cor. Os números são os do registro do MT5
+// (ordens executadas e MCP consumido por Core), sem resultado em US$ nem taxa de acerto.
 import { gsap } from 'gsap';
 import { revelarTitulo, revelarBlocos, contarAoEntrar, aoEntrar } from './nucleo.js';
 
@@ -54,7 +54,7 @@ export function iniciarCores(ctx) {
   secao.querySelectorAll('.rx-cabeca [data-rx-titulo]').forEach((el, i) => revelarTitulo(el, { atraso: i * 0.2, cascata: i ? 0.05 : 0.09 }));
 
   // entrada de cada caixa: sobe e aparece, a sigla sobe de dentro do recorte, a barra enche
-  // e o percentual conta
+  // e o número de ordens conta
   for (const caixa of caixas) {
     const sigla = caixa.querySelector('.rx-core-sigla span');
     const medida = caixa.querySelector('.rx-core-medida:not(.rx-core-medida-vazia) i');

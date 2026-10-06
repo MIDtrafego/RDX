@@ -9,8 +9,7 @@
 //   rolagemSuave   false desliga o Lenis (a página rola do jeito nativo)
 //   lenis          uma instância de Lenis já criada pelo site, para não ter duas
 //   cursor         false desliga o cursor próprio
-//   dados          objeto RDX_DATA do track record (curva diária e lista de ordens)
-//   links          { cadastro: '/cadastro', login: '/login' } destino dos botões da chamada final
+//   links         { cadastro: '/cadastro', login: '/login' } destino dos botões da chamada final
 //
 // Devolve { lenis, rolarPara, atualizar, destruir }.
 //
@@ -33,7 +32,7 @@ import { iniciarProblema } from './problema.js';
 import { iniciarCapacidades } from './capacidades.js';
 import { iniciarDescansa } from './descansa.js';
 import { iniciarCores } from './cores.js';
-import { iniciarTrackRecord } from './track-record.js';
+import { iniciarNumeros } from './numeros.js';
 import { iniciarAcesso } from './acesso.js';
 import { iniciarFaq } from './faq.js';
 import { iniciarRodape } from './rodape.js';
@@ -45,7 +44,7 @@ const SECOES = [
   iniciarCapacidades,
   iniciarDescansa,
   iniciarCores,
-  iniciarTrackRecord,
+  iniciarNumeros,
   iniciarAcesso,
   iniciarFaq,
   iniciarRodape,

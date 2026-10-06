@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-<title>Termos de Uso · RDX Technology</title>
-<meta name="description" content="Termos de Uso, Contrato de Prestação de Serviço de Infraestrutura de Execução e Termo de Ciência de Risco da RDX Technology, na íntegra."/>
+<title>Política de Privacidade · RDX Technology</title>
+<meta name="description" content="Política de Privacidade da RDX Technology. Até a publicação do documento próprio, o tratamento de dados segue as cláusulas 11 e 15 dos Termos de Uso."/>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23050706%27/%3E%3Cpath d=%27M8 22V10h7a4 4 0 0 1 1.6 7.7L20 22h-3.4l-3-4H11v4zm3-6.6h3.6a1.4 1.4 0 0 0 0-2.8H11z%27 fill=%27%234ade80%27/%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -30,61 +30,64 @@
 <main class="ct-pagina-termos">
   <div class="ct-termos-cabeca">
     <p class="ct-etiqueta">Documentos</p>
-    <h1 class="ct-titulo">Termos de Uso</h1>
-    <p class="ct-apoio">Versão 1.0 · outubro de 2026. O mesmo documento mostrado no cadastro, na íntegra.</p>
+    <h1 class="ct-titulo">Política de Privacidade</h1>
+    <p class="ct-apoio" id="ct-privacidade-aviso">Política de Privacidade em elaboração. Até a publicação, o tratamento de dados segue as cláusulas 11 e 15 dos Termos de Uso.</p>
   </div>
 
   <!-- as três páginas de documentos apontam uma para a outra, sempre pelos endereços limpos -->
   <nav class="ct-termos-nav" aria-label="Documentos">
-    <a class="ct-aba" href="/termos" aria-current="page">Termos de Uso</a>
+    <a class="ct-aba" href="/termos">Termos de Uso</a>
     <a class="ct-aba" href="/aviso-de-risco">Aviso de Risco</a>
-    <a class="ct-aba" href="/privacidade">Privacidade</a>
+    <a class="ct-aba" href="/privacidade" aria-current="page">Privacidade</a>
     <a class="ct-link ct-link-fraco ct-termos-voltar" href="/">Voltar ao site</a>
   </nav>
 
   <noscript>
-    <p class="ct-aviso ct-aviso-demo">Sem JavaScript esta página não monta o documento. <a class="ct-link" href="/src/conta/documentos.html">Abrir o texto dos documentos</a>.</p>
+    <p class="ct-aviso ct-aviso-demo">Sem JavaScript esta página não monta a cláusula 11. <a class="ct-link" href="/src/conta/documentos.html">Abrir o texto dos documentos</a>.</p>
   </noscript>
 
   <!--
-    O texto vem de /src/conta/documentos.html (a mesma fonte da janela do cadastro).
-    O script abaixo põe só os Termos de Uso em #termos; o Aviso de Risco tem a sua
-    própria página, /aviso-de-risco.
+    A cláusula 11 (comunicações, dados e privacidade) vem de /src/conta/documentos.html,
+    a mesma fonte dos Termos de Uso, para o texto nunca divergir. Quando o Pedro mandar a
+    Política de Privacidade própria, ela entra aqui no lugar.
   -->
   <div class="ct-documentos" id="ct-documentos">
-    <p class="ct-janela-carregando" id="ct-documentos-estado" role="status">Carregando o documento</p>
-    <div class="ct-ancora" id="termos"></div>
+    <p class="ct-janela-carregando" id="ct-documentos-estado" role="status">Carregando a cláusula</p>
+    <div class="ct-ancora" id="privacidade">
+      <section class="ct-documento" aria-labelledby="ct-privacidade-titulo">
+        <header class="ct-documento-cabeca">
+          <h2 class="ct-documento-titulo" id="ct-privacidade-titulo">Cláusula 11 dos Termos de Uso</h2>
+          <p class="ct-documento-versao">Versão 1.0 · outubro de 2026</p>
+          <p class="ct-documento-apoio">Texto integral da cláusula 11, "Comunicações, dados e privacidade". As referências normativas, inclusive a Lei Geral de Proteção de Dados, estão na cláusula 15.</p>
+        </header>
+        <div id="ct-privacidade-clausula"></div>
+        <p class="ct-documento-fim">Texto completo em <a class="ct-link" href="/termos#ct-clausula-11">/termos</a>.</p>
+      </section>
+    </div>
   </div>
 
   <div class="ct-pe ct-termos-pe">
-    <p><a class="ct-link" href="/aviso-de-risco">Aviso de Risco</a> · <a class="ct-link" href="/privacidade">Política de Privacidade</a></p>
+    <p><a class="ct-link" href="/termos">Termos de Uso</a> · <a class="ct-link" href="/aviso-de-risco">Aviso de Risco</a></p>
     <p><a class="ct-link ct-link-fraco" href="/comecar">Criar conta</a> · <a class="ct-link ct-link-fraco" href="/">Voltar ao site</a></p>
   </div>
 </main>
 
 <script type="module">
-  // Carrega o fragmento e encaixa os Termos de Uso na âncora.
+  // Carrega o fragmento e encaixa a cláusula 11 dos Termos de Uso.
   const FONTE = '/src/conta/documentos.html';
   const estado = document.getElementById('ct-documentos-estado');
-  const alvo = document.getElementById('termos');
+  const alvo = document.getElementById('ct-privacidade-clausula');
 
   function falhou() {
     estado.className = 'ct-aviso ct-aviso-erro';
     estado.setAttribute('role', 'alert');
     estado.innerHTML = '';
-    estado.append('Não foi possível carregar o documento agora. ');
+    estado.append('Não foi possível carregar a cláusula agora. ');
     const a = document.createElement('a');
     a.className = 'ct-link';
-    a.href = FONTE;
-    a.textContent = 'Abrir o texto direto';
+    a.href = '/termos#ct-clausula-11';
+    a.textContent = 'Ler nos Termos de Uso';
     estado.append(a, '.');
-  }
-
-  function irParaAncora() {
-    const id = decodeURIComponent(location.hash.slice(1));
-    if (!id) return;
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ block: 'start' });
   }
 
   fetch(FONTE, { credentials: 'same-origin' })
@@ -92,13 +95,10 @@
     .then((html) => {
       const molde = document.createElement('template');
       molde.innerHTML = html;
-      const termos = molde.content.querySelector('#ct-doc-termos');
-      if (!termos) throw new Error('fragmento sem os Termos de Uso');
-      alvo.appendChild(termos);
-      const assina = molde.content.querySelector('.ct-janela-assina');
-      if (assina) alvo.appendChild(assina);
+      const clausula = molde.content.querySelector('#ct-clausula-11');
+      if (!clausula) throw new Error('fragmento sem a cláusula 11');
+      alvo.appendChild(clausula);
       estado.remove();
-      irParaAncora();
     })
     .catch(falhou);
 </script>

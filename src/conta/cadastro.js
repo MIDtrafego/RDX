@@ -1,3 +1,7 @@
+// FORA DE USO desde 05/10/2026: o cadastro virou o passo 2 de comecar.html
+// (src/comecar/comecar.js) e cadastro.html passou a ser só a verificação de identidade
+// (src/conta/kyc.js). Este arquivo fica como referência do fluxo antigo em 3 passos.
+//
 // Cadastro em 3 passos: dados, segurança, verificação. Depois, a conclusão.
 //
 // Nada do que é digitado aqui sai do navegador ou é gravado. Os dados ficam só nos campos

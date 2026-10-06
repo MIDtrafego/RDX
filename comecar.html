@@ -4,11 +4,11 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>Comece hoje · RDX Technology</title>
-<meta name="description" content="O passo a passo para colocar seus dólares para trabalhar: o vídeo, a conta na corretora, a sua conta RDX e a conexão."/>
+<meta name="description" content="O passo a passo para colocar seus dólares para trabalhar: o vídeo, a sua conta RDX, a corretora e a conexão."/>
 <meta property="og:title" content="Coloque seus dólares para trabalhar hoje · RDX Technology"/>
-<meta property="og:description" content="Tudo numa página só: o vídeo, a conta na corretora, a sua conta RDX e a conexão."/>
+<meta property="og:description" content="Tudo numa página só: o vídeo, a sua conta RDX, a corretora e a conexão."/>
 <meta property="og:image" content="https://rdx-silk.vercel.app/img/rdx-capa.jpg"/>
-<meta property="og:url" content="https://rdx-silk.vercel.app/comecar.html"/>
+<meta property="og:url" content="https://rdx-silk.vercel.app/comecar"/>
 <meta property="og:type" content="website"/>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23050706%27/%3E%3Cpath d=%27M8 22V10h7a4 4 0 0 1 1.6 7.7L20 22h-3.4l-3-4H11v4zm3-6.6h3.6a1.4 1.4 0 0 0 0-2.8H11z%27 fill=%27%234ade80%27/%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -16,8 +16,19 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <!-- estilo.css entra só para herdar as variáveis, a marca e os botões do site -->
 <link rel="stylesheet" href="/src/estilo.css"/>
+<!-- conta.css entra por causa da janela dos termos e das caixas de aceite (classes ct-);
+     o resto da página usa só classes cm- de comecar.css, que entra depois -->
+<link rel="stylesheet" href="/src/conta/conta.css"/>
 <link rel="stylesheet" href="/src/comecar/comecar.css"/>
 <script>document.documentElement.classList.add('cm-js');</script>
+<!-- o GSAP é só para a janela dos termos abrir e fechar com movimento (src/conta/movimento.js) -->
+<script type="importmap">
+{
+  "imports": {
+    "gsap": "/vendor/gsap/index.js"
+  }
+}
+</script>
 </head>
 <body class="cm-corpo">
 
@@ -41,19 +52,54 @@
     <p class="cm-etiqueta cm-revela">Passo a passo</p>
     <h1 class="cm-frase cm-revela" style="--cm-atraso:.08s">Coloque seus dólares para trabalhar <em>hoje.</em></h1>
     <p class="cm-apoio cm-apoio-grande cm-revela" style="--cm-atraso:.16s">Tudo nesta página, do vídeo à conexão. Comece pelo vídeo.</p>
-    <p class="cm-apoio cm-revela" style="--cm-atraso:.22s">Já opera no mercado internacional e tem conta em corretora de Forex? Pule o tutorial e <a class="cm-link" href="#cm-mt5">vá direto para os dados da sua conta MT5</a>.</p>
+    <p class="cm-apoio cm-revela" style="--cm-atraso:.22s">Já opera no mercado internacional e tem conta em corretora de Forex? Pule o tutorial e <a class="cm-link" href="#passo-2">vá direto para a sua conta RDX</a>.</p>
+
+    <!-- trilha: as quatro paradas, com o estado lido do que ficou guardado (comecar.js) -->
+    <nav class="cm-trilha cm-revela" id="cm-trilha" style="--cm-atraso:.28s" aria-label="Onde você está no passo a passo">
+      <ol class="cm-paradas">
+        <li class="cm-parada" data-cm-parada="1" data-cm-estado="atual">
+          <a class="cm-parada-liga" href="#passo-1">
+            <span class="cm-parada-n" aria-hidden="true">01<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+            <span class="cm-parada-nome">Assista</span>
+            <span class="cm-parada-estado">atual</span>
+          </a>
+        </li>
+        <li class="cm-parada" data-cm-parada="2" data-cm-estado="a-fazer">
+          <a class="cm-parada-liga" href="#passo-2">
+            <span class="cm-parada-n" aria-hidden="true">02<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+            <span class="cm-parada-nome">Conta RDX</span>
+            <span class="cm-parada-estado">a fazer</span>
+          </a>
+        </li>
+        <li class="cm-parada" data-cm-parada="3" data-cm-estado="a-fazer">
+          <a class="cm-parada-liga" href="#passo-3">
+            <span class="cm-parada-n" aria-hidden="true">03<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+            <span class="cm-parada-nome">Corretora</span>
+            <span class="cm-parada-estado">a fazer</span>
+          </a>
+        </li>
+        <li class="cm-parada" data-cm-parada="4" data-cm-estado="a-fazer">
+          <a class="cm-parada-liga" href="#passo-4">
+            <span class="cm-parada-n" aria-hidden="true">04<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+            <span class="cm-parada-nome">Pronto</span>
+            <span class="cm-parada-estado">a fazer</span>
+          </a>
+        </li>
+      </ol>
+      <a class="cm-trilha-pular" href="#passo-2">Pular para o cadastro <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </nav>
   </header>
 
   <ol class="cm-passos">
 
-    <!-- ═══════ PASSO 1: O VÍDEO ═══════ -->
+    <!-- ═══════ PASSO 1: ASSISTA ═══════ -->
     <li class="cm-passo" id="passo-1" data-cm-passo="1">
       <div class="cm-passo-lado" aria-hidden="true">
         <span class="cm-passo-numero">01</span>
         <span class="cm-passo-fio"><i></i></span>
       </div>
       <div class="cm-passo-corpo">
-        <p class="cm-etiqueta cm-revela">Passo 1</p>
+        <p class="cm-etiqueta cm-revela">Passo 1 · Assista</p>
         <h2 class="cm-titulo cm-revela" style="--cm-atraso:.06s">Veja como funciona.</h2>
         <p class="cm-apoio cm-revela" style="--cm-atraso:.12s">Dê o play. O vídeo mostra o caminho inteiro antes de você começar.</p>
 
@@ -69,104 +115,42 @@
       </div>
     </li>
 
-    <!-- ═══════ PASSO 2: A CORRETORA ═══════ -->
+    <!-- ═══════ PASSO 2: CONTA RDX (o cadastro) ═══════ -->
     <li class="cm-passo" id="passo-2" data-cm-passo="2">
       <div class="cm-passo-lado" aria-hidden="true">
         <span class="cm-passo-numero">02</span>
         <span class="cm-passo-fio"><i></i></span>
       </div>
       <div class="cm-passo-corpo">
-        <p class="cm-etiqueta cm-revela">Passo 2</p>
-        <h2 class="cm-titulo cm-revela" style="--cm-atraso:.06s">Abra sua conta na corretora.</h2>
-        <p class="cm-apoio cm-revela" style="--cm-atraso:.12s">Seu dinheiro fica nela. 4 cliques.</p>
-
-        <ol class="cm-lista" aria-label="Os quatro cliques na corretora">
-          <li class="cm-item cm-revela" style="--cm-atraso:.18s">
-            <span class="cm-item-n" aria-hidden="true">1</span>
-            <div class="cm-item-texto"><b>Cadastro na Exness</b><span>e-mail e senha</span></div>
-            <a class="cm-item-botao" href="https://www.exness.com/" target="_blank" rel="noopener" data-cm-link="exness">
-              <span>Abrir</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
-          </li>
-          <li class="cm-item cm-revela" style="--cm-atraso:.24s">
-            <span class="cm-item-n" aria-hidden="true">2</span>
-            <div class="cm-item-texto"><b>Documento</b><span>foto + selfie</span></div>
-            <a class="cm-item-botao" href="https://www.exness.com/" target="_blank" rel="noopener" data-cm-link="exness">
-              <span>Abrir</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
-          </li>
-          <li class="cm-item cm-item-mt5 cm-revela" id="cm-mt5" style="--cm-atraso:.30s">
-            <span class="cm-item-n" aria-hidden="true">3</span>
-            <div class="cm-item-texto"><b>Conta Standard Cent · MT5</b><span>abra a conta na Exness, copie de lá e cole aqui</span></div>
-            <a class="cm-item-botao" href="https://my.exness.com/" target="_blank" rel="noopener" data-cm-link="exnessContas">
-              <span>Abrir</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
-            </a>
-
-            <!-- os dados da conta ficam salvos aqui mesmo: o cadastro e a conexão (passo 4) puxam daqui -->
-            <form class="cm-form cm-form-interna" id="cm-form-mt5" method="dialog" novalidate>
-              <p class="cm-form-dica">Na área do cliente da Exness: nova conta de negociação, tipo <b>Standard Cent</b>, plataforma <b>MT5</b>, conta real. O número, o servidor e a senha de negociação aparecem lá.</p>
-              <div class="cm-grade">
-                <div class="cm-campo" data-cm-campo="mt5Login">
-                  <label class="cm-rotulo" for="cm-mt5-login">Número da conta MT5</label>
-                  <div class="cm-caixa"><input class="cm-entrada cm-mono" id="cm-mt5-login" name="mt5Login" type="text" inputmode="numeric" autocomplete="off" placeholder="ex.: 75062604" maxlength="16"/></div>
-                  <p class="cm-erro" hidden></p>
-                </div>
-                <div class="cm-campo" data-cm-campo="mt5Servidor">
-                  <label class="cm-rotulo" for="cm-mt5-servidor">Servidor</label>
-                  <div class="cm-caixa"><input class="cm-entrada cm-mono" id="cm-mt5-servidor" name="mt5Servidor" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="ex.: Exness-MT5Real8" maxlength="40"/></div>
-                  <p class="cm-erro" hidden></p>
-                </div>
-                <div class="cm-campo cm-campo-largo" data-cm-campo="mt5Senha">
-                  <label class="cm-rotulo" for="cm-mt5-senha">Senha de negociação <span class="cm-rotulo-nota">a da plataforma, não a da Exness</span></label>
-                  <div class="cm-caixa">
-                    <input class="cm-entrada cm-mono" id="cm-mt5-senha" name="mt5Senha" type="password" autocomplete="off" placeholder="••••••••" maxlength="64"/>
-                    <button class="cm-olho" type="button" aria-controls="cm-mt5-senha" aria-pressed="false" aria-label="Mostrar senha">
-                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="cm-olho-risco" d="M4 4l16 16"/></svg>
-                    </button>
-                  </div>
-                  <p class="cm-erro" hidden></p>
-                </div>
-              </div>
-              <div class="cm-acoes">
-                <button class="cm-botao" type="submit">
-                  <span>Salvar</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
-                </button>
-                <p class="cm-salvo" role="status" aria-live="polite"></p>
-              </div>
-            </form>
-          </li>
-          <li class="cm-item cm-revela" style="--cm-atraso:.36s">
-            <span class="cm-item-n" aria-hidden="true">4</span>
-            <div class="cm-item-texto"><b>PIX</b><span>mínimo <em>R$ 590</em> · depósito dentro da Exness, no seu nome</span></div>
-            <a class="cm-item-botao" href="https://my.exness.com/" target="_blank" rel="noopener" data-cm-link="exnessDeposito">
-              <span>Abrir</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
-            </a>
-          </li>
-        </ol>
-
-        <p class="cm-nota cm-revela" style="--cm-atraso:.42s">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
-          <span>Ainda sem servidor: o que você salva no item 3 fica neste navegador. A senha de negociação some quando o navegador fecha.</span>
-        </p>
-      </div>
-    </li>
-
-    <!-- ═══════ PASSO 3: SUA CONTA RDX ═══════ -->
-    <li class="cm-passo" id="passo-3" data-cm-passo="3">
-      <div class="cm-passo-lado" aria-hidden="true">
-        <span class="cm-passo-numero">03</span>
-        <span class="cm-passo-fio"><i></i></span>
-      </div>
-      <div class="cm-passo-corpo">
-        <p class="cm-etiqueta cm-revela">Passo 3</p>
+        <p class="cm-etiqueta cm-revela">Passo 2 · Conta RDX</p>
         <h2 class="cm-titulo cm-revela" style="--cm-atraso:.06s">Sua conta RDX.</h2>
-        <p class="cm-apoio cm-revela" style="--cm-atraso:.12s">Nada a pagar agora. O que você preencher aqui já chega pronto no cadastro.</p>
+        <p class="cm-apoio cm-revela" style="--cm-atraso:.12s">Nada a pagar agora. Preencha, leia os documentos e entre.</p>
 
+        <!-- quem já criou a conta neste navegador vê o passo recolhido -->
+        <div class="cm-feito" id="cm-conta-feita" hidden>
+          <span class="cm-feito-sinal" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.5 3.5L17 9"/></svg></span>
+          <div class="cm-feito-texto">
+            <b>Conta criada neste navegador</b>
+            <span id="cm-conta-feita-quando">Conta criada em</span>
+            <span class="cm-feito-nota">O servidor ainda não está ligado: o cadastro de verdade acontece quando ele existir. Nada saiu do seu navegador.</span>
+          </div>
+          <button class="cm-link cm-feito-refazer" type="button" id="cm-conta-refazer">Refazer</button>
+        </div>
+
+        <!--
+          method="dialog": fora de um <dialog>, o envio nativo do formulário não faz nada.
+          O envio de verdade é feito por src/conta/api.js (criarConta).
+        -->
         <form class="cm-form cm-revela" id="cm-form-conta" method="dialog" novalidate style="--cm-atraso:.18s">
           <div class="cm-grade">
-            <div class="cm-campo" data-cm-campo="nome">
-              <label class="cm-rotulo" for="cm-nome">Nome</label>
-              <div class="cm-caixa"><input class="cm-entrada" id="cm-nome" name="nome" type="text" autocomplete="name" autocapitalize="words" placeholder="Seu nome" maxlength="140"/></div>
+            <div class="cm-campo cm-campo-largo" data-cm-campo="nome">
+              <label class="cm-rotulo" for="cm-nome">Nome completo</label>
+              <div class="cm-caixa"><input class="cm-entrada" id="cm-nome" name="nome" type="text" autocomplete="name" autocapitalize="words" placeholder="Nome e sobrenome" maxlength="140"/></div>
+              <p class="cm-erro" hidden></p>
+            </div>
+            <div class="cm-campo" data-cm-campo="cpf">
+              <label class="cm-rotulo" for="cm-cpf">CPF</label>
+              <div class="cm-caixa"><input class="cm-entrada cm-mono" id="cm-cpf" name="cpf" type="text" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" maxlength="14"/></div>
               <p class="cm-erro" hidden></p>
             </div>
             <div class="cm-campo" data-cm-campo="whatsapp">
@@ -174,102 +158,289 @@
               <div class="cm-caixa"><input class="cm-entrada" id="cm-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-9999" maxlength="24"/></div>
               <p class="cm-erro" hidden></p>
             </div>
-            <div class="cm-campo cm-campo-largo" data-cm-campo="email">
+            <div class="cm-campo" data-cm-campo="email">
               <label class="cm-rotulo" for="cm-email">E-mail</label>
               <div class="cm-caixa"><input class="cm-entrada" id="cm-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" placeholder="voce@email.com" maxlength="254"/></div>
               <p class="cm-erro" hidden></p>
             </div>
+            <div class="cm-campo" data-cm-campo="senha">
+              <label class="cm-rotulo" for="cm-senha">Senha <span class="cm-rotulo-nota">mínimo 8 caracteres</span></label>
+              <div class="cm-caixa">
+                <input class="cm-entrada" id="cm-senha" name="senha" type="password" autocomplete="new-password" minlength="8" placeholder="••••••••" maxlength="128"/>
+                <button class="cm-olho" type="button" aria-controls="cm-senha" aria-pressed="false" aria-label="Mostrar senha">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="cm-olho-risco" d="M4 4l16 16"/></svg>
+                </button>
+              </div>
+              <p class="cm-erro" hidden></p>
+            </div>
+            <!-- sem EUA na lista: o serviço não é oferecido a residentes nos Estados Unidos (Termos, 4.2) -->
+            <div class="cm-campo" data-cm-campo="pais">
+              <label class="cm-rotulo" for="cm-pais">País</label>
+              <div class="cm-caixa cm-caixa-escolha">
+                <select class="cm-entrada" id="cm-pais" name="pais" autocomplete="country">
+                  <option value="BR" selected>Brasil</option>
+                  <option value="PT">Portugal</option>
+                </select>
+              </div>
+              <p class="cm-erro" hidden></p>
+            </div>
           </div>
 
-          <section class="cm-grupo" aria-labelledby="cm-g-aceites">
-            <p class="cm-grupo-titulo" id="cm-g-aceites">No cadastro você confirma</p>
-            <ul class="cm-aceites">
-              <li>Li e aceito os Termos de Uso, o Aviso de Risco e a Política de Privacidade.</li>
-              <li>Declaro que a conta conectada é de minha titularidade e que opero exclusivamente capital próprio.</li>
-              <li>Aceito a arbitragem como forma exclusiva de solução de disputas, em caráter individual.</li>
-            </ul>
-          </section>
+          <!--
+            Três caixas de aceite (Termos de Uso v1.0, cláusula 16.1). Nascem desligadas e só
+            ligam depois que a pessoa rolou os dois documentos até o fim dentro da janela
+            (src/conta/termos.js registra leuTermos e leuRisco). A caixa 3 (arbitragem) fica em
+            destaque separado, como pede a Lei 9.307/96, art. 4º, § 2º.
+            Cada botão de texto abre a janela num ponto: data-ct-termos é o id do alvo dentro
+            de src/conta/documentos.html. A Política de Privacidade aponta para a cláusula 11
+            até o documento próprio existir.
+          -->
+          <div class="ct-aceites cm-aceites" id="ct-aceites" data-ct-liberado="0">
+            <p class="ct-nota ct-aceites-trava" id="ct-aceites-trava">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+              <span>Leia os Termos de Uso e o Aviso de Risco até o fim para liberar as caixas. <button class="ct-link" type="button" data-ct-termos="ct-doc-termos" id="ct-abrir-documentos">Abrir os documentos</button></span>
+            </p>
+
+            <div class="ct-campo ct-marcar" data-cm-campo="aceiteTermos">
+              <input class="ct-marcar-caixa" id="ct-aceite-termos" name="aceiteTermos" type="checkbox" required disabled/>
+              <label class="ct-marcar-texto" for="ct-aceite-termos">Li e aceito os <button class="ct-link" type="button" data-ct-termos="ct-doc-termos">Termos de Uso</button>, o <button class="ct-link" type="button" data-ct-termos="ct-doc-risco">Aviso de Risco</button> e a <button class="ct-link" type="button" data-ct-termos="ct-clausula-11">Política de Privacidade</button>.</label>
+              <p class="ct-erro" id="ct-aceite-termos-erro" hidden></p>
+            </div>
+
+            <div class="ct-campo ct-marcar" data-cm-campo="aceiteTitular">
+              <input class="ct-marcar-caixa" id="ct-aceite-titular" name="aceiteTitular" type="checkbox" required disabled/>
+              <label class="ct-marcar-texto" for="ct-aceite-titular">Declaro que a conta conectada é de minha titularidade e que opero exclusivamente capital próprio.</label>
+              <p class="ct-erro" id="ct-aceite-titular-erro" hidden></p>
+            </div>
+
+            <div class="ct-campo ct-marcar ct-marcar-destaque" data-cm-campo="aceiteArbitragem">
+              <p class="ct-marcar-selo" aria-hidden="true">Aceite separado, Lei 9.307/96, art. 4º, § 2º</p>
+              <input class="ct-marcar-caixa" id="ct-aceite-arbitragem" name="aceiteArbitragem" type="checkbox" required disabled aria-describedby="ct-aceite-arbitragem-selo"/>
+              <label class="ct-marcar-texto" for="ct-aceite-arbitragem">Aceito a <button class="ct-link" type="button" data-ct-termos="ct-clausula-13">arbitragem</button> como forma exclusiva de solução de disputas.</label>
+              <span class="ct-so-leitor" id="ct-aceite-arbitragem-selo">Aceite separado, conforme a Lei 9.307/96, artigo 4º, parágrafo 2º.</span>
+              <p class="ct-erro" id="ct-aceite-arbitragem-erro" hidden></p>
+            </div>
+          </div>
+
+          <p class="ct-aviso ct-aviso-erro cm-aviso" id="cm-conta-erro" role="alert" hidden></p>
 
           <div class="cm-acoes">
-            <button class="cm-botao" type="submit">
-              <span>Salvar e criar minha conta RDX</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <button class="cm-botao" type="submit" id="cm-criar">
+              <span>Criar conta e entrar</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
             <p class="cm-salvo" role="status" aria-live="polite"></p>
           </div>
+
+          <p class="cm-nota">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+            <span>Ainda sem servidor: a conta fica criada só neste navegador, para você seguir os passos. A senha não é guardada em lugar nenhum.</span>
+          </p>
         </form>
       </div>
     </li>
 
-    <!-- ═══════ PASSO 4: CONECTAR MT5 (conferência) ═══════ -->
-    <li class="cm-passo" id="passo-4" data-cm-passo="4">
+    <!-- ═══════ PASSO 3: CORRETORA (no painel, depois de entrar) ═══════ -->
+    <li class="cm-passo" id="passo-3" data-cm-passo="3" data-cm-travado="1">
+      <div class="cm-passo-lado" aria-hidden="true">
+        <span class="cm-passo-numero">03</span>
+        <span class="cm-passo-fio"><i></i></span>
+      </div>
+      <div class="cm-passo-corpo">
+        <p class="cm-etiqueta cm-revela">Passo 3 · Corretora <span class="cm-tag">No painel</span></p>
+        <p class="cm-ola" id="cm-ola" hidden>Olá, <b id="cm-ola-nome"></b></p>
+        <h2 class="cm-titulo cm-revela" style="--cm-atraso:.06s">Abra sua conta na corretora e conecte.</h2>
+        <p class="cm-apoio cm-revela" style="--cm-atraso:.12s">Seu dinheiro fica nela. 4 cliques.</p>
+
+        <!-- enquanto não há conta RDX, o passo fica à vista mas sem ação -->
+        <p class="cm-trava" id="cm-passo-3-trava">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          <span>Este passo abre depois da sua conta RDX. <a class="cm-link" href="#passo-2">Voltar ao passo 2</a>.</span>
+        </p>
+
+        <div class="cm-passo-miolo" id="cm-passo-3-miolo">
+          <ol class="cm-lista" aria-label="Os quatro cliques na corretora">
+            <li class="cm-item cm-revela" style="--cm-atraso:.18s">
+              <span class="cm-item-n" aria-hidden="true">1</span>
+              <div class="cm-item-texto"><b>Cadastro na Exness</b><span>e-mail e senha</span></div>
+              <a class="cm-item-botao" href="https://www.exness.com/" target="_blank" rel="noopener" data-cm-link="exness">
+                <span>Abrir</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </li>
+            <li class="cm-item cm-revela" style="--cm-atraso:.24s">
+              <span class="cm-item-n" aria-hidden="true">2</span>
+              <div class="cm-item-texto"><b>Documento</b><span>foto + selfie</span></div>
+              <a class="cm-item-botao" href="https://www.exness.com/" target="_blank" rel="noopener" data-cm-link="exness">
+                <span>Abrir</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </li>
+            <li class="cm-item cm-item-mt5 cm-revela" id="cm-mt5" style="--cm-atraso:.30s">
+              <span class="cm-item-n" aria-hidden="true">3</span>
+              <div class="cm-item-texto"><b>Conta Standard Cent · MT5</b><span>abra a conta na Exness, copie de lá e cole aqui</span></div>
+              <a class="cm-item-botao" href="https://my.exness.com/" target="_blank" rel="noopener" data-cm-link="exnessContas">
+                <span>Abrir</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+              </a>
+
+              <!-- os dados da conta ficam salvos aqui mesmo: o botão Conectar, abaixo, usa daqui -->
+              <form class="cm-form cm-form-interna" id="cm-form-mt5" method="dialog" novalidate>
+                <p class="cm-form-dica">Na área do cliente da Exness: nova conta de negociação, tipo <b>Standard Cent</b>, plataforma <b>MT5</b>, conta real. O número, o servidor e a senha de negociação aparecem lá.</p>
+                <div class="cm-grade">
+                  <div class="cm-campo" data-cm-campo="mt5Login">
+                    <label class="cm-rotulo" for="cm-mt5-login">Número da conta MT5</label>
+                    <div class="cm-caixa"><input class="cm-entrada cm-mono" id="cm-mt5-login" name="mt5Login" type="text" inputmode="numeric" autocomplete="off" placeholder="ex.: 75062604" maxlength="16"/></div>
+                    <p class="cm-erro" hidden></p>
+                  </div>
+                  <div class="cm-campo" data-cm-campo="mt5Servidor">
+                    <label class="cm-rotulo" for="cm-mt5-servidor">Servidor</label>
+                    <div class="cm-caixa"><input class="cm-entrada cm-mono" id="cm-mt5-servidor" name="mt5Servidor" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="ex.: Exness-MT5Real8" maxlength="40"/></div>
+                    <p class="cm-erro" hidden></p>
+                  </div>
+                  <div class="cm-campo cm-campo-largo" data-cm-campo="mt5Senha">
+                    <label class="cm-rotulo" for="cm-mt5-senha">Senha de negociação <span class="cm-rotulo-nota">a da plataforma, não a da Exness</span></label>
+                    <div class="cm-caixa">
+                      <input class="cm-entrada cm-mono" id="cm-mt5-senha" name="mt5Senha" type="password" autocomplete="off" placeholder="••••••••" maxlength="64"/>
+                      <button class="cm-olho" type="button" aria-controls="cm-mt5-senha" aria-pressed="false" aria-label="Mostrar senha">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="cm-olho-risco" d="M4 4l16 16"/></svg>
+                      </button>
+                    </div>
+                    <p class="cm-erro" hidden></p>
+                  </div>
+                </div>
+                <div class="cm-acoes">
+                  <button class="cm-botao" type="submit">
+                    <span>Salvar</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+                  </button>
+                  <p class="cm-salvo" role="status" aria-live="polite"></p>
+                </div>
+              </form>
+            </li>
+            <li class="cm-item cm-revela" style="--cm-atraso:.36s">
+              <span class="cm-item-n" aria-hidden="true">4</span>
+              <div class="cm-item-texto"><b>PIX</b><span>mínimo <em>R$ 590</em> · depósito dentro da Exness, no seu nome</span></div>
+              <a class="cm-item-botao" href="https://my.exness.com/" target="_blank" rel="noopener" data-cm-link="exnessDeposito">
+                <span>Abrir</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+              </a>
+            </li>
+          </ol>
+
+          <p class="cm-nota cm-revela" style="--cm-atraso:.42s">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+            <span>Antes de liberar a conexão, o painel pede a verificação de identidade (KYC): documento com foto e selfie. <a class="cm-link" href="/cadastro.html" data-cm-link="kyc">Fazer a verificação</a>.</span>
+          </p>
+
+          <p class="ct-aviso ct-aviso-erro cm-aviso" id="cm-conectar-erro" role="alert" hidden></p>
+
+          <div class="cm-acoes cm-acoes-passo cm-revela" style="--cm-atraso:.48s">
+            <button class="cm-botao" type="button" id="cm-conectar">
+              <span>Conectar</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <button class="cm-botao-linha" type="button" id="cm-depois">
+              <span>Fazer depois</span>
+            </button>
+            <p class="cm-salvo" id="cm-conectar-estado" role="status" aria-live="polite"></p>
+          </div>
+
+          <p class="cm-nota cm-revela" style="--cm-atraso:.54s">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+            <span>Ainda sem servidor: o que você salva no item 3 fica neste navegador e a senha de negociação some quando ele fecha. A infraestrutura da RDX se conecta ao servidor da sua corretora e executa as ordens dos Cores na sua conta, sem acesso a depósitos ou saques: o dinheiro fica na corretora, no seu nome.</span>
+          </p>
+        </div>
+      </div>
+    </li>
+
+    <!-- ═══════ PASSO 4: PRONTO ═══════ -->
+    <li class="cm-passo" id="passo-4" data-cm-passo="4" data-cm-travado="1">
       <div class="cm-passo-lado" aria-hidden="true">
         <span class="cm-passo-numero">04</span>
         <span class="cm-passo-fio"><i></i></span>
       </div>
       <div class="cm-passo-corpo">
-        <p class="cm-etiqueta cm-revela">Passo 4</p>
-        <h2 class="cm-titulo cm-revela" style="--cm-atraso:.06s">Conectar MT5.</h2>
-        <p class="cm-apoio cm-revela" style="--cm-atraso:.12s">O que você salvou no item 3 do passo 2, conferido. Com os três selos verdes, é só entrar no painel.</p>
+        <p class="cm-etiqueta cm-revela">Passo 4 · Pronto</p>
+        <h2 class="cm-titulo cm-revela" id="cm-pronto-titulo" style="--cm-atraso:.06s">Tudo conectado? <em>Abra o painel.</em></h2>
+        <p class="cm-apoio cm-revela" id="cm-pronto-apoio" style="--cm-atraso:.12s">Crie sua conta RDX no passo 2 e conecte a corretora no passo 3. Depois, é só abrir o painel.</p>
 
-        <ul class="cm-selos cm-revela" id="cm-selos" style="--cm-atraso:.18s" aria-label="Conferência dos dados do MT5">
-          <li class="cm-selo" data-cm-selo="mt5Login">
-            <span class="cm-selo-rotulo">Login MT5</span>
-            <span class="cm-selo-valor cm-mono" data-cm-valor>—</span>
-            <span class="cm-selo-estado" aria-hidden="true">
-              <svg class="cm-selo-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.5 3.5L17 9"/></svg>
-              <svg class="cm-selo-nao" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 8l8 8M16 8l-8 8"/></svg>
-            </span>
-            <span class="cm-selo-texto" data-cm-texto></span>
-          </li>
-          <li class="cm-selo" data-cm-selo="mt5Servidor">
-            <span class="cm-selo-rotulo">Servidor</span>
-            <span class="cm-selo-valor cm-mono" data-cm-valor>—</span>
-            <span class="cm-selo-estado" aria-hidden="true">
-              <svg class="cm-selo-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.5 3.5L17 9"/></svg>
-              <svg class="cm-selo-nao" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 8l8 8M16 8l-8 8"/></svg>
-            </span>
-            <span class="cm-selo-texto" data-cm-texto></span>
-          </li>
-          <li class="cm-selo" data-cm-selo="mt5Senha">
-            <span class="cm-selo-rotulo">Senha de negociação</span>
-            <span class="cm-selo-valor cm-mono" data-cm-valor>—</span>
-            <span class="cm-selo-estado" aria-hidden="true">
-              <svg class="cm-selo-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.5 3.5L17 9"/></svg>
-              <svg class="cm-selo-nao" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 8l8 8M16 8l-8 8"/></svg>
-            </span>
-            <span class="cm-selo-texto" data-cm-texto></span>
-          </li>
-        </ul>
+        <!-- cartão de estado: só com a corretora conectada -->
+        <div class="cm-estado cm-revela" id="cm-estado" hidden style="--cm-atraso:.18s">
+          <span class="cm-estado-luz" aria-hidden="true"></span>
+          <div class="cm-estado-texto">
+            <b>Conta conectada</b>
+            <span class="cm-estado-linha"><span>Exness</span><span class="cm-mono" id="cm-estado-login">***</span><span class="cm-mono" id="cm-estado-servidor">***</span></span>
+            <span class="cm-estado-nota">Conectada neste navegador. O servidor ainda não está ligado: a conexão de verdade acontece no painel.</span>
+          </div>
+        </div>
 
-        <p class="cm-selos-falta cm-revela" id="cm-selos-falta" style="--cm-atraso:.24s" hidden>
-          Falta alguma coisa. <a class="cm-link" href="#cm-mt5">Volte ao item 3 do passo 2</a>, preencha e salve de novo.
+        <!-- deixou a corretora para depois -->
+        <p class="cm-trava cm-revela" id="cm-pronto-falta" hidden style="--cm-atraso:.18s">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <span>Aguardando conexão. <a class="cm-link" href="#passo-3">Voltar ao passo 3 e conectar a corretora</a>.</span>
         </p>
 
-        <p class="cm-nota cm-revela" style="--cm-atraso:.30s">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
-          <span>A infraestrutura da RDX se conecta ao servidor da sua corretora e executa as ordens dos Cores na sua conta. Sem acesso a depósitos ou saques: o dinheiro fica na corretora, no seu nome.</span>
-        </p>
+        <a class="cm-botao-grande cm-revela" style="--cm-atraso:.24s" href="/entrar.html" data-cm-link="painel" id="cm-abrir-painel">
+          <span class="cm-botao-grande-rotulo">Abrir painel</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+
+        <!-- só aparece quando LINKS.whatsapp tiver número (comecar.js) -->
+        <div class="cm-whatsapp cm-revela" id="cm-whatsapp-cartao" hidden style="--cm-atraso:.30s">
+          <span class="cm-whatsapp-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20l1.2-3.6A8 8 0 1 1 8 19.1z"/><path d="M9.2 8.6c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.5.6c-.1.1-.1.3 0 .4a6 6 0 0 0 2.9 2.6c.2.1.3 0 .4-.1l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.3.1.4.3.4.5 0 .6-.3 1.3-.8 1.6-.6.4-1.3.5-2 .3a9 9 0 0 1-5.4-4.8c-.5-1.1-.3-2.4.1-3.4z"/></svg></span>
+          <div class="cm-whatsapp-texto">
+            <b>Quer ver o painel com um consultor?</b>
+            <span>10 minutos, WhatsApp</span>
+          </div>
+          <a class="cm-botao-linha" id="cm-whatsapp-botao" href="#" target="_blank" rel="noopener">
+            <span>Falar no WhatsApp</span>
+          </a>
+        </div>
       </div>
     </li>
 
   </ol>
 
-  <!-- ─────────── fim: o painel ─────────── -->
-  <section class="cm-fim" aria-labelledby="cm-fim-titulo">
-    <p class="cm-etiqueta cm-revela">Pronto</p>
-    <h2 class="cm-frase cm-frase-fim cm-revela" id="cm-fim-titulo" style="--cm-atraso:.08s">Tudo conectado? <em>Entre no painel.</em></h2>
-    <a class="cm-botao-grande cm-revela" style="--cm-atraso:.16s" href="/entrar.html" data-cm-link="painel">
-      <span class="cm-botao-grande-rotulo">Entrar no painel</span>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </a>
-  </section>
-
   <footer class="cm-rodape">
-    <p class="cm-risco">Aviso de risco: operar nos mercados financeiros envolve risco. Forex, metais, índices, criptoativos e CFDs são instrumentos alavancados, e o capital aplicado está sujeito a oscilações e a perdas, que podem ser significativas ou totais. A execução por algoritmos não elimina esse risco. A RDX é uma empresa de tecnologia: não é instituição financeira, corretora, gestora, administradora ou consultora de investimentos, e não recebe, não custodia, não movimenta e não tem acesso ao dinheiro do cliente, que fica sempre na conta dele, na corretora, no seu nome. A RDX não promete, não garante, não projeta e não sugere rentabilidade de qualquer natureza. Resultados passados referem-se a contas e períodos específicos e não se repetem necessariamente na sua conta. O serviço não é oferecido a residentes nos Estados Unidos. <a class="cm-link" href="/termos.html#aviso-de-risco">Aviso de Risco e Termos de Uso completos</a></p>
+    <p class="cm-risco">Aviso de risco: operar nos mercados financeiros envolve risco. Forex, metais, índices, criptoativos e CFDs são instrumentos alavancados, e o capital aplicado está sujeito a oscilações e a perdas, que podem ser significativas ou totais. A execução por algoritmos não elimina esse risco. A RDX é uma empresa de tecnologia: não é instituição financeira, corretora, gestora, administradora ou consultora de investimentos, e não recebe, não custodia, não movimenta e não tem acesso ao dinheiro do cliente, que fica sempre na conta dele, na corretora, no seu nome. A RDX não promete, não garante, não projeta e não sugere rentabilidade de qualquer natureza. Resultados passados referem-se a contas e períodos específicos e não se repetem necessariamente na sua conta. O serviço não é oferecido a residentes nos Estados Unidos. <a class="cm-link" href="/aviso-de-risco">Aviso de Risco</a> · <a class="cm-link" href="/termos">Termos de Uso</a> · <a class="cm-link" href="/privacidade">Privacidade</a></p>
     <p class="cm-direitos">© 2026 RDX Gestão e Tecnologia Ltda · CNPJ 65.079.034/0001-69 · RDX Technology · Todos os direitos reservados</p>
   </footer>
 
 </main>
+
+<!-- ─────────── janela dos termos ─────────── -->
+<!--
+  O texto jurídico não fica aqui: src/conta/termos.js carrega /src/conta/documentos.html
+  (Termos de Uso v1.0 + Aviso de Risco) por fetch na primeira abertura. A mesma fonte
+  é mostrada nas páginas públicas /termos, /aviso-de-risco e /privacidade.
+-->
+<div class="ct-janela" id="ct-termos" hidden>
+  <div class="ct-janela-fundo" data-ct-fechar></div>
+  <div class="ct-janela-caixa" role="dialog" aria-modal="true" aria-labelledby="ct-termos-titulo" aria-describedby="ct-termos-versao" tabindex="-1">
+    <header class="ct-janela-topo">
+      <div>
+        <h2 class="ct-janela-titulo" id="ct-termos-titulo">Termos de Uso e Aviso de Risco</h2>
+        <p class="ct-janela-versao" id="ct-termos-versao">Versão 1.0 · outubro de 2026</p>
+      </div>
+      <button class="ct-janela-fechar" type="button" data-ct-fechar aria-label="Fechar">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <!-- cada aba rola até o começo do documento; ganha a marca quando ele foi lido até o fim -->
+      <nav class="ct-janela-abas" aria-label="Documentos">
+        <button class="ct-aba" type="button" data-ct-aba="termos" aria-current="true"><i class="ct-aba-marca" aria-hidden="true"></i>Termos de Uso<span class="ct-so-leitor ct-aba-voz"></span></button>
+        <button class="ct-aba" type="button" data-ct-aba="risco"><i class="ct-aba-marca" aria-hidden="true"></i>Aviso de Risco<span class="ct-so-leitor ct-aba-voz"></span></button>
+      </nav>
+      <p class="ct-janela-inteira">Abrir em página inteira: <a class="ct-link ct-link-fraco" href="/termos" target="_blank" rel="noopener">Termos</a> · <a class="ct-link ct-link-fraco" href="/aviso-de-risco" target="_blank" rel="noopener">Aviso de Risco</a> · <a class="ct-link ct-link-fraco" href="/privacidade" target="_blank" rel="noopener">Privacidade</a></p>
+      <span class="ct-janela-leitura" aria-hidden="true"><i></i></span>
+    </header>
+
+    <!-- vazio de propósito: o texto entra por fetch (ver comentário acima) -->
+    <div class="ct-janela-texto" id="ct-termos-texto" tabindex="0" role="region" aria-label="Texto dos documentos"></div>
+
+    <footer class="ct-janela-pe">
+      <p class="ct-janela-falta" data-ct-falta role="status" aria-live="polite">Role os dois documentos até o fim para liberar o aceite.</p>
+      <!-- só liga depois que os dois documentos foram rolados até o fim (termos.js) -->
+      <button class="botao botao-verde ct-botao" type="button" data-ct-aceitar disabled>
+        <span class="ct-botao-rotulo">Li e aceito os termos</span>
+        <svg class="ct-botao-seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+      </button>
+    </footer>
+  </div>
+</div>
 
 <script type="module" src="/src/comecar/comecar.js"></script>
 </body>

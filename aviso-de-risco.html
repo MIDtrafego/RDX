@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-<title>Termos de Uso · RDX Technology</title>
-<meta name="description" content="Termos de Uso, Contrato de Prestação de Serviço de Infraestrutura de Execução e Termo de Ciência de Risco da RDX Technology, na íntegra."/>
+<title>Aviso de Risco · RDX Technology</title>
+<meta name="description" content="Aviso de Risco e Disclaimer da RDX Technology, na íntegra: o que a RDX é, o que não é, onde fica o seu dinheiro e os riscos de operar nos mercados financeiros."/>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23050706%27/%3E%3Cpath d=%27M8 22V10h7a4 4 0 0 1 1.6 7.7L20 22h-3.4l-3-4H11v4zm3-6.6h3.6a1.4 1.4 0 0 0 0-2.8H11z%27 fill=%27%234ade80%27/%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -30,14 +30,14 @@
 <main class="ct-pagina-termos">
   <div class="ct-termos-cabeca">
     <p class="ct-etiqueta">Documentos</p>
-    <h1 class="ct-titulo">Termos de Uso</h1>
-    <p class="ct-apoio">Versão 1.0 · outubro de 2026. O mesmo documento mostrado no cadastro, na íntegra.</p>
+    <h1 class="ct-titulo">Aviso de Risco</h1>
+    <p class="ct-apoio">Versão 1.0 · outubro de 2026. O mesmo documento mostrado no cadastro, na íntegra. Leia com atenção antes de conectar qualquer conta.</p>
   </div>
 
   <!-- as três páginas de documentos apontam uma para a outra, sempre pelos endereços limpos -->
   <nav class="ct-termos-nav" aria-label="Documentos">
-    <a class="ct-aba" href="/termos" aria-current="page">Termos de Uso</a>
-    <a class="ct-aba" href="/aviso-de-risco">Aviso de Risco</a>
+    <a class="ct-aba" href="/termos">Termos de Uso</a>
+    <a class="ct-aba" href="/aviso-de-risco" aria-current="page">Aviso de Risco</a>
     <a class="ct-aba" href="/privacidade">Privacidade</a>
     <a class="ct-link ct-link-fraco ct-termos-voltar" href="/">Voltar ao site</a>
   </nav>
@@ -48,25 +48,24 @@
 
   <!--
     O texto vem de /src/conta/documentos.html (a mesma fonte da janela do cadastro).
-    O script abaixo põe só os Termos de Uso em #termos; o Aviso de Risco tem a sua
-    própria página, /aviso-de-risco.
+    O script abaixo põe só o Aviso de Risco em #aviso-de-risco.
   -->
   <div class="ct-documentos" id="ct-documentos">
     <p class="ct-janela-carregando" id="ct-documentos-estado" role="status">Carregando o documento</p>
-    <div class="ct-ancora" id="termos"></div>
+    <div class="ct-ancora" id="aviso-de-risco"></div>
   </div>
 
   <div class="ct-pe ct-termos-pe">
-    <p><a class="ct-link" href="/aviso-de-risco">Aviso de Risco</a> · <a class="ct-link" href="/privacidade">Política de Privacidade</a></p>
+    <p><a class="ct-link" href="/termos">Termos de Uso</a> · <a class="ct-link" href="/privacidade">Política de Privacidade</a></p>
     <p><a class="ct-link ct-link-fraco" href="/comecar">Criar conta</a> · <a class="ct-link ct-link-fraco" href="/">Voltar ao site</a></p>
   </div>
 </main>
 
 <script type="module">
-  // Carrega o fragmento e encaixa os Termos de Uso na âncora.
+  // Carrega o fragmento e encaixa o Aviso de Risco na âncora.
   const FONTE = '/src/conta/documentos.html';
   const estado = document.getElementById('ct-documentos-estado');
-  const alvo = document.getElementById('termos');
+  const alvo = document.getElementById('aviso-de-risco');
 
   function falhou() {
     estado.className = 'ct-aviso ct-aviso-erro';
@@ -92,9 +91,9 @@
     .then((html) => {
       const molde = document.createElement('template');
       molde.innerHTML = html;
-      const termos = molde.content.querySelector('#ct-doc-termos');
-      if (!termos) throw new Error('fragmento sem os Termos de Uso');
-      alvo.appendChild(termos);
+      const risco = molde.content.querySelector('#ct-doc-risco');
+      if (!risco) throw new Error('fragmento sem o Aviso de Risco');
+      alvo.appendChild(risco);
       const assina = molde.content.querySelector('.ct-janela-assina');
       if (assina) alvo.appendChild(assina);
       estado.remove();

@@ -95,11 +95,15 @@ const servidor = http.createServer((req, res) => {
     return res.end('proibido');
   }
 
-  fs.readFile(arquivo, (erro, dados) => {
+  // endereço limpo, como na Vercel (cleanUrls): /termos serve termos.html
+  const candidato = !path.extname(arquivo) && fs.existsSync(arquivo + '.html') ? arquivo + '.html' : arquivo;
+
+  fs.readFile(candidato, (erro, dados) => {
     if (erro) {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
       return res.end('não encontrado: ' + caminho);
     }
+    const arquivo = candidato;
     const ext = path.extname(arquivo).toLowerCase();
     const cab = { 'Content-Type': TIPOS[ext] || 'application/octet-stream', 'Cache-Control': 'no-store' };
     if (ext === '.html') {

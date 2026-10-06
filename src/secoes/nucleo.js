@@ -136,7 +136,9 @@ export function revelarBlocos(elementos, opcoes = {}) {
     agendado = false;
     const imas = lote.filter((el) => el.hasAttribute('data-rx-ima'));
     if (imas.length) gsap.to(imas, { autoAlpha: 1, duration: 0.9, ease: 'expo.out' });
-    gsap.to(lote.filter((el) => !el.hasAttribute('data-rx-ima')), {
+    const comuns = lote.filter((el) => !el.hasAttribute('data-rx-ima'));
+    if (!comuns.length) return;          // só ímãs no quadro: sem alvo, o GSAP avisaria
+    gsap.to(comuns, {
       autoAlpha: 1,
       y: 0,
       duration: opcoes.duracao || 0.9,

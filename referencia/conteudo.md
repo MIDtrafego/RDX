@@ -1,5 +1,13 @@
 # Conteúdo do site RDX (extraído do site antigo, rdx_landing.html)
 
+Atualizado em 05/10/2026 (noite, pedido do Pedro), segunda rodada: o track record saiu e entrou a seção
+"Infraestrutura em números" (só execução medida: ordens, MCP, lotes, Cores; nenhum resultado em US$,
+nenhuma taxa de acerto, nenhuma curva); os cartões dos Cores perderam a porcentagem e o US$; o cartão
+de preço 1 foi invertido (US$ 0 hoje, licença de US$ 49 na linha pequena); o gancho da saída do hero
+virou "Ative seu cluster agora"; a FAQ 04 perdeu "Criptomoedas"; o aviso "Demonstração visual · dados
+simulados" saiu do hero; o rodapé ganhou os links Termos de Uso, Aviso de Risco e Privacidade.
+LATÊNCIA E UPTIME NÃO TÊM MEDIÇÃO: nenhum número desses pode ser publicado.
+
 Atualizado em 05/10/2026 com o pacote do Pedro (referencia/pedro-2026-10/): modelo comercial novo
 (licença semestral US$ 49 lançada na primeira fatura, mínimo US$ 100, conta Cent até US$ 10.000, MT4 ou
 MT5, teto de 3% do saldo médio), Aviso de Risco v1.0, entidade RDX Gestão e Tecnologia Ltda (CNPJ
@@ -37,6 +45,11 @@ Regras de texto (valem para o site inteiro):
 - Título: O Mercado Não Para. / Nossos Servidores Também Não.
 - Apoio: Capacidade computacional de alta frequência para decisões baseadas em dados, não em emoção.
 - Botões: Acessar a infraestrutura / Já tenho acesso
+- Gancho da saída do hero (botão abaixo do cartão, abre comecar.html): "Ative seu cluster agora"
+  (05/10/2026, pedido do Pedro; antes "Coloque seus dólares para trabalhar hoje"). Uma linha só, no
+  computador e no celular.
+- O aviso "Demonstração visual · dados simulados" do canto do hero foi REMOVIDO em 05/10/2026
+  (pedido do Pedro). Não voltar.
 
 ## O problema
 - Etiqueta: O Problema É Escala
@@ -71,7 +84,8 @@ Regras de texto (valem para o site inteiro):
 - Etiqueta: Infraestrutura RDX
 - Título: Enquanto você descansa, nossos servidores calculam.
 - Apoio: Processamento contínuo. Decisões baseadas em dados. Zero interferência humana no ciclo.
-- Mercados: Forex (câmbio), Crypto (criptomoedas), CFDs (contratos), Commodities (matérias-primas)
+- Mercados: Forex (câmbio), Metais (ouro), CFDs (contratos), Commodities (matérias-primas)
+  (Crypto saiu em 05/10/2026 junto com a FAQ; Metais entrou porque os Cores operam XAU/USD e o Aviso de Risco do Pedro lista "Forex, metais, índices, criptoativos e CFDs")
 
 ## Cores (módulos de processamento)
 - Etiqueta: Módulos De Processamento
@@ -80,14 +94,23 @@ Regras de texto (valem para o site inteiro):
   em produção e dois em validação, entre ouro e multi-ativo. Cada um com lógica própria, identificado
   só pela sigla na ordem executada.
 
-| Core | Sigla | Ativos | Ordens positivas | Amostra | Resultado médio por ordem | Frequência | Consumo por ciclo |
-|---|---|---|---|---|---|---|---|
-| GT Core 01 | DN | XAU/USD | 66,7% | 15 ordens | +9,77 USD | ~10 ciclos / mês | 76 MCP por 0,01 lote |
-| GT Core 02 | QT | EUR/USD · EUR/GBP · AUD/CAD | 90,6% | 53 ordens | +2,03 USD | ~35 ciclos / mês | 70 MCP por 0,01 lote |
-| GT Core 03 | NT | XAU/USD | 25,0% | 4 ordens | -9,30 USD | ~3 ciclos / mês | 73 MCP por 0,01 lote |
-| GT Core 04 | FM | XAU/USD | 40,0% | 5 ordens | +11,94 USD | ~3 ciclos / mês | 76 MCP por 0,01 lote |
-| GT Core 05 | TT | XAU/USD | Beta, validação interna | track record previsto Q4/26 | sem dado | Baixa, ciclos semanais | 67 MCP por 0,01 lote |
-| GT Core 06 | RX | XAU/USD · EUR/USD | Beta, validação interna | sem dado | sem dado | sem dado | 70 MCP por 0,01 lote (fator 70, versão 0.9.0, STANDBY em rdx_ops_reais.json) |
+Cartões desde 05/10/2026 (pedido do Pedro): "Ordens executadas" com o número e barra proporcional ao
+maior (QT 53 = 100%), "MCP consumido", Frequência e Consumo por ciclo. NENHUM valor em US$, nenhuma
+porcentagem de acerto, nenhum resultado médio. Fonte: MT5 da conta de desenvolvimento, 20/07 a
+03/09/2026, e o JSON do cliente.
+
+| Core | Sigla | Ativos | Ordens executadas | MCP consumido | Frequência | Consumo por ciclo |
+|---|---|---|---|---|---|---|
+| GT Core 01 | DN | XAU/USD | 15 | 2.432 | ~10 ciclos / mês | 76 MCP por 0,01 lote |
+| GT Core 02 | QT | EUR/USD · EUR/GBP · AUD/CAD | 53 | 5.040 | ~35 ciclos / mês | 70 MCP por 0,01 lote |
+| GT Core 03 | NT | XAU/USD | 4 | 438 | ~3 ciclos / mês | 73 MCP por 0,01 lote |
+| GT Core 04 | FM | XAU/USD | 5 | 380 | ~3 ciclos / mês | 76 MCP por 0,01 lote |
+| GT Core 05 | TT | XAU/USD | Em validação (selo) | sem dado | Baixa, ciclos semanais | 67 MCP por 0,01 lote |
+| GT Core 06 | RX | XAU/USD · EUR/USD | Em validação (selo) | sem dado | sem dado | 70 MCP por 0,01 lote (fator 70, versão 0.9.0, STANDBY em rdx_ops_reais.json) |
+
+Colunas que SAÍRAM em 05/10/2026 e não voltam ao site (ficam só aqui, como registro do que o MT5
+mostrou): ordens positivas DN 66,7% / QT 90,6% / NT 25,0% / FM 40,0%; resultado médio por ordem
+DN +9,77 / QT +2,03 / NT -9,30 / FM +11,94 USD.
 
 Descrições:
 - Core 01: Core dedicado ao ouro, com rotina própria de entrada, saída e gestão de exposição.
@@ -98,43 +121,45 @@ Descrições:
 - Core 06: Core multi-ativo, ouro e câmbio, com lógica própria. Entra no registro após a validação interna.
 - (O cartão "Próximo Core" saiu em 05/10/2026: o sexto Core ocupa o lugar dele.)
 
-ATENÇÃO: os Cores 03 e 04 têm resultado fraco ou negativo. Isso é para aparecer como está. O
-posicionamento da marca é "sem maquiagem". Não esconder, não arredondar, não reordenar para favorecer.
+Os Cores 03 e 04 têm amostra pequena (4 e 5 ordens). Isso é para aparecer como está. O posicionamento
+da marca é "sem maquiagem". Não esconder, não arredondar, não reordenar para favorecer.
 
-## Track record
-- Etiqueta: Track Record
-- Título: Execução real. Sem maquiagem.
-- Apoio: Histórico extraído do MetaTrader 5 em conta de desenvolvimento da RDX (XM Global, em US$),
-  período 20/07 a 03/09/2026. Somente ordens abertas pelos Engines. Ganhos e perdas exibidos como
-  ocorreram. Registro técnico de execução. Não é recomendação de investimento.
+## Infraestrutura em números (no lugar do track record, 05/10/2026, pedido do Pedro)
+Seção `#numeros` em rolagem.html (módulo `src/secoes/numeros.js`; o `track-record.js` e o
+`dados-track-record.js` foram apagados). Item do menu e do rodapé: "Números".
+- Etiqueta: Infraestrutura em números
+- Título: Execução real. Medida por ordem.
+- Chamada curta antes do bloco: botão "Ver os números" (âncora #rx-numeros)
+- Apoio: Registro técnico extraído do MetaTrader 5 da conta de desenvolvimento da RDX (XM Global),
+  período 20/07 a 03/09/2026. Somente ordens abertas pelos Cores. Não é recomendação de investimento.
 - Selos: Extraído do MT5 / Telemetria por ordem / Sem custódia de capital
-- Resumo do período:
-  - Ordens: 77 (61 ganhos, 15 perdas, 1 zerada)
-  - Taxa de acerto: 79,2%
-  - Resultado do período: +US$ 276,60
-  - Melhor operação: +US$ 389,76
-  - Pior operação: -US$ 375,20
-  - Drawdown máximo: -US$ 99,21
-  - Média por dia operado: +US$ 11,53
-  - Média mensal: +US$ 92,20
-  - Resultado mensal: Jul +26,45 / Ago +126,70 / Set +123,45
-  - Volume executado: 1,15 lotes
-  - Ativos operados: EUR/USD · EUR/GBP · AUD/CAD · XAU/USD
-  - Ordens por Core: DN 15 · QT 53 · NT 4 · FM 5
-  - Conta de execução: Desenvolvimento · XM Global · MT5
+- Barra da janela: Conta de execução · Desenvolvimento · XM Global · MT5 · 20/07 a 03/09/2026
+- Quatro destaques (contadores): Ordens executadas 77 · MCP processados 8.290 · Volume executado
+  1,15 lotes · Cores em produção 4 de 6
+- Painel "Ordens por Core": DN 15 · QT 53 · NT 4 · FM 5 (barras, QT = 100%)
+- Painel "MCP por Core": DN 2.432 · QT 5.040 · NT 438 · FM 380 (barras, QT = 100%)
+- Lista: Período 46 dias · Ativos operados XAU/USD · EUR/USD · EUR/GBP · AUD/CAD · Conta
+  Desenvolvimento, XM Global, MT5
 - Frase obrigatória: Resultados passados não garantem resultados futuros.
+- LATÊNCIA E UPTIME: NÃO EXISTE MEDIÇÃO. Nenhum número de latência (os "3.2ms" do site antigo) nem
+  de uptime ("99.8%") entra nesta seção nem em outra, até o Pedro entregar a medição.
 
-DADOS OPERAÇÃO POR OPERAÇÃO E CURVA DIÁRIA: ficam no objeto RDX_DATA do HTML antigo. NÃO redigitar
-de memória. O Yuri vai colocar o arquivo original em `referencia/rdx_landing.html`. Se o arquivo não
-estiver lá, a seção usa só o resumo acima e deixa a curva e a lista de ordens preparadas para receber
-o dado (com estado vazio bem resolvido), sem número inventado.
+Saíram do site em 05/10/2026 e NÃO voltam (ficam só aqui como registro do que o MT5 mostrou no
+período): taxa de acerto 79,2% (61 ganhos, 15 perdas, 1 zerada); resultado do período +US$ 276,60;
+média mensal +US$ 92,20; média por dia operado +US$ 11,53; melhor operação +US$ 389,76; pior
+-US$ 375,20; drawdown máximo -US$ 99,21; resultado mensal Jul +26,45 / Ago +126,70 / Set +123,45;
+a curva de resultado acumulado; o extrato por ordem com tabela; a legenda de ganhos e perdas. O
+objeto RDX_DATA do site antigo (operação por operação) não tem mais leitor no site.
 
 ## Acesso e uso (preço)
 - Etiqueta: Acesso E Uso
 - Título: Nada antes de usar. Depois, só o que processou.
 - Apoio: Sem ativação antecipada. Sem planos. Sem mensalidade fixa. Cobrança por ciclo computacional
   completado.
-- Passo 1, por semestre: Licença semestral US$ 49, lançada na primeira fatura, após 30 dias de uso
+- Passo 1 (invertido em 05/10/2026, pedido do Pedro): nome "Hoje, para começar"; número grande
+  "US$ 0"; etiqueta de quando "Nada antes de usar"; linha pequena abaixo do número: "Licença de
+  acesso de US$ 49 a cada 6 meses, lançada só na sua primeira fatura, após 30 dias de uso."
+  (antes o número grande era US$ 49 "Licença semestral", "Por semestre")
   - Sua conta MT4 ou MT5, na sua corretora, a partir de US$ 100
   - Cores executam na sua conta pela nuvem RDX, sem VPS
   - Control Center completo, web e mobile
@@ -180,8 +205,11 @@ o dado (com estado vazio bem resolvido), sem número inventado.
    ordens dos Cores na sua conta. Sem acesso a depósitos ou saques: o dinheiro fica na corretora, no
    seu nome.
 4. Quais mercados e ativos são suportados?
-   Mercados internacionais: Forex (pares de moedas), Criptomoedas, CFDs e Commodities. Os módulos são
-   calibrados para ativos de alta liquidez em corretoras internacionais.
+   Mercados internacionais: Forex (pares de moedas), CFDs e Commodities. Os módulos são calibrados
+   para ativos de alta liquidez em corretoras internacionais.
+   ("Criptomoedas" saiu em 05/10/2026, pedido do Pedro. "Crypto" saiu também da lista de mercados
+   da seção Enquanto você descansa e da faixa rolante do rodapé, trocado por Metais. "criptoativos"
+   continua só no aviso de risco jurídico, que é texto do Pedro.)
 5. Posso cancelar a qualquer momento?
    Sim. Sem fidelidade, sem multa. Você desconecta a conta pelo painel e paga só o que foi consumido
    até ali. Posições abertas seguem sob gestão até o fechamento.
@@ -210,7 +238,9 @@ o dado (com estado vazio bem resolvido), sem número inventado.
   garante, não projeta e não sugere rentabilidade de qualquer natureza. Resultados passados
   referem-se a contas e períodos específicos e não se repetem necessariamente na sua conta. O serviço
   não é oferecido a residentes nos Estados Unidos.
-- Depois do aviso, link "Aviso de Risco e Termos de Uso completos" para /termos.html#aviso-de-risco.
+- Depois do aviso, link "Aviso de Risco e Termos de Uso completos" para /aviso-de-risco (endereço
+  limpo, sem .html; vercel.json tem cleanUrls). Abaixo dele, três links (05/10/2026, pedido do
+  Pedro): Termos de Uso → /termos · Aviso de Risco → /aviso-de-risco · Privacidade → /privacidade.
 - Aviso curto do menu (index.html, .mn-aviso): Operações no mercado financeiro envolvem risco de
   perda, que pode ser total. A RDX Gestão e Tecnologia Ltda fornece infraestrutura de execução e não
   garante rentabilidade.
@@ -222,6 +252,8 @@ o dado (com estado vazio bem resolvido), sem número inventado.
 ## FICOU DE FORA DE PROPÓSITO (contradições do site antigo, o Yuri e o Pedro precisam decidir)
 Não usar nenhum destes trechos até haver decisão:
 1. "3.2ms de latência" e "99.8% de uptime": números sem fonte. Só voltam se o Pedro confirmar a medição.
+   Reconfirmado em 05/10/2026: não existe medição de latência nem de uptime. A seção "Infraestrutura
+   em números" ficou sem esses dois de propósito.
 2. "0,15 MCP por análise sem execução" (o próprio site dizia "0 MCP" logo abaixo).
 3. "Acumule MCPs em pacotes... saldo nunca expira enquanto a assinatura estiver ativa" (o site diz
    que não há plano nem assinatura).

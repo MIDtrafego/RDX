@@ -279,7 +279,8 @@ async function encaixarSecoes() {
   if (!secoes) return null;
   alvo.replaceWith(document.importNode(secoes, true));
   const { iniciarSecoes } = await import('./secoes/secoes.js');
-  return iniciarSecoes({ cursor: false, links: { cadastro: '/cadastro.html', login: '/entrar.html' } });
+  // "cadastro" leva ao funil (/comecar): o cadastro é o passo 2 de lá. /cadastro.html é só o KYC
+  return iniciarSecoes({ cursor: false, links: { cadastro: '/comecar', login: '/entrar.html' } });
 }
 
 // ───────────── menu ─────────────

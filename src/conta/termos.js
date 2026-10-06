@@ -4,7 +4,9 @@
 //     /src/conta/documentos.html por fetch, na primeira abertura
 //   • duas abas no cabeçalho levam ao início de cada documento
 //   • a janela registra quando a pessoa rolou cada documento até o fim
-//     (leuTermos e leuRisco) e quanto tempo ficou com a janela aberta
+//     (leuTermos e leuRisco), quanto tempo ficou com a janela aberta e quanto
+//     tempo cada documento ficou sob os olhos (tempoTermosMs e tempoRiscoMs)
+//   • hashes(): SHA-256 do texto exato de cada documento (Termos, cláusula 16.2)
 //   • "Li e aceito os termos" só liga depois dos dois documentos lidos;
 //     ao clicar chama aoAceitar e fecha
 //   • o foco fica preso dentro da janela (Tab e Shift+Tab dão a volta)
@@ -28,7 +30,7 @@ const TEXTOS = {
   carregando: 'Carregando os documentos',
   falha: 'Não foi possível carregar os documentos agora.',
   tentar: 'Tentar de novo',
-  abrirPagina: 'Abrir em outra página',
+  abrirPagina: 'Abrir em página inteira',
   faltaOsDois: 'Role os dois documentos até o fim para liberar o aceite.',
   faltaRisco: 'Falta rolar o Aviso de Risco até o fim.',
   faltaTermos: 'Falta rolar os Termos de Uso até o fim.',
@@ -50,6 +52,21 @@ export async function carregarDocumentos(fonte = FONTE_DOS_DOCUMENTOS) {
     throw new Error('fragmento sem os dois documentos');
   }
   return molde.content;
+}
+
+/**
+ * SHA-256, em hexadecimal, de um texto. Devolve '' quando o navegador não tem
+ * crypto.subtle (só existe em contexto seguro: https ou localhost).
+ */
+export async function hashDoTexto(texto) {
+  try {
+    if (!window.crypto || !window.crypto.subtle) return '';
+    const bytes = new TextEncoder().encode(String(texto));
+    const resumo = await window.crypto.subtle.digest('SHA-256', bytes);
+    return Array.from(new Uint8Array(resumo)).map((b) => b.toString(16).padStart(2, '0')).join('');
+  } catch {
+    return '';
+  }
 }
 
 /**
@@ -77,8 +94,17 @@ export function criarJanela(janela, { aoAceitar, aoLer, fonte = FONTE_DOS_DOCUME
   let alvoPendente = '';
 
   // prova de leitura
-  const leitura = { leuTermos: false, leuRisco: false, tempoLeituraMs: 0 };
+  const leitura = { leuTermos: false, leuRisco: false, tempoLeituraMs: 0, tempoTermosMs: 0, tempoRiscoMs: 0 };
   let abertaEm = 0;
+  // qual documento está sob os olhos e desde quando (para o tempo por documento)
+  let docAtual = 'termos';
+  let docDesde = 0;
+
+  function fecharContagemDoDocumento() {
+    if (!docDesde) return;
+    leitura[docAtual === 'termos' ? 'tempoTermosMs' : 'tempoRiscoMs'] += performance.now() - docDesde;
+    docDesde = 0;
+  }
 
   const focaveis = () => Array.from(caixa.querySelectorAll(FOCAVEIS))
     .filter((el) => el.offsetParent !== null || el === document.activeElement);
@@ -126,7 +152,7 @@ export function criarJanela(janela, { aoAceitar, aoLer, fonte = FONTE_DOS_DOCUME
     tentar.addEventListener('click', () => { carregar(); });
     const pagina = document.createElement('a');
     pagina.className = 'ct-link ct-link-fraco';
-    pagina.href = '/termos.html';
+    pagina.href = '/termos';
     pagina.target = '_blank';
     pagina.rel = 'noopener';
     pagina.textContent = TEXTOS.abrirPagina;
@@ -217,6 +243,12 @@ export function criarJanela(janela, { aoAceitar, aoLer, fonte = FONTE_DOS_DOCUME
       if (aba.dataset.ctAba === atual) aba.setAttribute('aria-current', 'true');
       else aba.removeAttribute('aria-current');
     });
+    // trocou de documento: o tempo do anterior fecha e o do novo começa a contar
+    if (aberta && atual !== docAtual) {
+      fecharContagemDoDocumento();
+      docAtual = atual;
+      docDesde = performance.now();
+    }
   }
 
   // o fim de um documento ficou à vista dentro da área de rolagem: documento lido
@@ -243,11 +275,28 @@ export function criarJanela(janela, { aoAceitar, aoLer, fonte = FONTE_DOS_DOCUME
 
   function estadoDaLeitura() {
     const agora = aberta && abertaEm ? performance.now() - abertaEm : 0;
+    const noDoc = aberta && docDesde ? performance.now() - docDesde : 0;
     return {
       leuTermos: leitura.leuTermos,
       leuRisco: leitura.leuRisco,
       tempoLeituraMs: Math.round(leitura.tempoLeituraMs + agora),
+      tempoTermosMs: Math.round(leitura.tempoTermosMs + (docAtual === 'termos' ? noDoc : 0)),
+      tempoRiscoMs: Math.round(leitura.tempoRiscoMs + (docAtual === 'risco' ? noDoc : 0)),
     };
+  }
+
+  // SHA-256 do texto exato de cada documento, como está no fragmento carregado.
+  // Carrega o fragmento se ainda não carregou. { termos: 'hex', risco: 'hex' }
+  async function hashes() {
+    await carregar();
+    if (!carregado) return { termos: '', risco: '' };
+    const secTermos = texto.querySelector('#ct-doc-termos');
+    const secRisco = texto.querySelector('#ct-doc-risco');
+    const [termos, risco] = await Promise.all([
+      hashDoTexto(secTermos ? secTermos.textContent : ''),
+      hashDoTexto(secRisco ? secRisco.textContent : ''),
+    ]);
+    return { termos, risco };
   }
 
   texto.addEventListener('scroll', medir, { passive: true });
@@ -258,6 +307,7 @@ export function criarJanela(janela, { aoAceitar, aoLer, fonte = FONTE_DOS_DOCUME
     if (aberta) return;
     aberta = true;
     abertaEm = performance.now();
+    docDesde = performance.now();
     voltarPara = gatilho || document.activeElement;
     janela.hidden = false;
     travarPagina();
@@ -276,6 +326,7 @@ export function criarJanela(janela, { aoAceitar, aoLer, fonte = FONTE_DOS_DOCUME
 
   async function fechar() {
     if (!aberta) return;
+    fecharContagemDoDocumento();
     aberta = false;
     if (abertaEm) leitura.tempoLeituraMs += performance.now() - abertaEm;
     abertaEm = 0;
@@ -342,5 +393,5 @@ export function criarJanela(janela, { aoAceitar, aoLer, fonte = FONTE_DOS_DOCUME
 
   pintarLeitura();
 
-  return { abrir, fechar, estaAberta: () => aberta, leitura: estadoDaLeitura, carregar };
+  return { abrir, fechar, estaAberta: () => aberta, leitura: estadoDaLeitura, carregar, hashes };
 }
